@@ -1,4 +1,6 @@
-WEIGHT = int()
+from collections import OrderedDict
+
+from rxcalc.views import WEIGHT
 
 DOSAGE_INJECTION = {
     'Adequan': ['100 mg/mL', WEIGHT / 50, 'IM'],
@@ -45,3 +47,7 @@ DOSAGE_INJECTION = {
 DOSAGE_RX = {
 
 }
+
+
+def create_ordered_dict(unordered_dict):
+    return OrderedDict(sorted(unordered_dict.items(), key=lambda t: t[0]))
