@@ -5,3 +5,5 @@ WEIGHT = int()
 
 def home_page(request):
     return render(request, 'rxcalc/home.html')
+
+# TODO: render rx in table
