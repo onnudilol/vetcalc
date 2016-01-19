@@ -16,6 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 # from django.contrib import admin
 
+from rxcalc import urls as rxcalc_urls
+from rxcalc import views as rxcalc_views
+
 urlpatterns = [
     # url(r'^admin/', admin.site.urls),
+    url(r'^$', rxcalc_views.home_page, name='home'),
 ]
