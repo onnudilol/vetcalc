@@ -8,5 +8,3 @@ class Medication(models.Model):
 
     def __str__(self):
         return str(self.name)
-
-# TODO: create fields for rx name, dosage, description, move dosage calc to helper function

@@ -33,4 +33,3 @@ class MedicationModelTest(TestCase):
     def test_medication_string_rep(self):
         med = Medication.objects.create(name='Tramadol')
         self.assertEqual(str(med), 'Tramadol')
-
