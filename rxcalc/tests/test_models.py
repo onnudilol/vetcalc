@@ -6,6 +6,10 @@ from rxcalc.models import Medication
 
 class MedicationModelTest(TestCase):
 
+    def test_medication_string_rep(self):
+        med = Medication.objects.create(name='Tramadol')
+        self.assertEqual(str(med), 'Tramadol')
+
     def test_name_field(self):
         Medication.objects.create(name='Tramadol')
         med = Medication.objects.get(name='Tramadol')
@@ -23,13 +27,14 @@ class MedicationModelTest(TestCase):
         med.full_clean()
         # Should not raise
 
+    def test_category_field(self):
+        Medication.objects.create(name='Tramadol', category='pain')
+        med = Medication.objects.get(category='pain')
+        self.assertEqual(med, Medication.objects.first())
+
     def test_description_field(self):
         med = Medication.objects.create(name='Tramadol', desc='an opioid pain medication used to \
                                                         treat moderate to moderately severe pain')
         target_med = Medication.objects.get(desc='an opioid pain medication used to \
                                                         treat moderate to moderately severe pain')
         self.assertEqual(med, target_med)
-
-    def test_medication_string_rep(self):
-        med = Medication.objects.create(name='Tramadol')
-        self.assertEqual(str(med), 'Tramadol')
