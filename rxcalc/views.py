@@ -4,13 +4,28 @@ from rxcalc.models import Medication
 from rxcalc.forms import WeightForm
 
 
-WEIGHT = int()
-
-
 def home_page(request):
-    context_dict = dict()
-    context_dict['rx'] = Medication.objects.all()
-    context_dict['form'] = WeightForm()
-    return render(request, 'rxcalc/home.html', context_dict)
+    return render(request, 'rxcalc/home.html', {'rx': Medication.objects.all(),
+                                                'form': WeightForm()})
 
-# TODO: render rx in table
+
+def calc_dosage(request):
+
+    if request.method == 'POST':
+
+        form = WeightForm(data=request.POST)
+
+        if form.is_valid():
+            weight = float(request.POST['weight'])
+            meds = Medication.objects.all()
+            dosages = list()
+
+            for med in meds:
+                dosages.append(weight * med.factor)
+
+            return render(request, 'rxcalc/home.html', {'rx': Medication.objects.all(),
+                                                        'form': WeightForm(),
+                                                        'dosages': dosages})
+
+    return render(request, 'rxcalc/home.html', {'rx': Medication.objects.all(),
+                                                'form': WeightForm()})

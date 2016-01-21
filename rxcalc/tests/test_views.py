@@ -2,9 +2,7 @@ from django.test import TestCase
 from django.utils.html import escape
 
 from rxcalc.models import Medication
-from rxcalc.forms import INVALID_INPUT_ERROR, WeightForm
-
-from unittest import skip
+from rxcalc.forms import WeightForm
 
 
 class HomePageTest(TestCase):
@@ -22,10 +20,10 @@ class HomePageTest(TestCase):
         response = self.client.get('/')
         response = self.assertIsInstance(response.context['form'], WeightForm)
 
-    def test_home_page_displays_form_errors(self):
-        response = self.client.post('/', data={'weight': 'eleven'})
-        self.assertContains(response, escape(INVALID_INPUT_ERROR))
 
-    @skip
-    def test_request_passes_information_to_form(self):
-        pass
+class CalcDosageTest(TestCase):
+
+    def test_view_returns_correct_dosage(self):
+        Medication.objects.create(name='Tramadol', factor=1/50)
+        response = self.client.post('/rxcalc/calc', data={'weight': 9.2})
+        self.assertAlmostEqual(response.context['dosages'][0], 0.184)

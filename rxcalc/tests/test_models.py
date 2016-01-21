@@ -38,3 +38,14 @@ class MedicationModelTest(TestCase):
         target_med = Medication.objects.get(desc='an opioid pain medication used to \
                                                         treat moderate to moderately severe pain')
         self.assertEqual(med, target_med)
+
+    def test_factor_field_is_float(self):
+        Medication.objects.create(name='Tramadol', factor=1/50)
+        med = Medication.objects.first()
+        self.assertAlmostEqual(med.factor * 9.2, 0.184)
+
+    def test_medications_are_ordered_by_category(self):
+        med1 = Medication.objects.create(name='Tramadol', category='pain')
+        med2 = Medication.objects.create(name='Ketoprofen', category='pain')
+        med3 = Medication.objects.create(name='Ampicillin', category='antibiotic')
+        self.assertEqual(med3, Medication.objects.first())

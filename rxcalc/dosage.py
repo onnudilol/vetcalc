@@ -1,7 +1,5 @@
 from collections import OrderedDict
 
-from rxcalc.views import WEIGHT
-
 DOSAGE_INJECTION = {
     'Adequan': ['100 mg/mL', 1 / 50, 'IM'],
     'Aminophylline': ['25 mg/mL', 1 / 10, 'IV'],
