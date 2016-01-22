@@ -2,10 +2,9 @@ from collections import OrderedDict
 
 DOSAGE_INJECTION = {
     'Adequan': [1/50, '100 mg/mL', 'Non-steroidal anti-inflammatory', 'IM',
-                'Adequan Canine (for dogs) is used to control symptoms \
-                associated with degenerative or traumatic arthritis.'],
+                'Adequan Canine (for dogs) is used to control symptoms associated with degenerative or traumatic arthritis.'],
 
-    'Aminophylline': [1/10, '25 mg/mL', 'Bronchodilator' 'IV',
+    'Aminophylline': [1/10, '25 mg/mL', 'Bronchodilator', 'IV',
                       'Treating active symptoms and blockage of airway due to asthma or other lung diseases such as emphysema or bronchitis. It is used in combination with other medicines.'],
 
     'Amikacin': [0.27, '250 mg/mL', 'Antibiotic', 'IM/IV/SQ',
