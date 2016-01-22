@@ -22,6 +22,7 @@ class HomePageTest(FunctionalTest):
     def test_home_page_accepts_input(self):
         # Dr. T is very upset.  He screams at Marfalo to prepare medication for a 12 lb dog.
         # He notices an input box to enter in the weight of the pet.
+        self.browser.get(self.server_url)
         inputbox = self.get_item_input_box()
         inputbox.send_keys('12\n')
 

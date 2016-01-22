@@ -6,6 +6,7 @@ class Medication(models.Model):
     factor = models.FloatField(default=0.0)
     concentration = models.CharField(max_length=140, blank=True, default='')
     category = models.CharField(max_length=140, blank=True, default='')
+    admin = models.CharField(max_length=140, blank=True, default='')
     desc = models.TextField(blank=True, default='')
 
     def __str__(self):
