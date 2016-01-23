@@ -3,13 +3,12 @@ from django.shortcuts import render
 from rxcalc.models import Medication
 from rxcalc.forms import WeightForm
 
-
-def home_page(request):
-    return render(request, 'rxcalc/home.html', {'rx': Medication.objects.all(),
-                                                'form': WeightForm()})
+from itertools import zip_longest
 
 
 def calc_dosage(request):
+
+    meds = Medication.objects.all()
 
     if request.method == 'POST':
 
@@ -17,15 +16,18 @@ def calc_dosage(request):
 
         if form.is_valid():
             weight = float(request.POST['weight'])
-            meds = Medication.objects.all()
             dosages = list()
 
             for med in meds:
-                dosages.append(weight * med.factor)
+                dosages.append(round(weight * med.factor, 3))
 
-            return render(request, 'rxcalc/home.html', {'rx': Medication.objects.all(),
-                                                        'form': WeightForm(),
-                                                        'dosages': dosages})
+            zipped = list(zip(meds, dosages))
 
-    return render(request, 'rxcalc/home.html', {'rx': Medication.objects.all(),
+            return render(request, 'rxcalc/home.html', {'rx': zipped,
+                                                        'form': WeightForm()})
+
+    null_dose = []
+    zipped = list(zip_longest(meds, null_dose, fillvalue=0.0))
+
+    return render(request, 'rxcalc/home.html', {'rx': zipped,
                                                 'form': WeightForm()})

@@ -20,10 +20,8 @@ class HomePageTest(TestCase):
         response = self.client.get('/')
         response = self.assertIsInstance(response.context['form'], WeightForm)
 
-
-class CalcDosageTest(TestCase):
-
-    def test_view_returns_correct_dosage(self):
+    def test_can_unpack_zipped_rx_and_dosage(self):
         Medication.objects.create(name='Tramadol', factor=1/50)
         response = self.client.post('/rxcalc/calc', data={'weight': 9.2})
-        self.assertAlmostEqual(response.context['dosages'][0], 0.184)
+        self.assertEqual(response.context['rx'][0][0], Medication.objects.first())
+        self.assertAlmostEqual(response.context['rx'][0][1], 0.184)
