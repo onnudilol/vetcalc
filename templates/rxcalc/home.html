@@ -1,34 +1,30 @@
 {% extends 'base.html' %}
 
-{% block header %}
-    <div class="container-fluid">
-        <form method="POST" action="{% url 'home' %}">
-            {% csrf_token %}
-            {{ form }}
-        </form>
-    </div>
-{% endblock %}
-
-
 {% block table %}
     <div class="container">
-        <table class="table">
-            <th>Medication</th>
-            <th>Dosage (mL)</th>
-            <th>Concentration</th>
-            <th>Category</th>
-            <th>Administration</th>
 
-                {% for med in rx %}
+        <table class="table table-hover table-responsive table-bordered" id="rx-table">
+            <thead>
                 <tr>
-                    <td>{{ med.0.name }}</td>
-                    <td>{{ med.1 }}</td>
-                    <td>{{ med.0.concentration }}</td>
-                    <td>{{ med.0.category }}</td>
-                    <td>{{ med.0.admin }}</td>
+                    <th class="header">Medication</th>
+                    <th class="header">Dosage (mL)</th>
+                    <th class="header">Concentration</th>
+                    <th class="header">Category</th>
+                    <th class="header">Administration</th>
                 </tr>
-                {% endfor %}
-
+            </thead>
+            <tbody>
+                {% for med in rx %}
+                    <tr>
+                        <td>{{ med.0.name }}</td>
+                        <td>{{ med.1 }}</td>
+                        <td>{{ med.0.concentration }}</td>
+                        <td>{{ med.0.category }}</td>
+                        <td>{{ med.0.admin }}</td>
+                    </tr>
+            {% endfor %}
+            </tbody>
         </table>
+
     </div>
 {% endblock %}

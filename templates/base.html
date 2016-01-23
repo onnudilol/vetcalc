@@ -1,3 +1,6 @@
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,20 +10,45 @@
     <title>VeTeCalc</title>
 {#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">#}
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+    <link href="{% static 'vetcalc.css' %}" rel="stylesheet">
 </head>
 
 <body>
 
-    {% block header %}{% endblock %}
+    <div class="container">
 
-    {% block form %}{% endblock %}
+        {% block header %}
+            <nav class="navbar navbar-default navbar-fixed-top bg-1" role="navigation">
+                <div class="col-md-11">
+                    <a class="navbar-brand" href="/" style="color:whitesmoke">VeTeCalc</a>
+                </div>
+                <div class="col-md-1">
+                    {% csrf_token %}
+                    {% crispy form %}
+                </div>
 
-    {% block table %}{% endblock %}
+            </nav>
+        {% endblock %}
+
+
+        {% block form %}{% endblock %}
+
+        {% block table %}{% endblock %}
 
     {% block info %}{% endblock %}
+
+    </div>
 
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 {#    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>#}
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/static/jquery.tablesorter.min.js"></script>
+    <script>
+        $(document).ready(function()
+	{
+		$("#rx-table").tablesorter();
+	}
+);
+    </script>
 </body>
 </html>

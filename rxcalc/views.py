@@ -12,19 +12,16 @@ def calc_dosage(request):
 
     if request.method == 'POST':
 
-        form = WeightForm(data=request.POST)
+        weight = float(request.POST['weight'])
+        dosages = list()
 
-        if form.is_valid():
-            weight = float(request.POST['weight'])
-            dosages = list()
+        for med in meds:
+            dosages.append(round(weight * med.factor, 3))
 
-            for med in meds:
-                dosages.append(round(weight * med.factor, 3))
+        zipped = list(zip(meds, dosages))
 
-            zipped = list(zip(meds, dosages))
-
-            return render(request, 'rxcalc/home.html', {'rx': zipped,
-                                                        'form': WeightForm()})
+        return render(request, 'rxcalc/home.html', {'rx': zipped,
+                                                    'form': WeightForm()})
 
     null_dose = []
     zipped = list(zip_longest(meds, null_dose, fillvalue=0.0))
