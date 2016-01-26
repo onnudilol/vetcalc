@@ -14,16 +14,23 @@
 
 <body>
 
-    <div class="container">
+    <div id="wrapper">
 
-        {% block header %}
-            <nav class="navbar navbar-default navbar-fixed-top bg-1" role="navigation">
-                <div class="col-md-10">
-                    <a class="navbar-brand" href="/" style="color:whitesmoke">VeTeCalc</a>
-                </div>
-                {% block header_form %}{% endblock %}
-            </nav>
-        {% endblock %}
+
+    {% block header %}
+
+    <div id="header">
+        <nav class="navbar navbar-default navbar-fixed-top bg-1" role="navigation">
+            <div class="col-md-10">
+                <a class="navbar-brand" href="/" style="color:#fafafa">VeTeCalc</a>
+            </div>
+            {% block header_form %}{% endblock %}
+        </nav>
+    </div>
+
+    {% endblock %}
+
+    <div class="content">
 
         {% block alert %}{% endblock %}
 
@@ -34,6 +41,18 @@
         {% block info %}{% endblock %}
 
     </div>
+
+    {% block footer %}
+        <div class="footer bg-2">
+            <div class="container credit col-md-12">
+                <p class="text-muted text-center">Copyright: Venom ``Mikhail'' loliD</p>
+                <a class="text-muted" href="https://github.com/onnudilol/vetcalc"><p class="text-center">Source</p></a>
+            </div>
+        </div>
+    {% endblock %}
+
+    </div>
+
 
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 {#    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>#}
