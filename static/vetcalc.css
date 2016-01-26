@@ -6,6 +6,11 @@ body {
     padding: 60px;
 }
 
+ul
+{
+    list-style-type: none;
+}
+
 th.header {
     background-image: url(/static/img/bg.gif);
     background-repeat: no-repeat;

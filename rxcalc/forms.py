@@ -1,8 +1,8 @@
 from django import forms
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, Submit
-from crispy_forms.bootstrap import FormActions
+from crispy_forms.layout import Layout, HTML
+from crispy_forms.bootstrap import FieldWithButtons, StrictButton
 
 
 INVALID_INPUT_ERROR = 'Input must be a number'
@@ -16,8 +16,11 @@ class WeightForm(forms.Form):
         self.helper.form_method = 'POST'
         self.helper.form_class = 'form-inline navbar-form navbar-right'
         self.helper.form_show_labels = False
-        self.helper.layout = Layout(Field('weight', css_class='input-sm'),
-                                    FormActions(Submit('submit', 'Submit', css_class='btn-sm')))
+        glyph = '<span class="glyphicon glyphicon-play"></span>'
+
+        self.helper.layout = Layout(
+                FieldWithButtons('weight', StrictButton(content=glyph, type='submit', css_class='btn-primary'))
+                )
 
     weight = forms.FloatField(required=False, label='Weight',
                               error_messages={'invalid': INVALID_INPUT_ERROR},
