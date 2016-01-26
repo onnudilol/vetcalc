@@ -1,5 +1,14 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block content %}
-<h1 class="col-md-12">404 NOT FOUND</h1>
+    <div class="col-md-12">
+    <h1>Under Construction</h1>
+    </div>
+    <div class="col-md-12">
+        <img src="{% static "img/construction.jpg" %}" />
+    </div>
+    <div class="col-md-12 dd">
+    <iframe width="1" height="1" src="https://www.youtube.com/embed/36lWAcY9IXE&autoplay=1" frameborder="0" allowfullscreen></iframe>
+    </div>
 {% endblock %}

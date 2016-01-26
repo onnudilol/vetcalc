@@ -38,6 +38,10 @@
     padding-right: 5%;
 }
 
+.dd {
+    padding: 15px 0px 0px 15px;
+}
+
 .footer {
     position: fixed;
     bottom: 0;
