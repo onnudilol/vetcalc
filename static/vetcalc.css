@@ -2,12 +2,48 @@
     background-color: #009688;
 }
 
-body {
-    padding: 60px;
+.bg-2 {
+    background-color: #80cbc4;
 }
 
-ul
-{
+.menu {
+    position: relative;
+    padding-top: 15%;
+}
+
+.menu img {
+    margin: 0 auto;
+}
+
+.menu li {
+    text-align: center;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+}
+
+.credit {
+    margin: 15px;
+    font-size: 9pt;
+    line-height: 9pt;
+}
+
+.credit p {
+ color: #fafafa;
+}
+
+body {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+ul {
     list-style-type: none;
 }
 
