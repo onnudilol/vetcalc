@@ -1,7 +1,7 @@
 from django import forms
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, HTML
+from crispy_forms.layout import Layout, Field
 from crispy_forms.bootstrap import FieldWithButtons, StrictButton
 
 
@@ -19,8 +19,8 @@ class WeightForm(forms.Form):
         glyph = '<span class="glyphicon glyphicon-play"></span>'
 
         self.helper.layout = Layout(
-                FieldWithButtons('weight', StrictButton(content=glyph, type='submit', css_class='btn-primary'))
-                )
+                FieldWithButtons(Field('weight', css_class='input-sm'),
+                                 StrictButton(content=glyph, type='submit', css_class='btn-primary btn-sm')))
 
     weight = forms.FloatField(required=False, label='Weight',
                               error_messages={'invalid': INVALID_INPUT_ERROR},

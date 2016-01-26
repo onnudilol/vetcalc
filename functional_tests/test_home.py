@@ -13,6 +13,6 @@ class HomePageTest(FunctionalTest):
         # Marfalo sees that there is a page to calculate dosages, get information about commonly used drugs,
         # and a page to create a treatment sheet
         # These should not raise #
-        self.browser.find_element_by_link_text('Calculate dosages')
-        self.browser.find_element_by_link_text('Rx info')
-        self.browser.find_element_by_link_text('Create a treatment sheet')
+        self.browser.find_element_by_link_text('Calculate Dosages')
+        self.browser.find_element_by_link_text('Rx Info')
+        self.browser.find_element_by_link_text('Create A Treatment Sheet')

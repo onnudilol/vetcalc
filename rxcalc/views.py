@@ -33,3 +33,11 @@ def calc_dosage(request):
 
     return render(request, 'rxcalc/calc.html', {'rx': zipped,
                                                 'form': WeightForm()})
+
+
+def rx_info(request):
+    return render(request, '404.html')
+
+
+def treatment_sheet(request):
+    return render(request, '404.html')

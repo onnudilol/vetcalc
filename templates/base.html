@@ -10,6 +10,7 @@
 {#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">#}
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
     <link href="{% static 'vetcalc.css' %}" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon2.ico' %}" />
 </head>
 
 <body>
@@ -21,10 +22,24 @@
 
     <div id="header">
         <nav class="navbar navbar-default navbar-fixed-top bg-1" role="navigation">
-            <div class="col-md-10">
-                <a class="navbar-brand" href="/" style="color:#fafafa">VeTeCalc</a>
+            <div class="container-fluid">
+                <div class="navbar-header col-md-1">
+                    <a class="pull-left" href="{% url 'home' %}"><img src="{% static 'img/diamond_doges.png' %}" /></a>
+                    <a class="navbar-brand" href="{% url 'home' %}">VeTeCalc</a>
+                </div>
+                <div class="col-md-9">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'calc' %}">Calc</a></li>
+                        <li><a href="{% url 'info' %}">Info</a></li>
+                        <li><a href="{% url 'tx_sheet' %}">Tx Sheet</a> </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-2">
+                    {% block header_form %}{% endblock %}
+                </div>
             </div>
-            {% block header_form %}{% endblock %}
         </nav>
     </div>
 
@@ -34,7 +49,7 @@
 
         {% block alert %}{% endblock %}
 
-        {% block body %}{% endblock %}
+        {% block content %}{% endblock %}
 
         {% block table %}{% endblock %}
 
