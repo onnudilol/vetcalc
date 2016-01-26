@@ -1,5 +1,7 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
+from rxcalc.models import Medication
+
 from selenium import webdriver
 
 import sys
@@ -29,6 +31,7 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def setUp(self):
 
+        Medication.objects.create(name='Tramadol', factor=1/50, concentration='5 mg/mL')
         profile = webdriver.FirefoxProfile()
         profile.set_preference("browser.startup.homepage", "about:blank")
         profile.set_preference("startup.homepage_welcome_url", "about:blank")

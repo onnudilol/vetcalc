@@ -1,5 +1,4 @@
 {% load staticfiles %}
-{% load crispy_forms_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,23 +18,18 @@
 
         {% block header %}
             <nav class="navbar navbar-default navbar-fixed-top bg-1" role="navigation">
-                <div class="col-md-11">
+                <div class="col-md-10">
                     <a class="navbar-brand" href="/" style="color:whitesmoke">VeTeCalc</a>
                 </div>
-                <div class="col-md-1">
-                    {% csrf_token %}
-                    {% crispy form %}
-                </div>
-
+                {% block header_form %}{% endblock %}
             </nav>
         {% endblock %}
 
-
-        {% block form %}{% endblock %}
+        {% block body %}{% endblock %}
 
         {% block table %}{% endblock %}
 
-    {% block info %}{% endblock %}
+        {% block info %}{% endblock %}
 
     </div>
 

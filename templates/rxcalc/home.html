@@ -1,30 +1,7 @@
 {% extends 'base.html' %}
 
-{% block table %}
-    <div class="container">
-
-        <table class="table table-hover table-responsive table-bordered" id="rx-table">
-            <thead>
-                <tr>
-                    <th class="header">Medication</th>
-                    <th class="header">Dosage (mL)</th>
-                    <th class="header">Concentration</th>
-                    <th class="header">Category</th>
-                    <th class="header">Administration</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for med in rx %}
-                    <tr>
-                        <td>{{ med.0.name }}</td>
-                        <td>{{ med.1 }}</td>
-                        <td>{{ med.0.concentration }}</td>
-                        <td>{{ med.0.category }}</td>
-                        <td>{{ med.0.admin }}</td>
-                    </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-
-    </div>
+{% block body %}
+    <a href={% url 'calc' %}>Calculate dosages</a>
+    <a href="/rxcalc/info/">Rx info</a>
+    <a href="/rxcalc/tx_sheet">Create a treatment sheet</a>
 {% endblock %}

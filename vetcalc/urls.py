@@ -21,6 +21,6 @@ from rxcalc import views as rxcalc_views
 
 urlpatterns = [
     # url(r'^admin/', admin.site.urls),
-    url(r'^$', rxcalc_views.calc_dosage, name='home'),
+    url(r'^$', rxcalc_views.home, name='home'),
     url(r'^rxcalc/', include(rxcalc_urls)),
 ]

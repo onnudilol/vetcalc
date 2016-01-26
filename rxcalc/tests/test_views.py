@@ -25,3 +25,6 @@ class HomePageTest(TestCase):
         response = self.client.post('/rxcalc/calc', data={'weight': 9.2})
         self.assertEqual(response.context['rx'][0][0], Medication.objects.first())
         self.assertAlmostEqual(response.context['rx'][0][1], 0.184)
+
+    def test_invalid_input_displays_error(self):
+        pass

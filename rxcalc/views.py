@@ -6,6 +6,11 @@ from rxcalc.forms import WeightForm
 from itertools import zip_longest
 
 
+def home(request):
+
+    return render(request, 'rxcalc/home.html')
+
+
 def calc_dosage(request):
 
     meds = Medication.objects.all()
@@ -20,11 +25,11 @@ def calc_dosage(request):
 
         zipped = list(zip(meds, dosages))
 
-        return render(request, 'rxcalc/home.html', {'rx': zipped,
+        return render(request, 'rxcalc/calc.html', {'rx': zipped,
                                                     'form': WeightForm()})
 
     null_dose = []
     zipped = list(zip_longest(meds, null_dose, fillvalue=0.0))
 
-    return render(request, 'rxcalc/home.html', {'rx': zipped,
+    return render(request, 'rxcalc/calc.html', {'rx': zipped,
                                                 'form': WeightForm()})
