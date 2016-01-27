@@ -35,8 +35,7 @@ def _update_settings(source_folder, site_name):
     settings_path = source_folder + '/vetcalc/settings.py'
     sed(settings_path, "DEBUG = True", "DEBUG = False")
     sed(settings_path, 'DOMAIN = "localhost"', 'DOMAIN = "{}"'.format(site_name))
-    sed(settings_path, "'NAME': os.path.join(BASE_DIR, 'db.sqlite3')",
-        "'NAME': os.path.join(BASE_DIR, '../database/db.sqlite3')")
+    sed(settings_path, 'db.sqlite3', '../database/db.sqlite3')
     secret_key_file = source_folder + '/vetcalc/secret_key.py'
 
     if not exists(secret_key_file):
@@ -48,9 +47,9 @@ def _update_settings(source_folder, site_name):
 
 
 def _update_static_files(source_folder):
-    run('cd {} && python3 manage.py collectstatic --noinput'.format(source_folder))
+    run('cd {} && /home/{}/.virtualenvs/vetcalc/bin/python3 manage.py collectstatic --noinput'.format(source_folder, env.user))
 
 
 def _update_database(source_folder):
-    run('cd {} && python3 manage.py migrate --noinput'.format(source_folder))
+    run('cd {} && /home/{}/.virtualenvs/vetcalc/bin/python3 manage.py migrate --noinput'.format(source_folder, env.user))
 
