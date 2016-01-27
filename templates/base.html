@@ -15,37 +15,39 @@
 
 <body>
 
-    <div id="wrapper">
-
-
     {% block header %}
 
     <div id="header">
         <nav class="navbar navbar-default navbar-fixed-top bg-1" role="navigation">
             <div class="container-fluid">
-                <div class="navbar-header col-md-1">
+                <div class="navbar-header">
                     <a class="pull-left" href="{% url 'home' %}"><img src="{% static 'img/diamond_doges.png' %}" /></a>
                     <a class="navbar-brand" href="{% url 'home' %}">VeTeCalc</a>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
                 </div>
-                <div class="col-md-9">
+                <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="{% url 'home' %}">Home</a></li>
                         <li><a href="{% url 'calc' %}">Calc</a></li>
                         <li><a href="{% url 'info' %}">Info</a></li>
                         <li><a href="{% url 'tx_sheet' %}">Tx Sheet</a> </li>
                     </ul>
+                    <div class="nav navbar-nav navbar-right navbar-collapse">
+                        {% block header_form %}{% endblock %}
+                    </div>
                 </div>
 
-                <div class="col-md-2">
-                    {% block header_form %}{% endblock %}
-                </div>
             </div>
         </nav>
     </div>
 
     {% endblock %}
 
-    <div class="content">
+    <div class="content col-sm-12">
 
         {% block alert %}{% endblock %}
 
@@ -65,9 +67,6 @@
             </div>
         </div>
     {% endblock %}
-
-    </div>
-
 
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 {#    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>#}

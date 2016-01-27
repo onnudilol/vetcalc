@@ -14,7 +14,7 @@ class WeightForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'POST'
-        self.helper.form_class = 'form-inline navbar-form navbar-right'
+        self.helper.form_class = 'navbar-form pull-right'
         self.helper.form_show_labels = False
         glyph = '<span class="glyphicon glyphicon-play"></span>'
 
