@@ -10,6 +10,7 @@ REPO_URL = "https://github.com/onnudilol/vetcalc.git"
 def deploy():
     site_folder = '/home/{}/sites/{}'.format(env.user, env.host)
     source_folder = site_folder + '/source'
+    env.virtualenv = '/home/{}/.virtualenvs/vetcalc/bin/python3'.format(env.user)
     _create_directory_structure_if_necessary(site_folder)
     _get_latest_source(source_folder)
     _update_settings(source_folder, env.host)
@@ -47,9 +48,9 @@ def _update_settings(source_folder, site_name):
 
 
 def _update_static_files(source_folder):
-    run('cd {} && /home/{}/.virtualenvs/vetcalc/bin/python3 manage.py collectstatic --noinput'.format(source_folder, env.user))
+    run('cd {} && {} manage.py collectstatic --noinput'.format(source_folder, env.virtualenv))
 
 
 def _update_database(source_folder):
-    run('cd {} && /home/{}/.virtualenvs/vetcalc/bin/python3 manage.py migrate --noinput'.format(source_folder, env.user))
+    run('cd {} && {} manage.py migrate --noinput'.format(source_folder, env.virtualenv))
 
