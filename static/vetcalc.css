@@ -64,9 +64,9 @@
     /*margin: 0 auto;*/
 /*}*/
 
-body {
+.content {
     padding-top: 60px;
-    padding-bottom: 60px;
+    padding-bottom: 50px;
 }
 
 ul {
