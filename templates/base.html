@@ -36,7 +36,7 @@
                         <li><a href="{% url 'info' %}">Info</a></li>
                         <li><a href="{% url 'tx_sheet' %}">Tx Sheet</a> </li>
                     </ul>
-                    <div class="nav navbar-nav navbar-right navbar-collapse">
+                    <div class="nav navbar-nav pull-right navbar-collapse">
                         {% block header_form %}{% endblock %}
                     </div>
                 </div>
@@ -73,11 +73,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" crossorigin="anonymous"></script>
     <script type="text/javascript" src="/static/jquery.tablesorter.min.js"></script>
     <script>
-        $(document).ready(function()
-	{
+        $(document).ready(function() {
 		$("#rx-table").tablesorter();
-	}
-);
+	});
     </script>
 </body>
 </html>
