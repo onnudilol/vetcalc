@@ -19,6 +19,10 @@
     padding-right: 10px;
 }
 
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > .navbar-default .navbar-nav > .active {
+    background-color: #00bfa5
+}
+
 .menu {
     position: relative;
     padding-top: 15%;
@@ -53,12 +57,12 @@
 
 .credit {
     margin: 10px;
-    font-size: 9pt;
-    line-height: 9pt;
+    font-size: 8pt;
+    line-height: 8pt;
 }
 
 .credit p {
- color: #fafafa;
+    color: #fafafa;
 }
 
 ul {

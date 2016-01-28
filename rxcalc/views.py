@@ -8,7 +8,7 @@ from itertools import zip_longest
 
 def home(request):
 
-    return render(request, 'rxcalc/home.html')
+    return render(request, 'rxcalc/home.html', {'navbar': 'home'})
 
 
 def calc_dosage(request):
@@ -26,18 +26,20 @@ def calc_dosage(request):
         zipped = list(zip(meds, dosages))
 
         return render(request, 'rxcalc/calc.html', {'rx': zipped,
-                                                    'form': WeightForm()})
+                                                    'form': WeightForm(),
+                                                    'navbar': 'calc'})
 
     null_dose = []
     zipped = list(zip_longest(meds, null_dose, fillvalue=0.0))
 
     return render(request, 'rxcalc/calc.html', {'rx': zipped,
-                                                'form': WeightForm()})
+                                                'form': WeightForm(),
+                                                'navbar': 'calc'})
 
 
 def rx_info(request):
-    return render(request, '404.html')
+    return render(request, '404.html', {'navbar': 'info'})
 
 
 def treatment_sheet(request):
-    return render(request, '404.html')
+    return render(request, '404.html', {'navbar': 'tx_sheet'})

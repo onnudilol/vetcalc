@@ -31,10 +31,10 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="{% url 'home' %}">Home</a></li>
-                        <li><a href="{% url 'calc' %}">Calc</a></li>
-                        <li><a href="{% url 'info' %}">Info</a></li>
-                        <li><a href="{% url 'tx_sheet' %}">Tx Sheet</a> </li>
+                        <li {% if navbar == 'home' %}class="active"{% endif %}><a href="{% url 'home' %}">Home</a></li>
+                        <li {% if navbar == 'calc' %}class="active"{% endif %}><a href="{% url 'calc' %}">Calc</a></li>
+                        <li {% if navbar == 'info' %}class="active"{% endif %}><a href="{% url 'info' %}">Info</a></li>
+                        <li {% if navbar == 'tx_sheet' %}class="active"{% endif %}><a href="{% url 'tx_sheet' %}">Tx Sheet</a> </li>
                     </ul>
                     <div class="nav navbar-nav pull-right navbar-collapse">
                         {% block header_form %}{% endblock %}
