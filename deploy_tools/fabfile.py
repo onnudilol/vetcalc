@@ -44,7 +44,7 @@ def _update_settings(source_folder, site_name):
         key = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
         append(secret_key_file, 'SECRET_KEY = "{}"'.format(key))
 
-    append(settings_path, '\nfrom .secret_key import SECRET_KEY')
+    append(settings_path, '\n\n' + 'from .secret_key import SECRET_KEY')
 
 
 def _update_static_files(source_folder):
