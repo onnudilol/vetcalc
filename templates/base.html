@@ -6,7 +6,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>VeTeCalc</title>
+    {% block title %}
+        <title>VetCalc</title>
+    {% endblock %}
 {#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">#}
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
     <link href="{% static 'vetcalc.css' %}" rel="stylesheet">
@@ -22,7 +24,7 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="pull-left" href="{% url 'home' %}"><img src="{% static 'img/diamond_doges.png' %}" /></a>
-                    <a class="navbar-brand" href="{% url 'home' %}">VeTeCalc</a>
+                    <a class="navbar-brand" href="{% url 'home' %}">VetCalc</a>
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -47,7 +49,7 @@
 
     {% endblock %}
 
-    <div class="content col-sm-12">
+    <div class="content col-md-12">
 
         {% block alert %}{% endblock %}
 

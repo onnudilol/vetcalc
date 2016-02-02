@@ -10,6 +10,8 @@ class CalcPageTest(FunctionalTest):
         # Glancing through, he sees that the calc page displays several common medications used at the dog hospital.
         # He notices an input box to enter in the weight of the pet.
         self.browser.get(self.server_url + '/rxcalc/calc')
+        self.assertEqual('Rx Calculator - VeTeCalc', self.browser.title)
+
         inputbox = self.get_item_input_box()
         inputbox.send_keys('9.2\n')
 
@@ -19,9 +21,6 @@ class CalcPageTest(FunctionalTest):
         self.assertIn('0.184', tram.text)
         self.assertIn('Tramadol', tram.text)
         self.assertIn('5 mg/mL', tram.text)
-
-    def test_form_displays_errors(self):
-        pass
 
     @skip('stub')
     def test_can_switch_between_metric_and_imperial(self):

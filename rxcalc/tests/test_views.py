@@ -7,6 +7,10 @@ from rxcalc.forms import WeightForm
 
 class HomePageTest(TestCase):
 
+    def test_home_page_renders_home_page_template(self):
+        response = self.client.get('/')
+        self.assertTemplateUsed(response, 'rxcalc/home.html')
+
     def test_view_sets_active_class_on_link(self):
         response = self.client.get('/')
         self.assertEqual('home', response.context['navbar'])
@@ -14,7 +18,7 @@ class HomePageTest(TestCase):
 
 class CalcPageTest(TestCase):
 
-    def test_home_page_renders_home_page_template(self):
+    def test_home_page_renders_calc_page_template(self):
         response = self.client.get('/rxcalc/calc/')
         self.assertTemplateUsed(response, 'rxcalc/calc.html')
 
@@ -25,10 +29,37 @@ class CalcPageTest(TestCase):
 
     def test_home_page_uses_form(self):
         response = self.client.get('/rxcalc/calc/')
-        response = self.assertIsInstance(response.context['form'], WeightForm)
+        self.assertIsInstance(response.context['form'], WeightForm)
 
     def test_can_unpack_zipped_rx_and_dosage(self):
         Medication.objects.create(name='Tramadol', factor=1/50)
         response = self.client.post('/rxcalc/calc/', data={'weight': 9.2})
         self.assertEqual(response.context['rx'][0][0], Medication.objects.first())
         self.assertAlmostEqual(response.context['rx'][0][1], 0.184)
+
+
+class InfoPageTest(TestCase):
+
+    def test_info_page_renders_info_page_template(self):
+        response = self.client.get('/rxcalc/info/')
+        self.assertTemplateUsed(response, 'rxcalc/info.html')
+
+    def test_info_page_displays_all_medications(self):
+        tram = Medication.objects.create(name='Tramadol')
+        ampi = Medication.objects.create(name='Ampicillin')
+        response = self.client.get('/rxcalc/info/')
+        self.assertIn(tram, response.context['meds'])
+        self.assertIn(ampi, response.context['meds'])
+
+
+class RxInfoPageTest(TestCase):
+
+    def test_rx_page_url_corresponds_to_rx_slug(self):
+        med = Medication.objects.create(name='Super Tramadol (Nighttime)')
+        response = self.client.get('/rxcalc/info/{}/'.format(med.slug))
+        self.assertEqual(200, response.status_code)
+
+    def test_rx_info_renders_rx_info_template(self):
+        Medication.objects.create(name='Super Tramadol Nighttime')
+        response = self.client.get('/rxcalc/info/super-tramadol-nighttime/')
+        self.assertTemplateUsed(response, 'rxcalc/rx.html')

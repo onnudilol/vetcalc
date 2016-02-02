@@ -1,5 +1,4 @@
 from django.shortcuts import render
-
 from rxcalc.models import Medication
 from rxcalc.forms import WeightForm
 
@@ -7,7 +6,6 @@ from itertools import zip_longest
 
 
 def home(request):
-
     return render(request, 'rxcalc/home.html', {'navbar': 'home'})
 
 
@@ -37,8 +35,15 @@ def calc_dosage(request):
                                                 'navbar': 'calc'})
 
 
-def rx_info(request):
-    return render(request, '404.html', {'navbar': 'info'})
+def info(request):
+    meds = Medication.objects.all()
+    return render(request, 'rxcalc/info.html', {'navbar': 'info',
+                                                'meds': meds})
+
+
+def rx_info(request, slug):
+    med = Medication.objects.get(slug=slug)
+    return render(request, 'rxcalc/rx.html', {'med': med})
 
 
 def treatment_sheet(request):

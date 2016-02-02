@@ -9,12 +9,13 @@ class Command(BaseCommand):
 
     def _parse_dict(self):
         for key, value in DOSAGE_INJECTION.items():
-            Medication.objects.get_or_create(name=key,
-                                             factor=value[0],
-                                             concentration=value[1],
-                                             category=value[2],
-                                             admin=value[3],
-                                             desc=value[4])
+            med, created = Medication.objects.get_or_create(name=key,
+                                                            factor=value[0],
+                                                            concentration=value[1],
+                                                            category=value[2],
+                                                            admin=value[3],
+                                                            desc=value[4])
+            med.save()
 
     def handle(self, *args, **options):
         self._parse_dict()

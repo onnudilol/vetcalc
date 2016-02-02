@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
+{% block title %}
+    <title>Rx Calculator - VetCalc</title>
+{% endblock %}
+
 {% block header_form %}
         {% crispy form %}
 {% endblock %}
@@ -19,6 +23,7 @@
                 </tr>
             </thead>
             <tbody>
+            {# rx is a zipped list of meds and calculated dosages.  med.0 refers to the medication object instance, and med.1 refers to the calculated dosage #}
                 {% for med in rx %}
                     <tr id="med_{{ med.0.id }}">
                         <td>{{ med.0.name }}</td>

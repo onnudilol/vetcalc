@@ -49,3 +49,10 @@ class MedicationModelTest(TestCase):
         med2 = Medication.objects.create(name='Ketoprofen', category='pain')
         med3 = Medication.objects.create(name='Ampicillin', category='antibiotic')
         self.assertEqual(med3, Medication.objects.first())
+
+    def test_slug_field_created_from_name_field(self):
+        med = Medication.objects.create(name='Tramadol Super (Nighttime)')
+        self.assertEqual('tramadol-super-nighttime', med.slug)
+
+    def test_get_absolute_url(self):
+        pass
