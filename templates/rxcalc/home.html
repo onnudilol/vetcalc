@@ -2,11 +2,11 @@
 {% load staticfiles %}
 
 {% block content %}
-    <div class="container menu">
-        <ul class="list-inline">
-            <li class="col-md-4"><a href={% url 'calc' %}><img class="img-circle img-responsive"  width="140" height="140" src="{% static 'img/doge.jpeg' %}"><h2>Calculate Dosages</h2></a></li>
-            <li class="col-md-4"><a href="/rxcalc/info/"><img class="img-circle img-responsive"  width="140" height="140" src="{% static 'img/cat.jpg' %}"><h2>Rx Info</h2></a></li>
-            <li class="col-md-4"><a href="/rxcalc/tx_sheet"><img class="img-circle img-responsive"  width="140" height="140" src="{% static 'img/pills.jpg' %}"><h2>Create A Treatment Sheet</h2></a></li>
-        </ul>
-    </div>
+<div class="container menu">
+    <ul class="list-inline">
+        <li class="col-md-4"><a href={% url 'calc' %}><img class="img-circle img-responsive"  width="140" height="140" src="{% static 'img/doge.jpeg' %}"><h2>Calculate Dosages</h2></a></li>
+        <li class="col-md-4"><a href="/rxcalc/info/"><img class="img-circle img-responsive"  width="140" height="140" src="{% static 'img/cat.jpg' %}"><h2>Rx Info</h2></a></li>
+        <li class="col-md-4"><a href="/rxcalc/tx_sheet"><img class="img-circle img-responsive"  width="140" height="140" src="{% static 'img/pills.jpg' %}"><h2>Create A Treatment Sheet</h2></a></li>
+    </ul>
+</div>
 {% endblock %}

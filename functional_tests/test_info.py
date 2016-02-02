@@ -18,19 +18,8 @@ class RxInfoPageTest(FunctionalTest):
         # that displays more detailed information.
 
         self.browser.find_element_by_link_text('Tramadol').send_keys(Keys.RETURN)
-        self.assertEqual('Tramadol - VeTeCalc', self.browser.title)
+        self.assertEqual('Tramadol - VetCalc', self.browser.title)
 
         # The url of the page is the slug of the medication name
-        self.assertEqual(self.server_url + '/rxcalc/info')
+        self.assertEqual(self.browser.current_url, self.server_url + '/rxcalc/info/tramadol')
 
-        # The page displays specific information on a sidebar on the left
-        column = self.browser.find_element_by_css_selector('.left-column').find_element_by_tag_name('h1')
-        self.assertEqual('Tramadol', column.text)
-
-        column_sections = self.browser.find_element_by_css_selector('.left-column').find_elements_by_tag_name('h2')
-        for section in ['Category', 'Administration']:
-            self.assertIn(section, column_sections)
-
-        # The rest of the page displays a detailed description of what the medication is and what it is used for.
-        tram_desc = self.browser.find_element_by_css_selector('.rx-info')
-        self.assertIn('It can treat moderate to severe pain.', tram_desc)

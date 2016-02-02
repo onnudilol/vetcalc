@@ -22,7 +22,6 @@ def calc_dosage(request):
             dosages.append(round(weight * med.factor, 3))
 
         zipped = list(zip(meds, dosages))
-
         return render(request, 'rxcalc/calc.html', {'rx': zipped,
                                                     'form': WeightForm(),
                                                     'navbar': 'calc'})
@@ -43,7 +42,8 @@ def info(request):
 
 def rx_info(request, slug):
     med = Medication.objects.get(slug=slug)
-    return render(request, 'rxcalc/rx.html', {'med': med})
+    return render(request, 'rxcalc/rx.html', {'navbar': 'info',
+                                              'med': med})
 
 
 def treatment_sheet(request):

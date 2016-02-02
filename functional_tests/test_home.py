@@ -10,7 +10,7 @@ class HomePageTest(FunctionalTest):
         # so he decides to use a web app.
         # Marfalo finds VeTeCalc on the search engine of his choice and clicks on the link.
         self.browser.get(self.server_url)
-        self.assertIn('VeTeCalc', self.browser.title)
+        self.assertIn('VetCalc', self.browser.title)
 
         # Marfalo sees that there is a page to calculate dosages, get information about commonly used drugs,
         # and a page to create a treatment sheet

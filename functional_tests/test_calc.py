@@ -10,7 +10,7 @@ class CalcPageTest(FunctionalTest):
         # Glancing through, he sees that the calc page displays several common medications used at the dog hospital.
         # He notices an input box to enter in the weight of the pet.
         self.browser.get(self.server_url + '/rxcalc/calc')
-        self.assertEqual('Rx Calculator - VeTeCalc', self.browser.title)
+        self.assertEqual('Rx Calculator - VetCalc', self.browser.title)
 
         inputbox = self.get_item_input_box()
         inputbox.send_keys('9.2\n')
