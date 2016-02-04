@@ -131,7 +131,7 @@ STATICFILES_DIRS = (
 
 STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
 
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -142,6 +142,24 @@ STATICFILES_FINDERS = (
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 PIPELINE = {
-    'COMPILERS': ('pipeline.compilers.coffee.CoffeeScriptCompiler',
-                  'pipeline.compilers.sass.SASSCompiler',)
+    'PIPELINE_ENABLED': True,   'COMPILERS': (
+        'pipeline.compilers.coffee.CoffeeScriptCompiler',
+        'pipeline.compilers.sass.SASSCompiler',
+    ),
+    'JAVASCRIPT': {
+        # 'vetcalc': {
+        #     'source_filenames': (
+        #         '',
+        #     ),
+        #     'output_filename': '',
+        # }
+    },
+    'STYLESHEETS': {
+        'vetcalc': {
+            'source_filenames': (
+                'css/vetcalc.scss',
+            ),
+            'output_filename': 'css/vetcalc.css',
+        }
+    }
 }
