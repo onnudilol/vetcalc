@@ -7,7 +7,7 @@
 
 {% block content %}
     <div class="container">
-        <div><a href="{% url 'home' %}">Home</a> > <a href="{% url 'info' %}">Info</a> > <span class="text-primary">{{ med.name }}</span></div>
+        <div><a href="{% url 'home' %}">Home</a> / <a href="{% url 'info' %}">Info</a> / <span><b>{{ med.name }}</b></span></div>
         <h1>{{ med.name }}</h1>
         <h3>Category</h3>
         <p>{{ med.category }}</p>

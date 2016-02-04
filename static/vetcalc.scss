@@ -1,0 +1,111 @@
+@import '_material_color';
+
+.bg-1 {
+    background: $teal-500;
+}
+
+.bg-2 {
+  background: $teal-200;
+}
+
+#header {
+  a {
+    color: #f5f5f5;
+  }
+  a:hover {
+    color: #ffffff;
+  }
+}
+
+.navbar-header {
+  img {
+    padding-top: 4px;
+    padding-right: 10px;
+  }
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+    background-color: $teal-A700
+}
+
+.navbar-default {
+  .navbar-toggle {
+    background-color: #eeeeee;
+  }
+}
+
+.menu {
+  position: relative;
+  padding-top: 15%;
+  img {
+    margin: 0 auto;
+  }
+  li {
+    text-align: center;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}
+
+.content {
+    height: 100%;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+}
+
+.credit {
+    margin: 10px;
+    font-size: 8pt;
+    line-height: 8pt;
+  p {
+    color: #fafafa;
+  }
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    color: $teal-500;
+}
+
+a:hover {
+    color: $teal-A700;
+    text-decoration: none;
+}
+
+.med-name {
+  color: $teal-A400
+}
+
+th.header {
+  background: url(/static/img/bg.gif) no-repeat center right;
+  padding-left: 20px;
+    margin-left: -1px;
+}
+
+th.headerSortUp {
+    background-image: url(/static/img/asc.gif);
+}
+
+th.headerSortDown {
+    background-image: url(/static/img/desc.gif);
+
+}
+
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
