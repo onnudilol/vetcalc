@@ -142,18 +142,19 @@ STATICFILES_FINDERS = (
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 PIPELINE = {
-    'PIPELINE_ENABLED': True,   'COMPILERS': (
+    'PIPELINE_ENABLED': True,
+    'COMPILERS': (
         'pipeline.compilers.coffee.CoffeeScriptCompiler',
         'pipeline.compilers.sass.SASSCompiler',
     ),
-    'JAVASCRIPT': {
-        # 'vetcalc': {
-        #     'source_filenames': (
-        #         '',
-        #     ),
-        #     'output_filename': '',
-        # }
-    },
+    # 'JAVASCRIPT': {
+    #     'vetcalc': {
+    #         'source_filenames': (
+    #             '',
+    #         ),
+    #         'output_filename': '',
+    #     }
+    # },
     'STYLESHEETS': {
         'vetcalc': {
             'source_filenames': (
