@@ -1,4 +1,4 @@
-@import '_material_color';
+@import "_material_color";
 
 .bg-1 {
     background: $teal-500;
@@ -32,6 +32,10 @@
   .navbar-toggle {
     background-color: #eeeeee;
   }
+}
+
+p {
+  color: #ffffff;
 }
 
 .menu {

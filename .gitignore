@@ -2,3 +2,7 @@ db.sqlite3
 .idea/
 __pycache__
 *.pyc
+*.map
+static/css/*.css
+static/js/*.js
+!jquery.tablesorter.min.js
