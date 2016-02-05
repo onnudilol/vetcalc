@@ -10,10 +10,19 @@ def home(request):
 
 
 def calc_dosage(request):
-
     meds = Medication.objects.all()
+    null_dose = []
+    zipped = list(zip_longest(meds, null_dose, fillvalue=0.0))
 
     if request.method == 'POST':
+
+        # Weird bug with how buttons rendered by crispy forms ignores validation.
+        # This is a hacky check to prevent 500 errors.
+        if request.POST['weight'] == '':
+
+            return render(request, 'rxcalc/calc.html', {'rx': zipped,
+                                                        'form': WeightForm(),
+                                                        'navbar': 'calc'})
 
         weight = float(request.POST['weight'])
         dosages = list()
@@ -25,9 +34,6 @@ def calc_dosage(request):
         return render(request, 'rxcalc/calc.html', {'rx': zipped,
                                                     'form': WeightForm(),
                                                     'navbar': 'calc'})
-
-    null_dose = []
-    zipped = list(zip_longest(meds, null_dose, fillvalue=0.0))
 
     return render(request, 'rxcalc/calc.html', {'rx': zipped,
                                                 'form': WeightForm(),
