@@ -22,6 +22,6 @@ class WeightForm(forms.Form):
                 FieldWithButtons(Field('weight', css_class='input-sm'),
                                  StrictButton(content=glyph, type='submit', css_class='btn-primary btn-sm')))
 
-    weight = forms.FloatField(required=False, label='Weight',
+    weight = forms.FloatField(label='Weight',
                               error_messages={'invalid': INVALID_INPUT_ERROR},
                               widget=forms.NumberInput(attrs={'placeholder': 'Enter weight'}))

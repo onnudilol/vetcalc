@@ -16,24 +16,27 @@ def calc_dosage(request):
 
     if request.method == 'POST':
 
-        # Weird bug with how buttons rendered by crispy forms ignores validation.
-        # This is a hacky check to prevent 500 errors.
-        if request.POST['weight'] == '':
+        form = WeightForm(data=request.POST)
 
+        if form.is_valid():
+
+            weight = float(request.POST['weight'])
+            dosages = list()
+
+            for med in meds:
+                dosages.append(round(weight * med.factor, 3))
+
+            zipped = list(zip(meds, dosages))
             return render(request, 'rxcalc/calc.html', {'rx': zipped,
                                                         'form': WeightForm(),
                                                         'navbar': 'calc'})
 
-        weight = float(request.POST['weight'])
-        dosages = list()
+        else:
 
-        for med in meds:
-            dosages.append(round(weight * med.factor, 3))
-
-        zipped = list(zip(meds, dosages))
-        return render(request, 'rxcalc/calc.html', {'rx': zipped,
-                                                    'form': WeightForm(),
-                                                    'navbar': 'calc'})
+            return render(request, 'rxcalc/calc.html', {'rx': zipped,
+                                                        'form': WeightForm(),
+                                                        'navbar': 'calc',
+                                                        'errors': form.errors.values()})
 
     return render(request, 'rxcalc/calc.html', {'rx': zipped,
                                                 'form': WeightForm(),

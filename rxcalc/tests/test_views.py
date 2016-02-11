@@ -37,6 +37,10 @@ class CalcPageTest(TestCase):
         self.assertEqual(response.context['rx'][0][0], Medication.objects.first())
         self.assertAlmostEqual(response.context['rx'][0][1], 0.184)
 
+    def test_calc_submit_button_does_not_send_empty_string(self):
+        response = self.client.post('/rxcalc/calc', data={'weight': ''})
+        self.assertNotEqual(500, response.status_code)
+
 
 class InfoPageTest(TestCase):
 
