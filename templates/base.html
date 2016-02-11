@@ -67,20 +67,22 @@
         <div class="footer bg-2">
             <div class="container credit col-md-12">
                 <p class="text-muted text-center">Copyright: Venom ``Mikhail'' loliD</p>
-                <a class="text-muted" href="https://github.com/onnudilol/vetcalc"><p class="text-center">Source</p></a>
+                <a href="https://github.com/onnudilol/vetcalc"><p class="text-center text-muted">Source</p></a>
             </div>
         </div>
     {% endblock %}
 
-    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>#}
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="{% static 'js/jquery.tablesorter.min.js' %}"></script>
-    <script>
-        $(document).ready(function() {
-		$("#rx-table").tablesorter();
-	});
-    </script>
+    {% block javascript %}
+        <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    {#    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>#}
+        <script type="text/javascript">
+            // Change JQueryUI plugin names to fix name collision with Bootstrap:
+            $.widget.bridge('uitooltip', $.ui.tooltip);
+            $.widget.bridge('uibutton', $.ui.button);
+        </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="{% static 'js/jquery.tablesorter.min.js' %}"></script>
+    {% endblock %}
 </body>
 </html>

@@ -47,6 +47,20 @@
   }
 }
 
+.img-home:hover {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.img-home {
+  	-webkit-transition: all .3s ease-in-out;
+	-moz-transition: all .3s ease-in-out;
+	-o-transition: all .3s ease-in-out;
+	-ms-transition: all .3s ease-in-out;
+}
+
 .content {
     height: 100%;
     padding-top: 60px;
@@ -80,10 +94,6 @@ a {
 a:hover {
     color: $teal-A700;
     text-decoration: none;
-}
-
-.med-name {
-  color: $teal-A400
 }
 
 th.header {
