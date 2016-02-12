@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
+from django.views.generic import TemplateView
 # from django.contrib import admin
 
 from rxcalc import urls as rxcalc_urls
@@ -23,4 +24,5 @@ urlpatterns = [
     # url(r'^admin/', admin.site.urls),
     url(r'^$', rxcalc_views.home, name='home'),
     url(r'^rxcalc/', include(rxcalc_urls)),
+    url(r'^disclaimer/', TemplateView.as_view(template_name='disclaimer.html'), name='disclaimer'),
 ]
