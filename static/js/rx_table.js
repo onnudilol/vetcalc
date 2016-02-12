@@ -1,0 +1,12 @@
+$(document).ready(function() {
+
+    $('#id_rx_form').submit(function(event) {
+        event.preventDefault();
+        var weight = $('#id_weight').val();
+
+        $.get('/rxcalc/calc/', {weight:weight}, function(data) {
+            var calc_output = $('<div />').append(data).find('#id_rx_table').html();
+            $('#id_rx_table').html(calc_output);
+        });
+    });
+});

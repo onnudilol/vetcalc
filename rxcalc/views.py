@@ -18,18 +18,14 @@ def calc_dosage(request):
 
     rx_ordered = OrderedDict(sorted(rx.items(), key=lambda t: t[0].name))
 
-    if request.method == 'POST':
-        form = WeightForm(data=request.POST)
+    if request.method == 'GET' and request.is_ajax():
+        form = WeightForm(data=request.GET)
 
         if form.is_valid():
-            weight = float(request.POST['weight'])
+            weight = float(request.GET['weight'])
 
             for med in meds:
                 rx_ordered[med] = round(med.factor * weight, 3)
-
-            return render(request, 'rxcalc/calc.html', {'rx': rx_ordered,
-                                                        'form': WeightForm(),
-                                                        'navbar': 'calc'})
 
         else:
             return render(request, 'rxcalc/calc.html', {'rx': rx_ordered,

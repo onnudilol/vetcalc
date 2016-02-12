@@ -24,9 +24,11 @@ class WeightForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.error_class = NoBulletErrorList
         self.helper = FormHelper()
-        self.helper.form_method = 'POST'
+        self.helper.form_method = 'GET'
         self.helper.form_class = 'navbar-form'
+        self.helper.form_id = 'id_rx_form'
         self.helper.form_show_labels = False
+
         glyph = '<span class="glyphicon glyphicon-play"></span>'
 
         self.helper.layout = Layout(
