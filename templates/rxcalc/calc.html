@@ -25,7 +25,6 @@
 
 {% block table %}
     <div class="row">
-
         <table class="table table-hover table-responsive table-bordered" id="rx-table">
             <thead>
                 <tr>
@@ -37,7 +36,6 @@
                 </tr>
             </thead>
             <tbody>
-            {# rx is a zipped list of meds and calculated dosages.  med.0 refers to the medication object instance, and med.1 refers to the calculated dosage #}
                 {% for med, dosage in rx.items %}
                     <tr>
                         <td><a href="{% url 'info_rx' med.slug %} ">{{ med.name }}</a></td>
@@ -49,7 +47,6 @@
                 {% endfor %}
             </tbody>
         </table>
-
     </div>
 {% endblock %}
 
@@ -60,5 +57,4 @@
             $("#rx-table").tablesorter();
         });
     </script>
-    <script src="{% static 'js/js.cookie.js' %}"></script>
 {% endblock %}

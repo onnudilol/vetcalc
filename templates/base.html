@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     {% load pipeline %}
     <meta charset="UTF-8">
@@ -18,7 +19,6 @@
 </head>
 
 <body>
-
     {% block header %}
         <div id="header">
             <nav class="navbar navbar-default navbar-fixed-top bg-1" role="navigation">
@@ -49,7 +49,7 @@
         </div>
     {% endblock %}
 
-    <div class="container container-fluid content">
+    <div class="container content">
 
         {% block alert %}{% endblock %}
 
@@ -63,10 +63,12 @@
 
     {% block footer %}
         <div class="footer bg-2">
-            <div class="container credit col-md-12">
-                <p class="text-muted text-center">Copyright: Venom ``Mikhail'' loliD</p>
-                <a href="https://github.com/onnudilol/vetcalc"><span class="text-center text-muted">Source</span></a>
-                <a href={% url 'disclaimer' %}><span class="text-center text-muted">Disclaimer</span></a>
+            <div class="row credit">
+                <div class=" col-md-12">
+                    <p class="text-muted text-center">Copyright: Venom ``Mikhail'' loliD</p>
+                    <a href="https://github.com/onnudilol/vetcalc"><span class="text-center text-muted">Source</span></a>
+                    <a href={% url 'disclaimer' %}><span class="text-center text-muted">Disclaimer</span></a>
+                </div>
             </div>
         </div>
     {% endblock %}
