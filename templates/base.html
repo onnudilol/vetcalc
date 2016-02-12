@@ -39,11 +39,8 @@
                             <li {% if navbar == 'info' %}class="active"{% endif %}><a href="{% url 'info' %}">Info</a></li>
                             <li {% if navbar == 'tx_sheet' %}class="active"{% endif %}><a href="{% url 'tx_sheet' %}">Tx Sheet</a> </li>
                         </ul>
-                        <div class="nav navbar-nav pull-right navbar-collapse">
-                            {% block header_form %}{% endblock %}
-                        </div>
+                        {% block header_form %}{% endblock %}
                     </div>
-
                 </div>
             </nav>
         </div>

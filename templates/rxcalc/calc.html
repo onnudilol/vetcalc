@@ -7,7 +7,9 @@
 {% endblock %}
 
 {% block header_form %}
-    {% crispy form %}
+    <div class="nav navbar-nav pull-right navbar-collapse">
+        {% crispy form %}
+    </div>
 {% endblock %}
 
 {% block alert %}
@@ -24,8 +26,8 @@
 {% endblock %}
 
 {% block table %}
-    <div class="row">
-        <table class="table table-hover table-responsive table-bordered" id="rx-table">
+    <div class="row" id="id_rx_table">
+        <table class="table table-hover table-responsive table-bordered">
             <thead>
                 <tr>
                     <th class="header">Medication</th>
@@ -57,4 +59,7 @@
             $("#rx-table").tablesorter();
         });
     </script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/js.cookie.js' %}"></script>
+    <script src="{% static 'js/rx_table.js' %}"></script>
 {% endblock %}
