@@ -122,7 +122,3 @@ DOSAGE_INJECTION = {
 DOSAGE_RX = {
 
 }
-
-
-def create_ordered_dict(unordered_dict):
-    return OrderedDict(sorted(unordered_dict.items(), key=lambda t: t[0]))

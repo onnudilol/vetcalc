@@ -15,7 +15,7 @@
             <li class="col-md-6"><h4>{{ med.grouper }}</h4>
                 <ul>
                     {% for item in med.list %}
-                        <li><a href="{% url 'rx' item.slug %}">{{ item.name }}</a></li>
+                        <li><a href="{% url 'info_rx' item.slug %}">{{ item.name }}</a></li>
                     {% endfor %}
                 </ul>
             </li>

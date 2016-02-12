@@ -14,7 +14,10 @@
     {% if errors %}
         <div class="alert alert-danger">
             {% for error in errors %}
-                <p class="text-center">{{ error.as_text }}</p>
+                <div style="text-align:center">
+                    <span>{{ error.as_text }}</span>
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                </div>
             {% endfor %}
         </div>
     {% endif %}
@@ -35,15 +38,15 @@
             </thead>
             <tbody>
             {# rx is a zipped list of meds and calculated dosages.  med.0 refers to the medication object instance, and med.1 refers to the calculated dosage #}
-                {% for med in rx %}
-                    <tr id="med_{{ med.0.id }}">
-                        <td><a href="{% url 'rx' med.0.slug %}">{{ med.0.name }}</a></td>
-                        <td>{{ med.1 }}</td>
-                        <td>{{ med.0.concentration }}</td>
-                        <td>{{ med.0.category }}</td>
-                        <td>{{ med.0.admin }}</td>
+                {% for med, dosage in rx.items %}
+                    <tr>
+                        <td><a href="{% url 'info_rx' med.slug %} ">{{ med.name }}</a></td>
+                        <td>{{ dosage }}</td>
+                        <td>{{ med.concentration }}</td>
+                        <td>{{ med.category }}</td>
+                        <td>{{ med.admin }}</td>
                     </tr>
-            {% endfor %}
+                {% endfor %}
             </tbody>
         </table>
 

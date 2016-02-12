@@ -12,7 +12,7 @@ class Medication(models.Model):
     desc = models.TextField(blank=True, default='')
 
     class Meta:
-        ordering = ['category']
+        ordering = ['category', 'name']
 
     def __str__(self):
         return str(self.name)

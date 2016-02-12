@@ -25,7 +25,7 @@ class CalcPageTest(TestCase):
     def test_home_page_passes_rx_context(self):
         med = Medication.objects.create(name='Tramadol')
         response = self.client.get('/rxcalc/calc/')
-        self.assertIn(med, response.context['rx'][0])
+        self.assertIn(med, list(response.context['rx'].items())[0])
 
     def test_home_page_uses_form(self):
         response = self.client.get('/rxcalc/calc/')
@@ -34,8 +34,9 @@ class CalcPageTest(TestCase):
     def test_can_unpack_zipped_rx_and_dosage(self):
         Medication.objects.create(name='Tramadol', factor=1/50)
         response = self.client.post('/rxcalc/calc/', data={'weight': 9.2})
-        self.assertEqual(response.context['rx'][0][0], Medication.objects.first())
-        self.assertAlmostEqual(response.context['rx'][0][1], 0.184)
+        self.assertEqual(list(response.context['rx'].items())[0][0], Medication.objects.first())
+        print
+        self.assertAlmostEqual(list(response.context['rx'].items())[0][1], 0.184)
 
     def test_calc_submit_button_does_not_send_empty_string(self):
         response = self.client.post('/rxcalc/calc', data={'weight': ''})
