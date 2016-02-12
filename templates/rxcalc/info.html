@@ -9,7 +9,7 @@
 
     {% regroup meds by category as category_list %}
 
-    <div class="container">
+    <div class="row">
         <ul class="rx-info-list">
         {% for med in category_list %}
             <li class="col-md-6"><h4>{{ med.grouper }}</h4>

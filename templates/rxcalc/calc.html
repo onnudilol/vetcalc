@@ -12,7 +12,7 @@
 
 {% block alert %}
     {% if errors %}
-        <div class="alert alert-danger">
+        <div class="row alert alert-danger">
             {% for error in errors %}
                 <div style="text-align:center">
                     <span>{{ error.as_text }}</span>
@@ -24,7 +24,7 @@
 {% endblock %}
 
 {% block table %}
-    <div class="container">
+    <div class="row">
 
         <table class="table table-hover table-responsive table-bordered" id="rx-table">
             <thead>
