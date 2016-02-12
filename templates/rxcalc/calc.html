@@ -7,12 +7,13 @@
 {% endblock %}
 
 {% block header_form %}
-    <div class="nav navbar-nav pull-right navbar-collapse">
+    <div class="pull-right">
         {% crispy form %}
     </div>
 {% endblock %}
 
 {% block alert %}
+    <div id="id_rx_errors">
     {% if errors %}
         <div class="row alert alert-danger">
             {% for error in errors %}
@@ -23,6 +24,7 @@
             {% endfor %}
         </div>
     {% endif %}
+    </div>
 {% endblock %}
 
 {% block table %}
