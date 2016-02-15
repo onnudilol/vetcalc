@@ -22,4 +22,3 @@ class RxInfoPageTest(FunctionalTest):
 
         # The url of the page is the slug of the medication name
         self.assertEqual(self.browser.current_url, self.server_url + '/rxcalc/info/tramadol')
-

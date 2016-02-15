@@ -1,5 +1,3 @@
-from collections import OrderedDict
-
 DOSAGE_INJECTION = {
     'Adequan': [1/50, '100 mg/mL', 'Non-steroidal anti-inflammatory', 'IM',
                 'Adequan Canine (for dogs) is used to control symptoms associated with degenerative or traumatic arthritis.'],

@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from rxcalc.models import Medication
+from rxcalc.models import Injection
 from rxcalc.dosage import DOSAGE_INJECTION
 
 
@@ -9,12 +9,12 @@ class Command(BaseCommand):
 
     def _parse_dict(self):
         for key, value in DOSAGE_INJECTION.items():
-            med, created = Medication.objects.get_or_create(name=key,
-                                                            factor=value[0],
-                                                            concentration=value[1],
-                                                            category=value[2],
-                                                            admin=value[3],
-                                                            desc=value[4])
+            med, created = Injection.objects.get_or_create(name=key,
+                                                           factor=value[0],
+                                                           concentration=value[1],
+                                                           category=value[2],
+                                                           admin=value[3],
+                                                           desc=value[4])
             med.save()
 
     def handle(self, *args, **options):

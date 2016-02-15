@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rxcalc.models import Medication
+from rxcalc.models import Injection
 from rxcalc.forms import WeightForm
 
 from collections import OrderedDict
@@ -10,7 +10,7 @@ def home(request):
 
 
 def calc_dosage(request):
-    meds = Medication.objects.all()
+    meds = Injection.objects.all()
     rx = dict()
 
     for med in meds:
@@ -39,15 +39,15 @@ def calc_dosage(request):
 
 
 def info(request):
-    meds = Medication.objects.all()
+    inj = Injection.objects.all()
     return render(request, 'rxcalc/info.html', {'navbar': 'info',
-                                                'meds': meds})
+                                                'inj': inj})
 
 
-def rx_info(request, slug):
-    med = Medication.objects.get(slug=slug)
+def inj_info(request, slug):
+    inj = Injection.objects.get(slug=slug)
     return render(request, 'rxcalc/rx.html', {'navbar': 'info',
-                                              'med': med})
+                                              'rx': inj})
 
 
 def treatment_sheet(request):

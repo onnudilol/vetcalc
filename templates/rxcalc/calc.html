@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-    <title>Rx Calculator - VetCalc</title>
+    <title>Injection Calculator - VetCalc</title>
 {% endblock %}
 
 {% block header_form %}
@@ -42,7 +42,7 @@
             <tbody>
                 {% for med, dosage in rx.items %}
                     <tr>
-                        <td><a href="{% url 'info_rx' med.slug %} ">{{ med.name }}</a></td>
+                        <td><a href="{% url 'info_inj' med.slug %} ">{{ med.name }}</a></td>
                         <td>{{ dosage }}</td>
                         <td>{{ med.concentration }}</td>
                         <td>{{ med.category }}</td>
@@ -64,4 +64,5 @@
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/js.cookie.js' %}"></script>
     <script src="{% static 'js/rx_table.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.tablesorter.min.js' %}"></script>
 {% endblock %}
