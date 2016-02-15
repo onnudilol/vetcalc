@@ -1,5 +1,6 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from rxcalc.models import Injection
+from rxcalc.models import CRI
 
 from selenium import webdriver
 
@@ -32,6 +33,8 @@ class FunctionalTest(StaticLiveServerTestCase):
         Injection.objects.create(name='Tramadol', factor=1/50, concentration='5 mg/mL',
                                  category='Narcotic', admin='PO BID',
                                  desc='It can treat moderate to severe pain.')
+        CRI.objects.create(name='Morphine', rates=[0.05, 0.005, 0.1, 0.001], units="mg", calc_type='simple')
+
         profile = webdriver.FirefoxProfile()
         profile.set_preference("browser.startup.homepage", "about:blank")
         profile.set_preference("startup.homepage_welcome_url", "about:blank")
