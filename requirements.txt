@@ -1,6 +1,16 @@
+decorator==4.0.9
 Django==1.9.2
 django-crispy-forms==1.6.0
 django-pipeline==1.6.4
 futures==3.0.4
+ipython==4.1.1
+ipython-genutils==0.1.0
+jsonfield==1.0.3
+path.py==8.1.2
+pexpect==4.0.1
+pickleshare==0.6
+ptyprocess==0.5.1
 selenium==2.49.0
+simplegeneric==0.8.1
+traitlets==4.1.0
 wheel==0.26.0

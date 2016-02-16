@@ -1,7 +1,9 @@
 from django.test import TestCase
 from django.db import IntegrityError
+from django.core.exceptions import ValidationError
 
 from rxcalc.models import Injection
+from rxcalc.models import CRI
 
 
 class InjectionModelTest(TestCase):
@@ -53,3 +55,20 @@ class InjectionModelTest(TestCase):
     def test_slug_field_created_from_name_field(self):
         med = Injection.objects.create(name='Tramadol Super (Nighttime)')
         self.assertEqual('tramadol-super-nighttime', med.slug)
+
+
+class CRITest(TestCase):
+
+    def test_cri_model_serializes_json(self):
+        dose_rates = [0.5, 0.05, 0.10, 0.010]
+        med = CRI.objects.create(name='Morphine', calc_type='ez', units='mg', rates=[0.5, 0.05, 0.10, 0.010])
+        self.assertEqual(dose_rates, med.rates)
+
+    def test_cri_model_calc_type_only_has_two_choices(self):
+        med = CRI.objects.create(name='Dobutamine', calc_type='adv', units='mg')
+        med2 = CRI.objects.create(name='Metoclopramide', calc_type='adv', units='mg')
+        med_fail = CRI(name='Drugahol', calc_type='hxc', units='kg')
+
+        with self.assertRaises(ValidationError):
+            med_fail.save()
+            med_fail.full_clean()
