@@ -1,4 +1,5 @@
 from django.shortcuts import render
+
 from common.models import Injection
 from calc.forms import WeightForm
 
@@ -43,16 +44,16 @@ def calc_cri(request):
 
 
 def calc_cri_simple(request):
-    pass
+    return render(request, '404.html', {'navbar': 'calc'})
 
 
 def calc_cri_advanced(request):
-    pass
+    return render(request, '404.html', {'navbar': 'calc'})
 
 
 def calc_cri_cpr(request):
-    pass
+    return render(request, '404.html', {'navbar': 'calc'})
 
 
 def calc_cri_metoclopramide(request):
-    pass
+    return render(request, '404.html', {'navbar': 'calc'})
