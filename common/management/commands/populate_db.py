@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 
-from rxcalc.models import Injection
-from rxcalc.dosage import DOSAGE_INJECTION
+from common.models import Injection
+from common.dosage import DOSAGE_INJECTION
 
 
 class Command(BaseCommand):

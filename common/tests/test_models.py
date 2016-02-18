@@ -2,8 +2,8 @@ from django.test import TestCase
 from django.db import IntegrityError
 from django.core.exceptions import ValidationError
 
-from rxcalc.models import Injection
-from rxcalc.models import CRI
+from common.models import Injection
+from common.models import CRI
 
 
 class InjectionModelTest(TestCase):
