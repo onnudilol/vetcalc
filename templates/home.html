@@ -6,7 +6,7 @@
         <ul class="list-inline">
             <li class="col-md-4"><a href={% url 'calc' %}><img class="img-circle img-responsive img-home"  width="140" height="140" src="{% static 'img/doge.jpeg' %}"><h2>Calculate Dosages</h2></a></li>
             <li class="col-md-4"><a href={% url 'info' %}><img class="img-circle img-responsive img-home"  width="140" height="140" src="{% static 'img/cat.jpg' %}"><h2>Rx Info</h2></a></li>
-            <li class="col-md-4"><a href="/calc/tx_sheet"><img class="img-circle img-responsive img-home" width="140" height="140" src="{% static 'img/pills.jpg' %}"><h2>Create A Treatment Sheet</h2></a></li>
+            <li class="col-md-4"><a href={% url 'tx_sheet' %}><img class="img-circle img-responsive img-home" width="140" height="140" src="{% static 'img/pills.jpg' %}"><h2>Create A Treatment Sheet</h2></a></li>
         </ul>
     </div>
 {% endblock %}
