@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <ul>
+        <li><a href="{% url 'cri_simple' %}">Simple</a></li>
+        <li><a href="{% url 'cri_advanced' %}">Advanced</a></li>
+        <li><a href="{% url 'cri_cpr' %}">Post CPR</a></li>
+        <li><a href="{% url 'cri_metoclopramide' %}">Metoclopramide</a></li>
+    </ul>
+{% endblock %}
+
