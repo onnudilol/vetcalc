@@ -1,6 +1,7 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from rxcalc.models import Injection
-from rxcalc.models import CRI
+
+from common.models import Injection
+from common.models import CRI
 
 from selenium import webdriver
 

@@ -11,7 +11,7 @@ class CalcPageTest(FunctionalTest):
         # Dr. T is very upset.  He screams at Marfalo to prepare medication for a 12 lb dog.
         # Glancing through, he sees that the calc page displays several common medications used at the dog hospital.
         # He notices an input box to enter in the weight of the pet.
-        self.browser.get(self.server_url + '/rxcalc/calc')
+        self.browser.get(self.server_url + '/calc/injection/')
         self.assertEqual('Injection Calculator - VetCalc', self.browser.title)
 
         inputbox = self.get_item_input_box()

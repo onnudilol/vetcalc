@@ -3,13 +3,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>QUnit Example</title>
+    <title>Javascript Tests</title>
     <link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.21.0.css">
 </head>
 <body>
     <div id="qunit"></div>
-    <div id="qunit-fixture"></div>
+    <div id="qunit-fixture">
+
+    </div>
     <script src="//code.jquery.com/qunit/qunit-1.21.0.js"></script>
-    <script src="tests.js"></script>
+    <script src="../js/rx_table.js"></script>
+    <script>
+        test("smoke test", function() {
+           equal(1, 1, 'Maths!')
+        });
+    </script>
 </body>
 </html>

@@ -11,7 +11,7 @@ class RxInfoPageTest(FunctionalTest):
         # Fortuitously, the developer of VeTeCalc has implemented a page that displays useful rx info.
         # Marfalo opens up the page.
 
-        self.browser.get(self.server_url + '/rxcalc/info/')
+        self.browser.get(self.server_url + '/info/')
 
         # It displays a lists of medications much like the calc page.
         # Clicking on the name of a medication links to a page for the medication
@@ -21,4 +21,4 @@ class RxInfoPageTest(FunctionalTest):
         self.assertEqual('Tramadol - VetCalc', self.browser.title)
 
         # The url of the page is the slug of the medication name
-        self.assertEqual(self.browser.current_url, self.server_url + '/rxcalc/info/tramadol')
+        self.assertEqual(self.browser.current_url, self.server_url + '/info/tramadol/')

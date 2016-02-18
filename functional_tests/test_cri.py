@@ -11,7 +11,7 @@ class CRITest(FunctionalTest):
         # A client has brought in their dogs that got into a fight over a piece of chocolate and then
         # both of them got hit by a car.  It is an emergency and Marfalo needs to prepare IV fluids for them.
         # By serendipitous coincidence the dev of VetCalc has just implemented this feature.
-        self.browser.get(self.server_url + '/rxcalc/cri/')
+        self.browser.get(self.server_url + '/calc/cri/')
 
         # The CRI page displays options for simple and advanced calculations.  Marfalo only needs to prepare morphine,
         # so he chooses the simple calculator.
@@ -31,8 +31,8 @@ class CRITest(FunctionalTest):
         # Dr. T is shitting his pants and screams at Marfalo to prepare dobutamine.
         # Marfalo doesn't know what that is or what it does but luckily VetCalc has a page for that.
         # This time Marfalo uses the advanced calculator.
-        self.browser.get(self.server_url + '/rxcalc/cri/')
-        self.browser.find_elements_by_link_text('Advanced').send_keys(Keys.RETURN)
+        self.browser.get(self.server_url + '/calc/cri/')
+        self.browser.find_element_by_link_text('Advanced').send_keys(Keys.RETURN)
 
         # Marfalo sees an input box for weight, desired fluid rate, volume of remaining fluids, and desired
         # unit/kg/time infusion.
@@ -52,7 +52,7 @@ class CRITest(FunctionalTest):
     def test_post_cpr_calc(self):
         # Marfalo has resuscitated the dogs with mouth to mouth CPR.
         # Marfalo follows up with more drugs in the IV fluids.
-        self.browser.get(self.server_url + '/rxcalc/cri/')
+        self.browser.get(self.server_url + '/calc/cri/')
         self.browser.find_element_by_link_text('Post CPR').send_keys(Keys.RETURN)
 
         # This page is similar to the advanced CRI calculator, but has additional fields for dobutamine, dopamine,
@@ -75,7 +75,7 @@ class CRITest(FunctionalTest):
     def test_metoclopramide_calc(self):
         # All the drugs that were administered have made the dogs puke.  Dr. T prescribes more drugs to fix the problem.
         # Marfalo needs to prepare metoclopramide.
-        self.browser.get(self.server_url + '/rxcalc/cri/')
+        self.browser.get(self.server_url + '/calc/cri/')
         self.browser.find_element_by_link_text('Metoclopramide').send_keys(Keys.RETURN)
 
         # This page is similar to the advanced calculator, but has extra inputs for increasing the dosage.
