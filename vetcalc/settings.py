@@ -143,19 +143,23 @@ STATICFILES_FINDERS = (
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
+
 PIPELINE = {
     'PIPELINE_ENABLED': True,
     'COMPILERS': (
         'pipeline.compilers.sass.SASSCompiler',
     ),
-    # 'JAVASCRIPT': {
-    #     'vetcalc': {
-    #         'source_filenames': (
-    #             '',
-    #         ),
-    #         'output_filename': '',
-    #     }
-    # },
+    'JAVASCRIPT': {
+        'calc_inj': {
+            'source_filenames': (
+                'js/main.js',
+                'js/rx_table.js'
+                'js/js.cookie.js'
+                'js/jquery.tablesorter.min.js'
+            ),
+            'output_filename': 'js/calc_inj.min.js',
+        }
+    },
     'STYLESHEETS': {
         'vetcalc': {
             'source_filenames': (
