@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from rxcalc.forms import INVALID_INPUT_ERROR, WeightForm
+from calc.forms import INVALID_INPUT_ERROR, WeightForm
 
 
 class WeightFormTest(TestCase):
