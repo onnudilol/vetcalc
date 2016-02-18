@@ -17,12 +17,19 @@ from django.conf.urls import url, include
 from django.views.generic import TemplateView
 # from django.contrib import admin
 
-from rxcalc import urls as rxcalc_urls
-from rxcalc import views as rxcalc_views
+from common import views as common_views
+
+from calc import urls as calc_urls
+from calc import views as calc_views
+
+from info import urls as info_urls
+
+from treatment_sheets import urls as tx_sheet_urls
 
 urlpatterns = [
-    # url(r'^admin/', admin.site.urls),
-    url(r'^$', rxcalc_views.home, name='home'),
-    url(r'^rxcalc/', include(rxcalc_urls)),
+    url(r'^$', common_views.home, name='home'),
+    url(r'^calc/', include(calc_urls)),
+    url(r'^info/', include(info_urls)),
+    url(r'^tx_sheet/', include(tx_sheet_urls)),
     url(r'^disclaimer/', TemplateView.as_view(template_name='disclaimer.html'), name='disclaimer'),
 ]

@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'pipeline',
-    'rxcalc',
+    'common',
+    'calc',
+    'info',
 ]
 
 MIDDLEWARE_CLASSES = [
