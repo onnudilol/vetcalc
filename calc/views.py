@@ -6,10 +6,6 @@ from calc.forms import WeightForm
 from collections import OrderedDict
 
 
-def calc(request):
-    return render(request, 'calc/calc.html', {'navbar': 'calc'})
-
-
 def calc_injection(request):
     meds = Injection.objects.all()
     rx = dict()
@@ -37,10 +33,6 @@ def calc_injection(request):
     return render(request, 'calc/injection.html', {'rx': rx_ordered,
                                                    'form': WeightForm(),
                                                    'navbar': 'calc'})
-
-
-def calc_cri(request):
-    return render(request, 'calc/cri.html', {'navbar': 'calc'})
 
 
 def calc_cri_simple(request):

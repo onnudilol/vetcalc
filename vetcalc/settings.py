@@ -150,15 +150,20 @@ PIPELINE = {
         'pipeline.compilers.sass.SASSCompiler',
     ),
     'JAVASCRIPT': {
+        'tablesorter': {
+            'source_filenames': (
+                'js/jquery.tablesorter.combined.js',
+            ),
+            'output_filename': 'js/jquery.tablesorter.combined.min.js',
+        },
         'calc_inj': {
             'source_filenames': (
                 'js/main.js',
-                'js/rx_table.js'
-                'js/js.cookie.js'
-                'js/jquery.tablesorter.min.js'
+                'js/rx_table.js',
+                'js/js.cookie.js',
             ),
             'output_filename': 'js/calc_inj.min.js',
-        }
+        },
     },
     'STYLESHEETS': {
         'vetcalc': {

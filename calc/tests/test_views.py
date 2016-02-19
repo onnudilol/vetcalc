@@ -35,3 +35,8 @@ class CRISimpleTest(TestCase):
 
     def test_cri_simple_uses_cri_simple_template(self):
         response = self.client.get('/calc/cri/')
+        self.assertTemplateUsed(response, 'calc/cri.html')
+
+    def test_cri_page_(self):
+        pass
+

@@ -57,7 +57,7 @@
 
 {% block javascript %}
     {{ block.super }}
-    <script type="text/javascript" src="{% static 'js/jquery.tablesorter.combined.js' %}"></script>
+    {% javascript 'tablesorter' %}
     <script>
         $(document).ready(function() {
             $("table").tablesorter();
