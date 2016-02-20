@@ -10,6 +10,7 @@ class Medication(models.Model):
     category = models.CharField(max_length=140, blank=True, default='')
     concentration = models.CharField(max_length=140, blank=True, default='')
     desc = models.TextField(blank=True, default='')
+    factor = models.FloatField(default=0.0)
 
     class Meta:
         abstract = True
@@ -24,7 +25,6 @@ class Medication(models.Model):
 
 
 class Injection(Medication):
-    factor = models.FloatField(default=0.0)
     admin = models.CharField(max_length=140, blank=True, default='')
 
 
@@ -36,3 +36,4 @@ class CRI(Medication):
     calc_type = models.CharField(max_length=3, choices=CALC_TYPE_CHOICES, default='')
     rates = JSONField()
     units = models.CharField(max_length=3, default='')
+    time = models.CharField(max_length=3, default='')

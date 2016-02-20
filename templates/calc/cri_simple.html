@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load multiply %}
+{% load pipeline %}
+
+{% block title %}
+    <title>CRI Simple Calculator - VetCalc</title>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        {% crispy form %}
+    </div>
+{% endblock %}
+
+{% block table %}
+    <div class="row" id="id_cri_table">
+        {% for med, dosage in rx.items %}
+        <h3>{{ med.name }}</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="header">Desired Rate ({{ med.units }}/kg/{{ med.time }})</th>
+                    <th class="header">mL/Hour</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rate, dose in dosage  %}
+                    <tr>
+                        {% if med.name == 'Isoproteronol' %}
+                            <td>{{ rate|multiply:200 }}</td>
+                        {% else %}
+                            <td>{{ rate }}</td>
+                        {% endif %}
+                            <td>{{ dose }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    {% javascript 'tablesorter' %}
+    <script>
+        $(document).ready(function() {
+            $("table").tablesorter();
+        });
+    </script>
+    {% javascript 'main' %}
+    {% javascript 'calc_cri_simple' %}
+{% endblock %}

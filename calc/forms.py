@@ -18,7 +18,7 @@ class NoBulletErrorList(ErrorList):
         return '\n'.join('%s' % e for e in self)
 
 
-class WeightForm(forms.Form):
+class CalcInjForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -26,7 +26,7 @@ class WeightForm(forms.Form):
         self.helper = FormHelper()
         self.helper.form_method = 'GET'
         self.helper.form_class = 'navbar-form'
-        self.helper.form_id = 'id_rx_form'
+        self.helper.form_id = 'id_calc_inj_form'
         self.helper.form_show_labels = False
 
         glyph = '<span class="glyphicon glyphicon-play"></span>'
@@ -38,3 +38,23 @@ class WeightForm(forms.Form):
     weight = forms.FloatField(label='Weight',
                               error_messages={'invalid': INVALID_INPUT_ERROR},
                               widget=forms.NumberInput(attrs={'placeholder': 'Enter weight'}))
+
+
+class CRISimpleForm(forms.Form):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'GET'
+        self.helper.form_id = 'id_cri_simple_form'
+
+        glyph = '<span class="glyphicon glyphicon-play"></span>'
+
+        self.helper.layout = Layout(
+            FieldWithButtons(Field('weight'),
+                             StrictButton(content=glyph, type='submit', css_class='btn-primary'))
+        )
+
+    weight = forms.FloatField(label='Weight',
+                              error_messages={'invalid': INVALID_INPUT_ERROR},
+                              widget=forms.NumberInput(attrs={'placeholder': 'Enter weight (kg)'}))

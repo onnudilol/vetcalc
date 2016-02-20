@@ -117,6 +117,17 @@ DOSAGE_INJECTION = {
                 'Cerenia is indicated for the prevention of acute vomiting and prevention of vomiting due to motion sickness in dogs. It is intended for use in dogs 8 weeks of age or older.']
 }
 
-DOSAGE_RX = {
-
+DOSAGE_CRI = {
+    'Diazepam': [[0.1, 0.2, 0.3, 0.4], 1/5, '5 mg/mL', 'Sedative', 'ez', 'mg', 'hr',
+                 'Diazepam is used to treat anxiety disorders, alcohol withdrawal symptoms, or muscle spasms. Diazepam is sometimes used with other medications to treat seizures.'],
+    'Diltiazem': [[0.2, 0.3, 0.4, 0.5], 1/5, '5 mg/mL', 'Vasodilator', 'ez', 'mg', 'hr',
+                  'Diltiazem is used to treat hypertension (high blood pressure), angina (chest pain), and certain heart rhythm disorders.'],
+    'Fentanyl': [[1, 2, 3, 4, 5], 1/50, '50 μg/mL', 'Narcotic', 'ez', 'μg', 'hr',
+                 'Fentanyl is a powerful synthetic opiate analgesic similar to but more potent than morphine. It is typically used to treat patients with severe pain, or to manage pain after surgery.'],
+    'Isoproteronol': [[0.0001, 0.0002, 0.0003, 0.0004], 60, '0.2 mg/mL', 'Sympathomimetic', 'ez', 'μg', 'hr',
+                      'Treating certain heart problems (eg, heart attack, congestive heart failure), blood vessel problems (eg, shock), and certain types of irregular heartbeat (eg, heart block). It is also used during anesthesia to treat airway constriction.'],
+    'Morphine': [[0.05, 0.5, 0.10, 1.0], 1/15, '15 mg/mL', 'Narcotic', 'ez', 'mg', 'hr',
+                 'Morphine is used to treat moderate to severe pain. Short-acting formulations are taken as needed for pain.  The extended-release form of this medicine is for around-the-clock treatment of pain. This form of morphine is not for use on an as-needed basis for pain.'],
+    'Propofol': [[0.05, 0.1, 0.15, 0.2], 6, '10 mg/mL', 'General anesthetic', 'ez', 'mg', 'min',
+                 'Propofol marketed as Diprivan among others, is a short-acting medication that results in a decreased level of consciousness and lack of memory for events. Its uses include the starting and maintenance of general anesthesia, sedation for mechanically ventilated adults, and procedural sedation. It is also used for status epilepticus if other medications have not worked. It is given intravenously. Maximum effect takes about two minutes to occur and it typically lasts five to ten minutes.'],
 }

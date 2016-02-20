@@ -1,14 +1,7 @@
 @import "_material_color";
 
-.bg-1 {
-  background: $teal-500;
-}
-
-.bg-2 {
-  background: $teal-200;
-}
-
 .navbar-default {
+  background: $teal-500;
   .navbar-header {
     img {
       padding-top: 4px;
@@ -18,8 +11,8 @@
       color: #ffffff;
     }
   }
-  .navbar-collapse {
-    .navbar-nav {
+  .navbar-nav {
+    li {
       a, a:hover {
         color: #ffffff;
       }
@@ -36,13 +29,11 @@
   background: $teal-A700;
 }
 
-.navbar-default .navbar-nav .open .dropdown-menu > li > a, a:hover {
-  color: #ffffff;
-}
-
-.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover {
-  color: #ffffff;
-  background: $teal-A400
+.navbar-default .navbar-nav .open .dropdown-menu > li {
+  a, a:hover {
+    color: #ffffff;
+    background: transparent;
+  }
 }
 
 ul .dropdown-menu {
@@ -85,6 +76,7 @@ ul .dropdown-menu {
 }
 
 .footer {
+  background: $teal-200;
     position: fixed;
     bottom: 0;
     width: 100%;

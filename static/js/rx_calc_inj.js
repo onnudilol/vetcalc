@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#id_rx_form').submit(function(event) {
+    $('#id_calc_inj_form').submit(function(event) {
         event.preventDefault();
         var weight = $('#id_weight').val();
         var resort = false;

@@ -150,6 +150,13 @@ PIPELINE = {
         'pipeline.compilers.sass.SASSCompiler',
     ),
     'JAVASCRIPT': {
+        'main': {
+            'source_filenames': (
+                'js/main.js',
+                'js/js.cookie.js'
+            ),
+            'output_filename': 'js/main.min.js'
+        },
         'tablesorter': {
             'source_filenames': (
                 'js/jquery.tablesorter.combined.js',
@@ -158,11 +165,15 @@ PIPELINE = {
         },
         'calc_inj': {
             'source_filenames': (
-                'js/main.js',
-                'js/rx_table.js',
-                'js/js.cookie.js',
+                'js/rx_calc_inj.js',
             ),
-            'output_filename': 'js/calc_inj.min.js',
+            'output_filename': 'js/rx_calc_inj.min.js',
+        },
+        'calc_cri_simple': {
+            'source_filenames': (
+                'js/rx_cri_simple.js'
+            ),
+            'output_filename': 'js/rx_cri_simple.min.js'
         },
     },
     'STYLESHEETS': {
