@@ -153,9 +153,9 @@ PIPELINE = {
         'main': {
             'source_filenames': (
                 'js/main.js',
-                'js/js.cookie.js'
+                'js/js.cookie.js',
             ),
-            'output_filename': 'js/main.min.js'
+            'output_filename': 'js/main.min.js',
         },
         'tablesorter': {
             'source_filenames': (
@@ -171,9 +171,9 @@ PIPELINE = {
         },
         'calc_cri_simple': {
             'source_filenames': (
-                'js/rx_cri_simple.js'
+                'js/rx_cri_simple.js',
             ),
-            'output_filename': 'js/rx_cri_simple.min.js'
+            'output_filename': 'js/rx_cri_simple.min.js',
         },
     },
     'STYLESHEETS': {
