@@ -12,8 +12,12 @@
             <h1>{{ rx.name }}</h1>
             <h3>Category</h3>
             <p>{{ rx.category }}</p>
-            <h3>Administration method</h3>
-            <p>{{ rx.admin }}</p>
+            <h3>Concentration</h3>
+            <p>{{ rx.concentration }}</p>
+            {% if rx.admin %}
+                <h3>Administration method</h3>
+                <p>{{ rx.admin }}</p>
+            {% endif %}
             <h3>Description</h3>
             <p>{{ rx.desc }}</p>
         </div>

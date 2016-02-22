@@ -16,7 +16,7 @@
 {% block table %}
     <div class="row" id="id_cri_table">
         {% for med, dosage in rx.items %}
-        <h3>{{ med.name }}</h3>
+        <a href="{% url 'info_cri' med.slug %}"><h3>{{ med.name }}</h3></a>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -44,12 +44,6 @@
 
 {% block javascript %}
     {{ block.super }}
-    {% javascript 'tablesorter' %}
-    <script>
-        $(document).ready(function() {
-            $("table").tablesorter();
-        });
-    </script>
     {% javascript 'main' %}
     {% javascript 'calc_cri_simple' %}
 {% endblock %}

@@ -6,7 +6,8 @@ $(document).ready(function() {
 
         $.get('/calc/cri/simple/', {weight:weight}, function(data) {
             var calc_output = $('<div />').append(data).find('#id_cri_table').html();
-            $('#id_cri_table').html(calc_output).trigger('updateAll', [resort]);
+            $('#id_cri_table').html(calc_output)
+
         });
     });
 });

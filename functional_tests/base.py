@@ -34,7 +34,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         Injection.objects.create(name='Tramadol', factor=1/50, concentration='5 mg/mL',
                                  category='Narcotic', admin='PO BID',
                                  desc='It can treat moderate to severe pain.')
-        CRI.objects.create(name='Morphine', rates=[0.05, 0.005, 0.1, 0.001], units="mg", calc_type='simple')
+        CRI.objects.create(name='Morphine', rates=[0.05, 0.005, 0.1, 0.001], factor=1/15, units="mg", calc_type='ez')
 
         profile = webdriver.FirefoxProfile()
         profile.set_preference("browser.startup.homepage", "about:blank")
@@ -50,5 +50,3 @@ class FunctionalTest(StaticLiveServerTestCase):
     def get_item_input_box(self):
         return self.browser.find_element_by_id('id_weight')
 
-    def get_kg_item_input_box(self):
-        return self.browser.find_element_by_id('id_weight_kg')

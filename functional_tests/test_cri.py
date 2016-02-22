@@ -14,12 +14,12 @@ class CRITest(FunctionalTest):
         self.browser.get(self.server_url + '/calc/cri/simple/')
 
         # The page has an input box for weight.  Marfalo calculates the CRI dosage for an 11 kg dog.
-        inputbox = self.get_kg_item_input_box()
+        inputbox = self.get_item_input_box()
         inputbox.send_keys('25\n')
 
         # The page updates and displays a table with the calculated dosages.
         time.sleep(5)
-        calc_cri = self.browser.find_element_by_xpath("//tbody/tr/td[2]")
+        calc_cri = self.browser.find_element_by_xpath("//tbody/tr/td[2]").text
         self.assertAlmostEqual('0.083', calc_cri)
 
     def test_advanced_cri_page(self):

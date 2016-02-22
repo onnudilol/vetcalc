@@ -122,7 +122,7 @@ DOSAGE_CRI = {
                  'Diazepam is used to treat anxiety disorders, alcohol withdrawal symptoms, or muscle spasms. Diazepam is sometimes used with other medications to treat seizures.'],
     'Diltiazem': [[0.2, 0.3, 0.4, 0.5], 1/5, '5 mg/mL', 'Vasodilator', 'ez', 'mg', 'hr',
                   'Diltiazem is used to treat hypertension (high blood pressure), angina (chest pain), and certain heart rhythm disorders.'],
-    'Fentanyl': [[1, 2, 3, 4, 5], 1/50, '50 μg/mL', 'Narcotic', 'ez', 'μg', 'hr',
+    'Fentanyl': [[1.0, 2.0, 3.0, 4.0, 5.0], 1/50, '50 μg/mL', 'Narcotic', 'ez', 'μg', 'hr',
                  'Fentanyl is a powerful synthetic opiate analgesic similar to but more potent than morphine. It is typically used to treat patients with severe pain, or to manage pain after surgery.'],
     'Isoproteronol': [[0.0001, 0.0002, 0.0003, 0.0004], 60, '0.2 mg/mL', 'Sympathomimetic', 'ez', 'μg', 'hr',
                       'Treating certain heart problems (eg, heart attack, congestive heart failure), blood vessel problems (eg, shock), and certain types of irregular heartbeat (eg, heart block). It is also used during anesthesia to treat airway constriction.'],

@@ -9,11 +9,11 @@
 
     <h1>Injections</h1>
 
-    {% regroup inj by category as category_list %}
+    {% regroup inj by category as inj_category_list %}
 
     <div class="row">
         <ul class="injection-info-list">
-        {% for inj in category_list %}
+        {% for inj in inj_category_list %}
             <li class="col-md-6"><h4>{{ inj.grouper }}</h4>
                 <ul>
                     {% for item in inj.list %}
@@ -22,6 +22,24 @@
                 </ul>
             </li>
         {% endfor %}
+        </ul>
+    </div>
+
+    <h1>CRI</h1>
+
+    {% regroup cri by category as cri_category_list %}
+
+    <div class="row">
+        <ul class="cri-info-list">
+            {% for cri in cri_category_list %}
+                <li class="col-md-6"><h4>{{ cri.grouper }}</h4>
+                    <ul>
+                        {% for item in cri.list %}
+                            <li><a href="{% url 'info_cri' item.slug %}">{{ item.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
         </ul>
     </div>
 
