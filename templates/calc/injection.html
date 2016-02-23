@@ -30,28 +30,30 @@
 
 {% block table %}
     <div class="row">
-        <table class="table table-hover table-responsive table-bordered" id="id_rx_table">
-            <thead>
-                <tr>
-                    <th class="header">Medication</th>
-                    <th class="header">Dosage (mL)</th>
-                    <th class="header">Concentration</th>
-                    <th class="header">Category</th>
-                    <th class="header">Administration</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for med, dosage in rx.items %}
+        <div class="col-md-12">
+            <table class="table table-hover table-responsive table-bordered" id="id_rx_table">
+                <thead>
                     <tr>
-                        <td><a href="{% url 'info_inj' med.slug %} ">{{ med.name }}</a></td>
-                        <td>{{ dosage }}</td>
-                        <td>{{ med.concentration }}</td>
-                        <td>{{ med.category }}</td>
-                        <td>{{ med.admin }}</td>
+                        <th class="header">Medication</th>
+                        <th class="header">Dosage (mL)</th>
+                        <th class="header">Concentration</th>
+                        <th class="header">Category</th>
+                        <th class="header">Administration</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {% for med, dosage in rx.items %}
+                        <tr>
+                            <td><a href="{% url 'info_inj' med.slug %} ">{{ med.name }}</a></td>
+                            <td>{{ dosage }}</td>
+                            <td>{{ med.concentration }}</td>
+                            <td>{{ med.category }}</td>
+                            <td>{{ med.admin }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}
 
