@@ -17,35 +17,37 @@
 
 {% block table %}
     <div class="row" id="id_cri_table">
-        {% for med, dosage in rx.items %}
-        <a href="{% url 'info_cri' med.slug %}"><h3>{{ med.name }} ({{ med.concentration }})</h3></a>
-            {% if med.name == 'Diltiazem' %}
-                <p>Slow bolus dose (0.25 mg/kg)</p>
-                {% for key, value in bolus.items %}
-                    <p><span>{{ value }}</span><span> {{ key }}</span></p>
-                {% endfor %}
-            {% endif %}
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th class="header">Desired Rate ({{ med.units }}/kg/{{ med.time }})</th>
-                    <th class="header">mL/Hour</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for rate, dose in dosage  %}
+        <div class="col-md-12">
+            {% for med, dosage in rx.items %}
+            <a href="{% url 'info_cri' med.slug %}"><h3>{{ med.name }} ({{ med.concentration }})</h3></a>
+                {% if med.name == 'Diltiazem' %}
+                    <p>Slow bolus dose (0.25 mg/kg)</p>
+                    {% for key, value in bolus.items %}
+                        <p><span>{{ value }}</span><span> {{ key }}</span></p>
+                    {% endfor %}
+                {% endif %}
+            <table class="table table-bordered">
+                <thead>
                     <tr>
-                        {% if med.name == 'Isoproteronol' %}
-                            <td>{{ rate|multiply:200 }}</td>
-                        {% else %}
-                            <td>{{ rate }}</td>
-                        {% endif %}
-                            <td>{{ dose }}</td>
+                        <th class="header">Desired Rate ({{ med.units }}/kg/{{ med.time }})</th>
+                        <th class="header">mL/Hour</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% endfor %}
+                </thead>
+                <tbody>
+                    {% for rate, dose in dosage  %}
+                        <tr>
+                            {% if med.name == 'Isoproteronol' %}
+                                <td>{{ rate|multiply:200 }}</td>
+                            {% else %}
+                                <td>{{ rate }}</td>
+                            {% endif %}
+                                <td>{{ dose }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endfor %}
+        </div>
     </div>
 
 {% endblock %}
