@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('submit-id-submit').submit(function(event) {
+    $('#submit-id-submit').submit(function(event) {
         event.preventDefault();
         var weight = $('#id_weight').val();
         var rate = $('#id_rate').val();

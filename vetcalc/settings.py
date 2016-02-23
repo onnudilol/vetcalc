@@ -180,7 +180,7 @@ PIPELINE = {
                 'js/rx_cri_adv.js',
             ),
             'output_filename': 'js/rx_cri_adv.min.js',
-        }
+        },
     },
     'STYLESHEETS': {
         'vetcalc': {
