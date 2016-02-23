@@ -9,14 +9,22 @@
 
 {% block content %}
     <div class="row">
-        {% crispy form %}
+        <div class="col-md-12">
+            {% crispy form %}
+        </div>
     </div>
 {% endblock %}
 
 {% block table %}
     <div class="row" id="id_cri_table">
         {% for med, dosage in rx.items %}
-        <a href="{% url 'info_cri' med.slug %}"><h3>{{ med.name }}</h3></a>
+        <a href="{% url 'info_cri' med.slug %}"><h3>{{ med.name }} ({{ med.concentration }})</h3></a>
+            {% if med.name == 'Diltiazem' %}
+                <p>Slow bolus dose (0.25 mg/kg)</p>
+                {% for key, value in bolus.items %}
+                    <p><span>{{ value }}</span><span> {{ key }}</span></p>
+                {% endfor %}
+            {% endif %}
         <table class="table table-bordered">
             <thead>
                 <tr>

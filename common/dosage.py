@@ -117,7 +117,7 @@ DOSAGE_INJECTION = {
                 'Cerenia is indicated for the prevention of acute vomiting and prevention of vomiting due to motion sickness in dogs. It is intended for use in dogs 8 weeks of age or older.']
 }
 
-DOSAGE_CRI = {
+DOSAGE_CRI_SIMPLE = {
     'Diazepam': [[0.1, 0.2, 0.3, 0.4], 1/5, '5 mg/mL', 'Sedative', 'ez', 'mg', 'hr',
                  'Diazepam is used to treat anxiety disorders, alcohol withdrawal symptoms, or muscle spasms. Diazepam is sometimes used with other medications to treat seizures.'],
     'Diltiazem': [[0.2, 0.3, 0.4, 0.5], 1/5, '5 mg/mL', 'Vasodilator', 'ez', 'mg', 'hr',
@@ -130,4 +130,18 @@ DOSAGE_CRI = {
                  'Morphine is used to treat moderate to severe pain. Short-acting formulations are taken as needed for pain.  The extended-release form of this medicine is for around-the-clock treatment of pain. This form of morphine is not for use on an as-needed basis for pain.'],
     'Propofol': [[0.05, 0.1, 0.15, 0.2], 6, '10 mg/mL', 'General anesthetic', 'ez', 'mg', 'min',
                  'Propofol marketed as Diprivan among others, is a short-acting medication that results in a decreased level of consciousness and lack of memory for events. Its uses include the starting and maintenance of general anesthesia, sedation for mechanically ventilated adults, and procedural sedation. It is also used for status epilepticus if other medications have not worked. It is given intravenously. Maximum effect takes about two minutes to occur and it typically lasts five to ten minutes.'],
+}
+
+DOSAGE_CRI_ADVANCED = {
+    'Dopamine': ['2 to 8', 1/40000, '40 mg/mL', 'Vasosuppresor', 'adv',
+                 'Diazepam is used for treating shock and low blood pressure due to heart attack, trauma, infections, surgery, and other causes. It is also used to help improve heart function when it is unable to pump enough blood.'],
+    'Dobutamine': ['5 to 15', 1/12500, '12.5 mg/mL', 'Sympathomimetic', 'adv',
+                   'Dobutamine is a sympathomimetic drug used in the treatment of heart failure and cardiogenic shock.'],
+    'Ketamine': ['2', 1/100000, '100 mg/mL', 'General anesthetic', 'adv',
+                 'Ketamine is used for inducing anesthesia (lack of sensation or feeling) before surgery or certain procedures that do not require skeletal muscle relaxation.'],
+    'Lidocaine': ['50 to 100', 1/20000, '20 mg/mL', 'Local anesthetic', 'adv',
+                  'Lidocaine, also known as xylocaine and lignocaine, is a medication used to numb tissue in a specific area and to treat ventricular tachycardia.'],
+    'Procainamide': ['30', 1/100000, '100 mg/mL', 'Antiarrhythmic', 'adv',
+                     'Procainamide is used for treating certain abnormal heart rhythms.'],
+
 }

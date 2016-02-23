@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 
 from common.models import Injection, CRI
-from common.dosage import DOSAGE_INJECTION, DOSAGE_CRI
+from common.dosage import DOSAGE_INJECTION, DOSAGE_CRI_SIMPLE, DOSAGE_CRI_ADVANCED
 
 
 class Command(BaseCommand):
@@ -19,7 +19,7 @@ class Command(BaseCommand):
                                                               })
             inj.save()
 
-        for key, value in DOSAGE_CRI.items():
+        for key, value in DOSAGE_CRI_SIMPLE.items():
             cri, created = CRI.objects.update_or_create(name=key,
                                                         defaults={
                                                             'rates': value[0],
@@ -32,6 +32,17 @@ class Command(BaseCommand):
                                                             'desc': value[7]
                                                         })
             cri.save()
+
+        for key, value in DOSAGE_CRI_ADVANCED.items():
+            cri, created = CRI.objects.update_or_create(name=key,
+                                                        defaults={
+                                                            'recommended_rates': value[0],
+                                                            'factor': value[1],
+                                                            'concentration': value[2],
+                                                            'category': value[3],
+                                                            'calc_type': value[4],
+                                                            'desc': value[5]
+                                                        })
 
     def handle(self, *args, **options):
         self._parse_dict()

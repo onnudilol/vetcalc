@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load pipeline %}
+
+{% block title %}
+    <title>CRI Advanced Calculator - Vetcalc</title>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            {% crispy form %}
+            {% if form.errors %}
+                <p>{{ form.errors }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row" id="id_dosages">
+        <div class="col-md-12">
+            {% for med, dosage in rx.items %}
+                <a href="{% url 'info_cri' med.slug %}"><h3>{{ med.name }} ({{ med.concentration }})</h3></a>
+                <p><b>Recommended rates</b>: {{ med.recommended_rates }} μg/kg/min</p>
+                <p><b>30 mL/lb/day maintenance rate</b>: {% if dosage.maint %}<span class="bg-success">{{ dosage.maint }}</span>{% else %}___{% endif %}</p>
+                <p><b>30 * weight (kg) + 70 maintenance rate</b>: {% if dosage.maint_plus %}<span class="bg-success">{{ dosage.maint_plus }}</span>{% else %}___{% endif %}</p>
+                <h4><b>Constant Rate Infusion</b></h4>
+                <p>For accuracy, discard {% if dosage.add %}<span class="bg-success">{{ dosage.add }}</span>{% else %}___{% endif %} mLs of IV fluid.
+                    Add {% if dosage.add %}<span class="bg-success">{{ dosage.add }}</span>{% else %}___{% endif %} mLs of {{ med.name }} to the
+                    {% if request.GET.volume %}<span class="bg-success">{{ request.GET.volume }}</span>{% else %}___{% endif %} mL IV bag.
+                    Delivered at {% if request.GET.rate %}<span class="bg-success">{{ request.GET.rate }}</span>{% else %}___{% endif %} mL/hr,
+                    the patient will receive a constant infusion of {% if request.GET.infusion %}<span class="bg-success">{{ request.GET.infusion }}</span>{% else %}___{% endif %} μg/kg/min.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    {% javascript 'main' %}
+    {% javascript 'calc_cri_advanced' %}
+{% endblock %}

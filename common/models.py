@@ -35,5 +35,6 @@ class CRI(Medication):
 
     calc_type = models.CharField(max_length=3, choices=CALC_TYPE_CHOICES, default='')
     rates = JSONField()
+    recommended_rates = models.CharField(max_length=10, default='')
     units = models.CharField(max_length=3, default='')
     time = models.CharField(max_length=3, default='')
