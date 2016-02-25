@@ -2,7 +2,7 @@ from django.test import TestCase
 
 from common.models import Injection
 from common.models import CRI
-from calc.forms import CalcInjForm, CRISimpleForm, CRIAdvancedForm
+from calc.forms import CalcInjForm, CRISimpleForm, CRIAdvancedForm, CRIInsulinForm
 
 
 class InjectionTest(TestCase):
@@ -106,3 +106,42 @@ class CRIAdvancedTest(TestCase):
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         dosage = {'maint': 6.875, 'maint_plus': 6.042, 'add': 9.375}
         self.assertEqual(dosage, list(response.context['rx'].values())[0])
+
+
+class CRIInsulinTest(TestCase):
+
+    def test_cri_insulin_uses_cri_insulin_template(self):
+        CRI.objects.create(name='Insulin')
+        response = self.client.get('/calc/cri/insulin/')
+        self.assertTemplateUsed(response, 'calc/cri_insulin.html')
+
+    def test_cri_insulin_uses_insulin_form(self):
+        CRI.objects.create(name='Insulin')
+        response = self.client.get('/calc/cri/insulin/')
+        self.assertIsInstance(response.context['form'], CRIInsulinForm)
+
+    def test_cri_insulin_view_only_retrieves_insulin(self):
+        med = CRI.objects.create(name='Insulin')
+        response = self.client.get('/calc/cri/insulin/')
+        self.assertIn(med, response.context['rx'])
+
+    def test_cri_insulin_returns_correct_dosage(self):
+        CRI.objects.create(name='Insulin')
+        response = self.client.get('/calc/cri/insulin/', data={'weight': 5.5,
+                                                               'rate': 175,
+                                                               'volume': 1000,
+                                                               'replacement': 0.12},
+                                   HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        dosage = {'maint': 15.125, 'maint_plus': 9.792,
+                  'units_dog': 2.881, 'units_cat': 1.44,
+                  'phosphorus': 1.257, 'phosphorus_excess': 5.531}
+        self.assertEqual(dosage, list(response.context['rx'].values())[0])
+
+    def test_cri_insulin_does_not_submit_empty_strings(self):
+        CRI.objects.create(name='Insulin')
+        response = self.client.get('/calc/cri/insulin/', data={'weight': '',
+                                                               'rate': '',
+                                                               'volume': '',
+                                                               'replacement': ''},
+                                   HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertNotEqual(500, response.status_code)

@@ -91,3 +91,36 @@ class CRIAdvancedForm(forms.Form):
     infusion = forms.FloatField(label='Desired infusion rate',
                                 error_messages={'invalid': INVALID_INPUT_ERROR},
                                 widget=forms.NumberInput(attrs={'placeholder': 'Enter desired infusion rate'}))
+
+
+class CRIInsulinForm(forms.Form):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'GET'
+        self.helper.form_id = 'id_cri_insulin_form'
+
+        self.helper.layout = Layout(
+            Field('weight'),
+            Field('rate'),
+            Field('volume'),
+            Field('replacement'),
+            FormActions(Submit('submit', 'Submit'))
+        )
+
+    weight = forms.FloatField(label='Weight',
+                              error_messages={'invalid': INVALID_INPUT_ERROR},
+                              widget=forms.NumberInput(attrs={'placeholder': 'Enter weight (kg)'}))
+
+    rate = forms.FloatField(label='Fluid rate',
+                            error_messages={'invalid': INVALID_INPUT_ERROR},
+                            widget=forms.NumberInput(attrs={'placeholder': 'Enter rate (mL/hr)'}))
+
+    volume = forms.FloatField(label='Remaining volume',
+                              error_messages={'invalid': INVALID_INPUT_ERROR},
+                              widget=forms.NumberInput(attrs={'placeholder': 'Enter remaining volume (mL)'}))
+
+    replacement = forms.FloatField(label='Desired replacement rate',
+                                   error_messages={'invalid': INVALID_INPUT_ERROR},
+                                   widget=forms.NumberInput(attrs={'placeholder': 'Enter desired replacement rate'}))

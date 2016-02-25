@@ -42,3 +42,20 @@ class CRIAdvancedFormTest(TestCase):
                                      'vol': '',
                                      'infusion': ''})
         self.assertFalse(form.is_valid())
+
+
+class CRIInsulinFormTest(TestCase):
+
+    def test_form_rejects_non_numeric_input(self):
+        form = CRIAdvancedForm(data={'weight': 'wait',
+                                     'rate': 'eight',
+                                     'vol': 'volume',
+                                     'replacement': 'enplacement'})
+        self.assertFalse(form.is_valid())
+
+    def test_form_rejects_empty_string(self):
+        form = CRIAdvancedForm(data={'weight': '',
+                                     'rate': '',
+                                     'vol': '',
+                                     'replacement': ''})
+        self.assertFalse(form.is_valid())

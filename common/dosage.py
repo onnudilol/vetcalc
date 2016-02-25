@@ -143,5 +143,11 @@ DOSAGE_CRI_ADVANCED = {
                   'Lidocaine, also known as xylocaine and lignocaine, is a medication used to numb tissue in a specific area and to treat ventricular tachycardia.'],
     'Procainamide': ['30', 1/100000, '100 mg/mL', 'Antiarrhythmic', 'adv',
                      'Procainamide is used for treating certain abnormal heart rhythms.'],
+}
 
+DOSAGE_CRI_OTHER = {
+    'Insulin': ['0.03 to 0.12', 'Hormone',
+                'Insulin is a hormone made by the pancreas that allows the body to use sugar (glucose) from carbohydrates in food for energy or to store glucose for future use. Insulin helps keeps blood sugar level from getting too high (hyperglycemia) or too low (hypoglycemia).'],
+    'Metoclopramide': ['1 or 2', '5 mg/mL', 'Gut Motility Stimulator',
+                       'Metoclopramide increases muscle contractions in the upper digestive tract. This speeds up the rate at which the stomach empties into the intestines.  Metoclopramide is used short-term to treat heartburn caused by gastroesophageal reflux in people who have used other medications without relief of symptoms.  Metoclopramide is also used to treat slow gastric emptying in people with diabetes (also called diabetic gastroparesis), which can cause nausea, vomiting, heartburn, loss of appetite, and a feeling of fullness after meals.']
 }

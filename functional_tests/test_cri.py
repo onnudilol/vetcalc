@@ -33,16 +33,17 @@ class CRITest(FunctionalTest):
         # unit/kg/time infusion.
         # Marfalo inputs the relevant information.
         self.browser.find_element_by_id('id_weight').send_keys(7)
-        self.browser.find_element_by_id('id_fluid_rate').send_keys(3)
+        self.browser.find_element_by_id('id_rate').send_keys(3)
         self.browser.find_element_by_id('id_volume').send_keys(250)
         self.browser.find_element_by_id('id_infusion').send_keys(5)
         self.browser.find_element_by_class_name('btn').send_keys(Keys.RETURN)
 
         # The page returns a paragraph explaining how much dobutamine to add to the IV bag and at what rate the fluid
         # and infusion will be administered
-        calc_cri_adv = self.browser.find_element_by_css_selector('span')
-        self.assertIn('14.000', calc_cri_adv)
-        self.assertIn('5.000', calc_cri_adv)
+        time.sleep(5)
+        calc_cri_adv = self.browser.find_element_by_id('id_dosages')
+        self.assertIn('14.0', calc_cri_adv.text)
+        self.assertIn('5', calc_cri_adv.text)
 
     def test_post_cpr_calc(self):
         # Marfalo has resuscitated the dogs with mouth to mouth CPR.

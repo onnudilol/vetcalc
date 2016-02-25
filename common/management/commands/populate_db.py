@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 
 from common.models import Injection, CRI
-from common.dosage import DOSAGE_INJECTION, DOSAGE_CRI_SIMPLE, DOSAGE_CRI_ADVANCED
+from common.dosage import DOSAGE_INJECTION, DOSAGE_CRI_SIMPLE, DOSAGE_CRI_ADVANCED, DOSAGE_CRI_OTHER
 
 
 class Command(BaseCommand):
@@ -43,6 +43,21 @@ class Command(BaseCommand):
                                                             'calc_type': value[4],
                                                             'desc': value[5]
                                                         })
+
+        CRI.objects.update_or_create(name='Insulin',
+                                     defaults={
+                                         'recommended_rates': DOSAGE_CRI_OTHER['Insulin'][0],
+                                         'category': DOSAGE_CRI_OTHER['Insulin'][1],
+                                         'desc': DOSAGE_CRI_OTHER['Insulin'][2]
+                                     })
+
+        CRI.objects.update_or_create(name='Metoclopramide',
+                                     defaults={
+                                         'recommended_rates': DOSAGE_CRI_OTHER['Metoclopramide'][0],
+                                         'concentration': DOSAGE_CRI_OTHER['Metoclopramide'][1],
+                                         'category': DOSAGE_CRI_OTHER['Metoclopramide'][2],
+                                         'desc': DOSAGE_CRI_OTHER['Metoclopramide'][3]
+                                     })
 
     def handle(self, *args, **options):
         self._parse_dict()

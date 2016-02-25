@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from common.models import Injection, CRI
-from calc.forms import CalcInjForm, CRISimpleForm, CRIAdvancedForm
+from calc.forms import CalcInjForm, CRISimpleForm, CRIAdvancedForm, CRIInsulinForm
 
 from collections import OrderedDict
 
@@ -73,7 +73,6 @@ def calc_cri_advanced(request):
     meds = CRI.objects.filter(calc_type='adv')
     form = CRIAdvancedForm()
     rx = dict()
-    dogs = 'WHAT'
 
     for med in meds:
         rx[med] = dict()
@@ -86,28 +85,51 @@ def calc_cri_advanced(request):
             rate = float(request.GET['rate'])
             volume = float(request.GET['volume'])
             infusion = float(request.GET['infusion'])
-            dogs = 'doge'
 
             for med in meds:
                 rx[med] = {'maint': round((weight * 30 * 2.2)/24, 3),
                            'maint_plus': round(((weight * 30) + 70)/24, 3),
-                           'add': round((((weight * infusion) * med.factor) / (rate/60)) * volume, 3)}
+                           'add': round(((weight * infusion * med.factor) / (rate/60)) * volume, 3)}
 
         else:
-            dogs = 'NOPE'
             return render(request, 'calc/cri_advanced.html', {'form': form,
                                                               'navbar': 'calc',
-                                                              'rx': rx,
-                                                              'dogs': dogs})
+                                                              'rx': rx})
 
     return render(request, 'calc/cri_advanced.html', {'navbar': 'calc',
                                                       'form': form,
-                                                      'rx': rx,
-                                                      'dogs': dogs})
+                                                      'rx': rx})
 
 
 def calc_cri_insulin(request):
-    return render(request, '404.html', {'navbar': 'calc'})
+    insulin = CRI.objects.get(name='Insulin')
+    form = CRIInsulinForm()
+    rx = {insulin: dict()}
+
+    if request.method == 'GET' and request.is_ajax():
+        form = CRIInsulinForm(data=request.GET)
+
+        if form.is_valid():
+            weight = float(request.GET['weight'])
+            rate = float(request.GET['rate'])
+            volume = float(request.GET['volume'])
+            replacement = float(request.GET['replacement'])
+
+            rx[insulin] = {'maint': round((weight * 2.2 * 30)/24, 3),
+                           'maint_plus': round(((weight * 30) + 70)/24, 3),
+                           'units_dog': round(((weight * 2.2) / (rate * 24)) * volume, 3),
+                           'units_cat': round((weight * 1.1) / (rate * 24) * volume, 3),
+                           'phosphorus': round(((weight * replacement/3) * volume)/rate, 3),
+                           'phosphorus_excess': round((((weight * replacement/3) * volume)/rate) * 4.4 * 1000 / volume, 3)}
+
+        else:
+            return render(request, 'calc/cri_insulin.html', {'navbar': 'calc',
+                                                             'form': form,
+                                                             'rx': rx})
+
+    return render(request, 'calc/cri_insulin.html', {'navbar': 'calc',
+                                                     'form': form,
+                                                     'rx': rx})
 
 
 def calc_cri_cpr(request):

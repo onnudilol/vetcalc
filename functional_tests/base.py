@@ -35,6 +35,7 @@ class FunctionalTest(StaticLiveServerTestCase):
                                  category='Narcotic', admin='PO BID',
                                  desc='It can treat moderate to severe pain.')
         CRI.objects.create(name='Morphine', rates=[0.05, 0.005, 0.1, 0.001], factor=1/15, units="mg", calc_type='ez')
+        CRI.objects.create(name='Dobutamine', factor=1/12500, calc_type='adv')
 
         profile = webdriver.FirefoxProfile()
         profile.set_preference("browser.startup.homepage", "about:blank")

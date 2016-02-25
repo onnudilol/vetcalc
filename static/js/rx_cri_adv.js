@@ -7,8 +7,8 @@ $(document).ready(function() {
         var infusion = $('#id_infusion').val();
 
         $.get('/calc/cri/advanced/', {weight:weight, rate:rate, volume:volume, infusion:infusion}, function(data) {
-            var calc_output = $('<div />').append(data).find('#id_dosages').html();
-            $('#id_dosages').html(calc_output)
+            var calc_output = $('<div />').append(data).find('#id_cri_adv_dosages').html();
+            $('#id_cri_adv_dosages').html(calc_output)
         });
     });
 });
