@@ -21,6 +21,9 @@
                 <p><b>30 mL/lb/day maintenance rate:</b> {% if dosage.maint %}<span class="bg-success">{{ dosage.maint }}</span>{% else %}___{% endif %}</p>
                 <p><b>30 * weight (kg) + 70 maintenance rate:</b> {% if dosage.maint_plus %}<span class="bg-success">{{ dosage.maint_plus }}</span>{% else %}___{% endif %}</p>
                 <p>50 mL of the insulin solution should be allowed to flow through the tubing and be discarded. This will saturate the insulin binding sites on the plastic.</p>
+                <p>Supplement glucose when serum level is less than 250 gm/dL.</p>
+                <p>Monitor serum phosphorous and supplement when is less than 2.0 mg/dl.</p>
+                <p>Hemolysis may indicate significant hypophosphatemia</p>
 
                 <h3>Phosphorus Supplement</h3>
                 <p>{% if dosage.phosphorus %}<span class="bg-success">{{ dosage.phosphorus }}</span>{% else %}___{% endif %} mL of 3 mM P/mL have been added to the bag to give

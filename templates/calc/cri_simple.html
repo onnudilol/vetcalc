@@ -22,7 +22,7 @@
             <a href="{% url 'info_cri' med.slug %}"><h3>{{ med.name }} ({{ med.concentration }})</h3></a>
                 {% if med.name == 'Diltiazem' %}
                     <p>Slow bolus dose (0.25 mg/kg):</p>
-                    <p>{{ bolus.mg }} mg or {{ bolus.ml }} mL</p>
+                    <p>{{ bolus.mg }} mg or {{ bolus.mL }} mL</p>
                 {% endif %}
             <table class="table table-bordered">
                 <thead>
