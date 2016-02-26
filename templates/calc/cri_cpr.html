@@ -14,18 +14,20 @@
     </div>
 
     <div class="row" id="id_cri_cpr_dosages">
-        <h1>Post Cardiopulmonary Arrest - Cerebral Resuscitation</h1>
-        <p><b>30 mL/lb/day maintenance rate:</b> {% if rx.maint %}<span class="bg-success">{{ rx.maint }}</span><span> mL/hour</span>{% else %}___ mL/hr{% endif %}</p>
-        <p><b>30 * weight (kg) + 70 maintenance rate:</b> {% if rx.maint_plus %}<span class="bg-success">{{ rx.maint_plus }}</span><span> mL/hour</span>{% else %}___ mL/hr{% endif %}</p>
-        <p>Add the following to the {% if request.GET.volume %}<span class="bg-success">{{ request.GET.volume }}</span>{% else %}___{% endif %} mL IV bag:</p>
-        <ul>
-            <li>{% if rx.dose_dobutamine %}<span class="bg-success">{{ rx.dose_dobutamine }}</span>{% else %}___{% endif %} mL <a href="{% url 'info_cri' 'dobutamine' %}">dobutamine HCl (12.5 mg/mL)</a></li>
-            <li>{% if rx.dose_dopamine %}<span class="bg-success">{{ rx.dose_dopamine }}</span>{% else %}___{% endif %} mL <a href="{% url 'info_cri' 'dopamine' %}">dopamine HCl (40 mg/mL)</a></li>
-            <li>{% if rx.dose_lidocaine %}<span class="bg-success">{{ rx.dose_lidocaine }}</span>{% else %}___{% endif %} mL <a href="{% url 'info_cri' 'lidocaine' %}">lidocaine HCl (20 mg/mL)</a></li>
-            <li>{% if rx.dose_epinephrine %}<span class="bg-success">{{ rx.dose_epinephrine }}</span>{% else %}___{% endif %} mL <a href="{% url 'info_inj' 'epinephrine' %}">epinephrine HCl (1:1000)</a></li>
-        </ul>
-        <p>For 1 g/kg mannitol, give {% if rx.dose_mannitol %}<span class="bg-success">{{ rx.dose_mannitol }}</span>{% else %}___{% endif %} mL 25% mannitol.</p>
-        <p>For 30 mg/kg mannitol, give {% if rx.dose_solumedrol %}<span class="bg-success">{{ rx.dose_solumedrol }}</span>{% else %}___{% endif %} mg solumedrol.</p>
+        <div class="col-md-12">
+            <h1>Post Cardiopulmonary Arrest - Cerebral Resuscitation</h1>
+            <p><b>30 mL/lb/day maintenance rate:</b> {% if rx.maint %}<span class="bg-success">{{ rx.maint }}</span><span> mL/hour</span>{% else %}___ mL/hr{% endif %}</p>
+            <p><b>30 * weight (kg) + 70 maintenance rate:</b> {% if rx.maint_plus %}<span class="bg-success">{{ rx.maint_plus }}</span><span> mL/hour</span>{% else %}___ mL/hr{% endif %}</p>
+            <p>Add the following to the {% if request.GET.volume %}<span class="bg-success">{{ request.GET.volume }}</span>{% else %}___{% endif %} mL IV bag:</p>
+            <ul>
+                <li>{% if rx.dose_dobutamine %}<span class="bg-success">{{ rx.dose_dobutamine }}</span>{% else %}___{% endif %} mL <a href="{% url 'info_cri' 'dobutamine' %}">dobutamine HCl (12.5 mg/mL)</a></li>
+                <li>{% if rx.dose_dopamine %}<span class="bg-success">{{ rx.dose_dopamine }}</span>{% else %}___{% endif %} mL <a href="{% url 'info_cri' 'dopamine' %}">dopamine HCl (40 mg/mL)</a></li>
+                <li>{% if rx.dose_lidocaine %}<span class="bg-success">{{ rx.dose_lidocaine }}</span>{% else %}___{% endif %} mL <a href="{% url 'info_cri' 'lidocaine' %}">lidocaine HCl (20 mg/mL)</a></li>
+                <li>{% if rx.dose_epinephrine %}<span class="bg-success">{{ rx.dose_epinephrine }}</span>{% else %}___{% endif %} mL <a href="{% url 'info_inj' 'epinephrine' %}">epinephrine HCl (1:1000)</a></li>
+            </ul>
+            <p>For 1 g/kg mannitol, give {% if rx.dose_mannitol %}<span class="bg-success">{{ rx.dose_mannitol }}</span>{% else %}___{% endif %} mL 25% mannitol.</p>
+            <p>For 30 mg/kg mannitol, give {% if rx.dose_solumedrol %}<span class="bg-success">{{ rx.dose_solumedrol }}</span>{% else %}___{% endif %} mg solumedrol.</p>
+        </div>
     </div>
 {% endblock %}
 
