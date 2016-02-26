@@ -187,6 +187,12 @@ PIPELINE = {
             ),
             'output_filename': 'js/rx_cri_insulin.min.js',
         },
+        'calc_cri_cpr': {
+            'source_filenames': (
+                'js/rx_cri_cpr.js',
+            ),
+            'output_filename': 'js/rx_cri_cpr.min.js',
+        },
     },
     'STYLESHEETS': {
         'vetcalc': {

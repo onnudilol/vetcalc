@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from calc.forms import INVALID_INPUT_ERROR, CalcInjForm, CRISimpleForm, CRIAdvancedForm
+from calc.forms import INVALID_INPUT_ERROR, CalcInjForm, CRISimpleForm, CRIAdvancedForm, CRICPRForm
 
 
 class CalcInjFormTest(TestCase):
@@ -58,4 +58,25 @@ class CRIInsulinFormTest(TestCase):
                                      'rate': '',
                                      'vol': '',
                                      'replacement': ''})
+        self.assertFalse(form.is_valid())
+
+
+class CRICPRFormTest(TestCase):
+
+    def test_form_rejects_non_numeric_input(self):
+        form = CRICPRForm(data={'weight': 'wait',
+                                'rate': 'eight',
+                                'vol': 'volume',
+                                'dobutamine': 'nobutamine',
+                                'dopamine': 'nopamine',
+                                'lidocaine': 'hidocaine'})
+        self.assertFalse(form.is_valid())
+
+    def test_form_rejects_empty_string(self):
+        form = CRICPRForm(data={'weight': '',
+                                'rate': '',
+                                'vol': '',
+                                'dobutamine': '',
+                                'dopamine': '',
+                                'lidocaine': ''})
         self.assertFalse(form.is_valid())

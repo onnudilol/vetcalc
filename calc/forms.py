@@ -122,5 +122,52 @@ class CRIInsulinForm(forms.Form):
                               widget=forms.NumberInput(attrs={'placeholder': 'Enter remaining volume (mL)'}))
 
     replacement = forms.FloatField(label='Desired replacement rate',
+                                   help_text='Recommended rates: 0.03 to 0.12 mmol/kg/hour',
                                    error_messages={'invalid': INVALID_INPUT_ERROR},
                                    widget=forms.NumberInput(attrs={'placeholder': 'Enter desired replacement rate'}))
+
+
+class CRICPRForm(forms.Form):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'GET'
+        self.helper.form_id = 'id_cri_cpr_form'
+
+        self.helper.layout = Layout(
+            Field('weight'),
+            Field('rate'),
+            Field('volume'),
+            Field('dobutamine'),
+            Field('dopamine'),
+            Field('lidocaine'),
+            FormActions(Submit('submit', 'Submit'))
+        )
+
+    weight = forms.FloatField(label='Weight',
+                              error_messages={'invalid': INVALID_INPUT_ERROR},
+                              widget=forms.NumberInput(attrs={'placeholder': 'Enter weight (kg)'}))
+
+    rate = forms.FloatField(label='Fluid rate',
+                            error_messages={'invalid': INVALID_INPUT_ERROR},
+                            widget=forms.NumberInput(attrs={'placeholder': 'Enter rate (mL/hr)'}))
+
+    volume = forms.FloatField(label='Remaining volume',
+                              error_messages={'invalid': INVALID_INPUT_ERROR},
+                              widget=forms.NumberInput(attrs={'placeholder': 'Enter remaining volume (mL)'}))
+
+    dobutamine = forms.FloatField(label='Dobutamine',
+                                  help_text='Recommended rates: 2 to 20 µg/kg/min',
+                                  error_messages={'invalid': INVALID_INPUT_ERROR},
+                                  widget=forms.NumberInput(attrs={'placeholder': 'Enter desired dobutamine rate'}))
+
+    dopamine = forms.FloatField(label='Dopamine',
+                                help_text='Recommended rates: 2 to 20 µg/kg/min',
+                                error_messages={'invalid': INVALID_INPUT_ERROR},
+                                widget=forms.NumberInput(attrs={'placeholder': 'Enter desired dopamine rate'}))
+
+    lidocaine = forms.FloatField(label='Lidocaine',
+                                 help_text='Recommended rates: 50 to 100 µg/kg/min',
+                                 error_messages={'invalid': INVALID_INPUT_ERROR},
+                                 widget=forms.NumberInput(attrs={'placeholder': 'Enter desired lidocaine rate'}))

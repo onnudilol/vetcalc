@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from common.models import Injection, CRI
-from calc.forms import CalcInjForm, CRISimpleForm, CRIAdvancedForm, CRIInsulinForm
+from calc.forms import CalcInjForm, CRISimpleForm, CRIAdvancedForm, CRIInsulinForm, CRICPRForm
 
 from collections import OrderedDict
 
@@ -88,7 +88,7 @@ def calc_cri_advanced(request):
 
             for med in meds:
                 rx[med] = {'maint': round((weight * 30 * 2.2)/24, 3),
-                           'maint_plus': round(((weight * 30) + 70)/24, 3),
+                           'maint_plus': round((weight * 30 + 70)/24, 3),
                            'add': round(((weight * infusion * med.factor) / (rate/60)) * volume, 3)}
 
         else:
@@ -102,9 +102,8 @@ def calc_cri_advanced(request):
 
 
 def calc_cri_insulin(request):
-    insulin = CRI.objects.get(name='Insulin')
     form = CRIInsulinForm()
-    rx = {insulin: dict()}
+    rx = dict()
 
     if request.method == 'GET' and request.is_ajax():
         form = CRIInsulinForm(data=request.GET)
@@ -115,12 +114,12 @@ def calc_cri_insulin(request):
             volume = float(request.GET['volume'])
             replacement = float(request.GET['replacement'])
 
-            rx[insulin] = {'maint': round((weight * 2.2 * 30)/24, 3),
-                           'maint_plus': round(((weight * 30) + 70)/24, 3),
-                           'units_dog': round(((weight * 2.2) / (rate * 24)) * volume, 3),
-                           'units_cat': round((weight * 1.1) / (rate * 24) * volume, 3),
-                           'phosphorus': round(((weight * replacement/3) * volume)/rate, 3),
-                           'phosphorus_excess': round((((weight * replacement/3) * volume)/rate) * 4.4 * 1000 / volume, 3)}
+            rx = {'maint': round((weight * 2.2 * 30)/24, 3),
+                  'maint_plus': round((weight * 30 + 70)/24, 3),
+                  'units_dog': round(((weight * 2.2) / (rate * 24)) * volume, 3),
+                  'units_cat': round((weight * 1.1) / (rate * 24) * volume, 3),
+                  'phosphorus': round(((weight * replacement/3) * volume)/rate, 3),
+                  'phosphorus_excess': round((((weight * replacement/3) * volume)/rate) * 4.4 * 1000 / volume, 3)}
 
         else:
             return render(request, 'calc/cri_insulin.html', {'navbar': 'calc',
@@ -133,7 +132,37 @@ def calc_cri_insulin(request):
 
 
 def calc_cri_cpr(request):
-    return render(request, '404.html', {'navbar': 'calc'})
+    form = CRICPRForm()
+    rx = dict()
+
+    if request.method == 'GET' and request.is_ajax():
+        form = CRICPRForm(data=request.GET)
+
+        if form.is_valid():
+            weight = float(request.GET['weight'])
+            rate = float(request.GET['rate'])
+            volume = float(request.GET['volume'])
+            dobutamine = float(request.GET['dobutamine'])
+            dopamine = float(request.GET['dopamine'])
+            lidocaine = float(request.GET['lidocaine'])
+
+            rx = {'maint': round((weight * 2.2 * 30)/24, 3),
+                  'maint_plus': round(((weight * 30) + 70)/24, 3),
+                  'dose_dobutamine': round(((weight * dobutamine) / 12500)/(rate/60) * volume, 3),
+                  'dose_dopamine': round((weight * dopamine / 40000)/(rate/60) * volume, 3),
+                  'dose_lidocaine': round((weight * lidocaine / 20000)/(rate/60) * volume, 3),
+                  'dose_epinephrine': round((weight/1000)/(rate/60) * volume, 3),
+                  'dose_mannitol': round(weight * 4, 3),
+                  'dose_solumedrol': round(weight * 30, 3)}
+
+        else:
+            return render(request, 'calc/cri_cpr.html', {'navbar': 'calc',
+                                                         'form': form,
+                                                         'rx': rx})
+
+    return render(request, 'calc/cri_cpr.html', {'navbar': 'calc',
+                                                 'form': form,
+                                                 'rx': rx})
 
 
 def calc_cri_metoclopramide(request):
