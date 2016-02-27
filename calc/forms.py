@@ -188,8 +188,8 @@ class CRIMetoclopramideForm(forms.Form):
             Field('infusion'),
             HTML('<hr class="separator">'),
             HTML('<p><b>To increase the dose of metoclopramide, fill out the following fields:</b></p>'),
-            Field('inc_infusion'),
             Field('inc_volume'),
+            Field('inc_infusion'),
             FormActions(Submit('submit', 'Submit'))
         )
 
