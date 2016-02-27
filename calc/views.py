@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from common.models import Injection, CRI
-from calc.forms import CalcInjForm, CRISimpleForm, CRIAdvancedForm, CRIInsulinForm, CRICPRForm
+from calc.forms import CalcInjForm, CRISimpleForm, CRIAdvancedForm, CRIInsulinForm, CRICPRForm, CRIMetoclopramideForm
 
 from collections import OrderedDict
 
@@ -114,12 +114,14 @@ def calc_cri_insulin(request):
             volume = float(request.GET['volume'])
             replacement = float(request.GET['replacement'])
 
+            phosphorus = ((weight * replacement/3) * volume)/rate
+
             rx = {'maint': round((weight * 2.2 * 30)/24, 3),
                   'maint_plus': round((weight * 30 + 70)/24, 3),
                   'units_dog': round(((weight * 2.2) / (rate * 24)) * volume, 3),
                   'units_cat': round((weight * 1.1) / (rate * 24) * volume, 3),
-                  'phosphorus': round(((weight * replacement/3) * volume)/rate, 3),
-                  'phosphorus_excess': round((((weight * replacement/3) * volume)/rate) * 4.4 * 1000 / volume, 3)}
+                  'phosphorus': round(phosphorus, 3),
+                  'phosphorus_excess': round(phosphorus * 4.4 * 1000 / volume, 3)}
 
         else:
             return render(request, 'calc/cri_insulin.html', {'navbar': 'calc',
@@ -147,7 +149,7 @@ def calc_cri_cpr(request):
             lidocaine = float(request.GET['lidocaine'])
 
             rx = {'maint': round((weight * 2.2 * 30)/24, 3),
-                  'maint_plus': round(((weight * 30) + 70)/24, 3),
+                  'maint_plus': round((weight * 30 + 70)/24, 3),
                   'dose_dobutamine': round(((weight * dobutamine) / 12500)/(rate/60) * volume, 3),
                   'dose_dopamine': round((weight * dopamine / 40000)/(rate/60) * volume, 3),
                   'dose_lidocaine': round((weight * lidocaine / 20000)/(rate/60) * volume, 3),
@@ -166,4 +168,38 @@ def calc_cri_cpr(request):
 
 
 def calc_cri_metoclopramide(request):
-    return render(request, '404.html', {'navbar': 'calc'})
+    form = CRIMetoclopramideForm()
+    rx = dict()
+
+    if request.method == 'GET' and request.is_ajax():
+        form = CRIMetoclopramideForm(data=request.GET)
+
+        if form.is_valid():
+            weight = float(request.GET['weight'])
+            rate = float(request.GET['rate'])
+            volume = float(request.GET['volume'])
+            infusion = float(request.GET['infusion'])
+            dose = (weight * infusion / 5)/(rate * 24) * volume
+
+            rx = {'maint': round((weight * 2.2 * 30)/24, 3),
+                  'maint_plus': round((weight * 30 + 70)/24, 3),
+                  'dose': round(dose, 3),
+                  'concentration': round(dose * 5 / volume, 3)}
+
+            if request.GET['inc_infusion'] and request.GET['inc_volume']:
+                inc_volume = float(request.GET['inc_volume'])
+                inc_infusion = float(request.GET['inc_infusion'])
+                dose_inc_infusion = inc_infusion + infusion
+
+                rx['inc_infusion'] = round(dose_inc_infusion, 3)
+                rx['inc_dose'] = round(((dose_inc_infusion * weight / (rate * 24)) - (dose * 5 / volume)) * inc_volume / 5, 3)
+                rx['inc_rate'] = round((dose_inc_infusion * weight)/((dose * 5)/volume)/24, 3)
+
+        else:
+            return render(request, 'calc/cri_metoclopramide.html', {'navbar': 'calc',
+                                                                    'form': form,
+                                                                    'rx': rx})
+
+    return render(request, 'calc/cri_metoclopramide.html', {'navbar': 'calc',
+                                                            'form': form,
+                                                            'rx': rx})

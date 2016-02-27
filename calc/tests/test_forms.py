@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from calc.forms import INVALID_INPUT_ERROR, CalcInjForm, CRISimpleForm, CRIAdvancedForm, CRICPRForm
+from calc.forms import INVALID_INPUT_ERROR, CalcInjForm, CRISimpleForm, CRIAdvancedForm, CRICPRForm, CRIMetoclopramideForm
 
 
 class CalcInjFormTest(TestCase):
@@ -80,3 +80,33 @@ class CRICPRFormTest(TestCase):
                                 'dopamine': '',
                                 'lidocaine': ''})
         self.assertFalse(form.is_valid())
+
+
+class CRIMetoclopramideTest(TestCase):
+
+    def test_form_rejects_non_numeric_input(self):
+        form = CRIMetoclopramideForm(data={'weight': 'wait',
+                                           'rate': 'eight',
+                                           'vol': 'volume',
+                                           'infusion': 'fusion',
+                                           'inc_volume': 'volume',
+                                           'inc_infusion': 'fusion'})
+        self.assertFalse(form.is_valid())
+
+    def test_form_rejects_empty_string(self):
+        form = CRIMetoclopramideForm(data={'weight': '',
+                                           'rate': '',
+                                           'vol': '',
+                                           'infusion': '',
+                                           'inc_volume': 100,
+                                           'inc_infusion': 1})
+        self.assertFalse(form.is_valid())
+
+    def test_increase_volume_and_infusion_fields_are_optional(self):
+        form = CRIMetoclopramideForm(data={'weight': 4.0,
+                                           'rate': 10,
+                                           'vol': 100,
+                                           'infusion': 4,
+                                           'inc_volume': '',
+                                           'inc_infusion': ''})
+        self.assertTrue(form.is_valid())

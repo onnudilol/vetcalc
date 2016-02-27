@@ -25,7 +25,7 @@
 
                 <h4><b>Constant Rate Infusion</b></h4>
                 <p>For accuracy, discard {% if dosage.add %}<span class="bg-success">{{ dosage.add }}</span>{% else %}___{% endif %} mL of IV fluid.
-                    Add {% if dosage.add %}<span class="bg-success">{{ dosage.add }}</span>{% else %}___{% endif %} mL of {{ med.name }} to the
+                    Add {% if dosage.add %}<span class="bg-success">{{ dosage.add }}</span>{% else %}___{% endif %} mL of {{ med.name|lower }} to the
                     {% if request.GET.volume %}<span class="bg-success">{{ request.GET.volume }}</span>{% else %}___{% endif %} mL IV bag.
                     Delivered at {% if request.GET.rate %}<span class="bg-success">{{ request.GET.rate }}</span>{% else %}___{% endif %} mL/hr,
                     the patient will receive a constant infusion of {% if request.GET.infusion %}<span class="bg-success">{{ request.GET.infusion }}</span>{% else %}___{% endif %} μg/kg/min.</p>

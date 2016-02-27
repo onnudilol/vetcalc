@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load pipeline %}
+
+{% block title %}
+    <title>Metoclopramide CRI Calculator - VetCalc</title>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            {% crispy form %}
+        </div>
+    </div>
+
+    <div class="row" id="id_cri_metoclopramide_dosages">
+        <div class="col-md-12">
+            <h1><a href="{% url 'info_cri' 'metoclopramide' %}">Metoclopramide (5 mg/mL)</a></h1>
+            <p><b>30 mL/lb/day maintenance rate:</b> {% if rx.maint %}<span class="bg-success">{{ rx.maint }}</span><span> mL/hr</span>{% else %}___ mL/hr{% endif %}</p>
+            <p><b>30 * weight (kg) + 70 maintenance rate:</b> {% if rx.maint_plus %}<span class="bg-success">{{ rx.maint_plus }}</span><span> mL/hr</span>{% else %}___ mL/hr{% endif %}</p>
+            <p><b>Concentration:</b> {% if rx.concentration %}<span class="bg-success">{{ rx.concentration }}</span>{% else %}___{% endif %} mg/mL</p>
+
+            <h3>Constant Rate Infusion</h3>
+            <p>For accuracy, discard {% if rx.dose %}<span class="bg-success">{{ rx.dose }}</span>{% else %}___{% endif %} mL of IV fluid.
+            Add {% if rx.dose %}<span class="bg-success">{{ rx.dose }}</span>{% else %}___{% endif %} mL of metoclopramide to the
+                {% if request.GET.volume %}<span class="bg-success">{{ request.GET.volume }}</span>{% else %}___{% endif %} mL IV bag.
+            Delivered at a rate of {% if request.GET.rate %}<span class="bg-success">{{ request.GET.rate }}</span>{% else %}___{% endif %} mL/hr,
+            it will give a constant infusion of {% if request.GET.infusion %}<span class="bg-success">{{ request.GET.infusion }}</span>{% else %}___{% endif %} mg/kg/day.</p>
+
+            <h3>Increased Constant Rate Infusion</h3>
+            <p>Either increase the fluid rate to {% if rx.inc_rate %}<span class="bg-success">{{ rx.inc_rate }}</span>{% else %}___{% endif %} mL/hr,
+            or add {% if rx.inc_dose %}<span class="bg-success">{{ rx.inc_dose }}</span>{% else %}___{% endif %} mL of 5 mg/mL metoclopramide to the remaining fluids and continue delivering at
+            {% if request.GET.rate %}<span class="bg-success">{{ request.GET.rate }}</span>{% else %}___{% endif %} mL/hr.
+                This will give a constant infusion of {% if rx.inc_infusion %}<span class="bg-success">{{ rx.inc_infusion }}</span>{% else %}___{% endif %} mg/kg/day.</p>
+
+            <p>{% if rx.inc_dose %}<span class="bg-success">{{ rx.inc_dose }}</span>{% else %}___{% endif %} mL of 5 mg/mL metoclopramide have been added to
+            {% if request.GET.inc_volume %}<span class="bg-success">{{ request.GET.inc_volume }}</span>{% else %}___{% endif %} mL of IV fluid.
+            Delivered at a rate of {% if request.GET.rate %}<span class="bg-success">{{ request.GET.rate }}</span>{% else %}___{% endif %} mL/hr,
+            it will give a continuous infusion of {% if rx.inc_infusion %}<span class="bg-success">{{ rx.inc_infusion }}</span>{% else %}___{% endif %} mg/kg/day.</p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    {% javascript 'main' %}
+    {% javascript 'calc_cri_metoclopramide' %}
+{% endblock%}

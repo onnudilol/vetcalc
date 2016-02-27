@@ -53,7 +53,7 @@ class CRITest(FunctionalTest):
         # This page is similar to the advanced CRI calculator, but has additional fields for dobutamine, dopamine,
         # and lidocaine.
         self.browser.find_element_by_id('id_weight').send_keys(0.5)
-        self.browser.find_element_by_id('id_fluid_rate').send_keys(1)
+        self.browser.find_element_by_id('id_rate').send_keys(1)
         self.browser.find_element_by_id('id_volume').send_keys(10)
         self.browser.find_element_by_id('id_dobutamine').send_keys(4)
         self.browser.find_element_by_id('id_dopamine').send_keys(3)
@@ -61,11 +61,12 @@ class CRITest(FunctionalTest):
         self.browser.find_element_by_class_name('btn').send_keys(Keys.RETURN)
 
         # The page spews out the calculated dosages
-        cri_cpr_calc = self.browser.find_element_by_css_selector('p')
-        values = ['0.100', '0.020', '0.900', '0.300']
+        time.sleep(5)
+        cri_cpr_calc = self.browser.find_element_by_id('id_cri_cpr_dosages')
+        values = ['0.096', '0.022', '0.9', '0.3']
 
         for value in values:
-            self.assertIn(value, cri_cpr_calc)
+            self.assertIn(value, cri_cpr_calc.text)
 
     def test_metoclopramide_calc(self):
         # All the drugs that were administered have made the dogs puke.  Dr. T prescribes more drugs to fix the problem.
@@ -74,7 +75,7 @@ class CRITest(FunctionalTest):
 
         # This page is similar to the advanced calculator, but has extra inputs for increasing the dosage.
         self.browser.find_element_by_id('id_weight').send_keys(4.0)
-        self.browser.find_element_by_id('id_fluid_rate').send_keys(10)
+        self.browser.find_element_by_id('id_rate').send_keys(10)
         self.browser.find_element_by_id('id_volume').send_keys(100)
         self.browser.find_element_by_id('id_infusion').send_keys(4)
         self.browser.find_element_by_class_name('btn').send_keys(Keys.RETURN)
@@ -85,8 +86,8 @@ class CRITest(FunctionalTest):
         self.assertIn(1.33, cri_metoclopramide_calc)
 
         # The dogs are still puking, so Marfalo needs to increase the dosage.
-        self.browser.find_element_by_id('id_inc_fluid_remaining').send_keys(100)
-        self.browser.find_element_by_id('id_inc_vol_metoclopramide').send_keys(1)
+        self.browser.find_element_by_id('id_inc_volume').send_keys(100)
+        self.browser.find_element_by_id('id_inc_infusion').send_keys(1)
         self.browser.find_element_by_class_name('btn').send_keys(Keys.RETURN)
 
         # The dosages are updated.

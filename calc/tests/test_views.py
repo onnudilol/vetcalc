@@ -2,7 +2,7 @@ from django.test import TestCase
 
 from common.models import Injection
 from common.models import CRI
-from calc.forms import CalcInjForm, CRISimpleForm, CRIAdvancedForm, CRIInsulinForm, CRICPRForm
+from calc.forms import CalcInjForm, CRISimpleForm, CRIAdvancedForm, CRIInsulinForm, CRICPRForm, CRIMetoclopramideForm
 
 
 class InjectionTest(TestCase):
@@ -104,7 +104,9 @@ class CRIAdvancedTest(TestCase):
                                                                 'volume': 250,
                                                                 'infusion': 10},
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
         dosage = {'maint': 6.875, 'maint_plus': 6.042, 'add': 9.375}
+
         self.assertEqual(dosage, list(response.context['rx'].values())[0])
 
 
@@ -124,9 +126,11 @@ class CRIInsulinTest(TestCase):
                                                                'volume': 1000,
                                                                'replacement': 0.12},
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
         dosage = {'maint': 15.125, 'maint_plus': 9.792,
                   'units_dog': 2.881, 'units_cat': 1.44,
                   'phosphorus': 1.257, 'phosphorus_excess': 5.531}
+
         self.assertEqual(dosage, response.context['rx'])
 
     def test_cri_insulin_does_not_submit_empty_strings(self):
@@ -156,6 +160,7 @@ class CRICPRTest(TestCase):
                                                            'dopamine': 3,
                                                            'lidocaine': 60},
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
         dosage = {'maint': 1.375, 'maint_plus': 3.542,
                   'dose_dobutamine': 0.096, 'dose_dopamine': 0.022, 'dose_lidocaine': 0.90, 'dose_epinephrine': 0.30,
                   'dose_mannitol': 2.0, 'dose_solumedrol': 15.0}
@@ -171,3 +176,54 @@ class CRICPRTest(TestCase):
                                                           'lidocaine': ''},
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertNotEqual(500, response.status_code)
+
+
+class CRIMetoclopramideTest(TestCase):
+
+    def test_cri_metoclopramide_uses_cri_metoclopramide_template(self):
+        response = self.client.get('/calc/cri/metoclopramide/')
+        self.assertTemplateUsed(response, 'calc/cri_metoclopramide.html')
+
+    def test_cri_metoclopramide_uses_metoclopramide_form(self):
+        response = self.client.get('/calc/cri/metoclopramide/')
+        self.assertIsInstance(response.context['form'], CRIMetoclopramideForm)
+
+    def test_cri_metoclopramide_returns_correct_dosage(self):
+        response = self.client.get('/calc/cri/metoclopramide/', data={'weight': 4.0,
+                                                                      'rate': 10,
+                                                                      'volume': 100,
+                                                                      'infusion': 4,
+                                                                      'inc_volume': 100,
+                                                                      'inc_infusion': 0.5},
+                                   HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        dosage = {'maint': 11.0, 'maint_plus': 7.917,
+                  'dose': 1.333, 'concentration': 0.067,
+                  'inc_dose': 0.167, 'inc_infusion': 4.5, 'inc_rate': 11.25}
+
+        self.assertEqual(dosage, response.context['rx'])
+
+    def test_cri_metoclopramide_does_not_submit_empty_strings(self):
+        response = self.client.get('/calc/cri/metoclopramide/', data={'weight': '',
+                                                                      'rate': '',
+                                                                      'volume': '',
+                                                                      'infusion': '',
+                                                                      'inc_volume': '',
+                                                                      'inc_infusion': ''},
+                                   HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertNotEqual(500, response.status_code)
+
+    def test_increase_dosage_fields_are_optional(self):
+        response = self.client.get('/calc/cri/metoclopramide/', data={'weight': 4.0,
+                                                                      'rate': 10,
+                                                                      'volume': 100,
+                                                                      'infusion': 4,
+                                                                      'inc_volume': '',
+                                                                      'inc_infusion': ''},
+                                   HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        dosage = {'maint': 11.0, 'maint_plus': 7.917,
+                  'dose': 1.333, 'concentration': 0.067}
+
+        self.assertNotEqual(500, response.status_code)
+        self.assertEqual(dosage, response.context['rx'])

@@ -193,6 +193,12 @@ PIPELINE = {
             ),
             'output_filename': 'js/rx_cri_cpr.min.js',
         },
+        'calc_cri_metoclopramide': {
+            'source_filenames': (
+                'js/rx_cri_metoclopramide.js',
+            ),
+            'output_filename': 'js/rx_cri_metoclopramide.min.js',
+        },
     },
     'STYLESHEETS': {
         'vetcalc': {
