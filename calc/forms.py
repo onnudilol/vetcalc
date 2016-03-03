@@ -2,7 +2,7 @@ from django import forms
 from django.forms.utils import ErrorList
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, Submit, HTML
+from crispy_forms.layout import Layout, Fieldset, Field, Submit, HTML
 from crispy_forms.bootstrap import FieldWithButtons, StrictButton, FormActions
 
 
@@ -69,11 +69,14 @@ class CRIAdvancedForm(forms.Form):
         self.helper.form_id = 'id_cri_advanced_form'
 
         self.helper.layout = Layout(
-            Field('weight'),
-            Field('rate'),
-            Field('volume'),
-            Field('infusion'),
-            FormActions(Submit('submit', 'Submit'))
+            Fieldset(
+                'Advanced CRI Calculator',
+                'weight',
+                'rate',
+                'volume',
+                'infusion',
+                FormActions(Submit('submit', 'Submit')),
+            )
         )
 
     weight = forms.FloatField(label='Weight',
@@ -102,11 +105,14 @@ class CRIInsulinForm(forms.Form):
         self.helper.form_id = 'id_cri_insulin_form'
 
         self.helper.layout = Layout(
-            Field('weight'),
-            Field('rate'),
-            Field('volume'),
-            Field('replacement'),
-            FormActions(Submit('submit', 'Submit'))
+            Fieldset(
+                'Insulin CRI Calculator',
+                'weight',
+                'rate',
+                'volume',
+                'replacement',
+                FormActions(Submit('submit', 'Submit')),
+            )
         )
 
     weight = forms.FloatField(label='Weight',
@@ -136,13 +142,17 @@ class CRICPRForm(forms.Form):
         self.helper.form_id = 'id_cri_cpr_form'
 
         self.helper.layout = Layout(
-            Field('weight'),
-            Field('rate'),
-            Field('volume'),
-            Field('dobutamine'),
-            Field('dopamine'),
-            Field('lidocaine'),
-            FormActions(Submit('submit', 'Submit'))
+            Fieldset(
+                'Post CPR CRI Calculator',
+                'weight',
+                'rate',
+                'volume',
+                'dobutamine',
+                'dopamine',
+                'lidocaine',
+                FormActions(Submit('submit', 'Submit'))
+            )
+
         )
 
     weight = forms.FloatField(label='Weight',
@@ -182,15 +192,18 @@ class CRIMetoclopramideForm(forms.Form):
         self.helper.form_id = 'id_cri_metoclopramide_form'
 
         self.helper.layout = Layout(
-            Field('weight'),
-            Field('rate'),
-            Field('volume'),
-            Field('infusion'),
-            HTML('<hr class="separator">'),
-            HTML('<p><b>To increase the dose of metoclopramide, fill out the following fields:</b></p>'),
-            Field('inc_volume'),
-            Field('inc_infusion'),
-            FormActions(Submit('submit', 'Submit'))
+            Fieldset(
+                'Metoclopramide CRI Calculator',
+                'weight',
+                'rate',
+                'volume',
+                'infusion',
+                HTML('<hr class="separator">'),
+                HTML('<p><b>To increase the dose of metoclopramide, fill out the following fields:</b></p>'),
+                'inc_volume',
+                'inc_infusion',
+                FormActions(Submit('submit', 'Submit'))
+            )
         )
 
     weight = forms.FloatField(label='Weight',
@@ -220,5 +233,3 @@ class CRIMetoclopramideForm(forms.Form):
                                   required=False,
                                   error_messages={'invalid': INVALID_INPUT_ERROR},
                                   widget=forms.NumberInput(attrs={'placeholder': 'Enter remaining volume (mL)'}))
-
-
