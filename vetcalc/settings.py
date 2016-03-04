@@ -165,7 +165,7 @@ PIPELINE = {
         },
         'rx_calc': {
             'source_filenames': (
-                'js/calc/*.js'
+                'js/calc/*.js',
             ),
             'output_filename': 'js/calc/rx_calc.min.js',
         },
