@@ -163,41 +163,11 @@ PIPELINE = {
             ),
             'output_filename': 'js/jquery.tablesorter.combined.min.js',
         },
-        'calc_inj': {
-            'source_filenames': (
-                'js/rx_calc_inj.js',
+        'rx_calc': {
+            'source filenames': (
+                'js/rx_*.js',
             ),
-            'output_filename': 'js/rx_calc_inj.min.js',
-        },
-        'calc_cri_simple': {
-            'source_filenames': (
-                'js/rx_cri_simple.js',
-            ),
-            'output_filename': 'js/rx_cri_simple.min.js',
-        },
-        'calc_cri_advanced': {
-            'source_filenames': (
-                'js/rx_cri_adv.js',
-            ),
-            'output_filename': 'js/rx_cri_adv.min.js',
-        },
-        'calc_cri_insulin': {
-            'source_filenames': (
-                'js/rx_cri_insulin.js',
-            ),
-            'output_filename': 'js/rx_cri_insulin.min.js',
-        },
-        'calc_cri_cpr': {
-            'source_filenames': (
-                'js/rx_cri_cpr.js',
-            ),
-            'output_filename': 'js/rx_cri_cpr.min.js',
-        },
-        'calc_cri_metoclopramide': {
-            'source_filenames': (
-                'js/rx_cri_metoclopramide.js',
-            ),
-            'output_filename': 'js/rx_cri_metoclopramide.min.js',
+            'output_filename': 'js/rx_calc.min.js',
         },
     },
     'STYLESHEETS': {
