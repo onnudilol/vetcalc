@@ -133,7 +133,7 @@ STATICFILES_DIRS = (
 
 STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
 
-STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -164,13 +164,8 @@ PIPELINE = {
             'output_filename': 'js/jquery.tablesorter.combined.min.js',
         },
         'rx_calc': {
-            'source filenames': (
-                'js/calc/rx_calc_inj.js',
-                'js/calc/rx_cri_adv.js',
-                'js/calc/rx_cri_cpr.js',
-                'js/calc/rx_cri_insulin.js',
-                'js/calc/rx_cri_metoclopramide.js',
-                'js/calc/rx_cri_simple.js',
+            'source_filenames': (
+                'js/calc/*.js'
             ),
             'output_filename': 'js/calc/rx_calc.min.js',
         },
