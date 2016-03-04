@@ -165,9 +165,14 @@ PIPELINE = {
         },
         'rx_calc': {
             'source filenames': (
-                'js/rx_*.js',
+                'js/calc/rx_calc_inj.js',
+                'js/calc/rx_cri_adv.js',
+                'js/calc/rx_cri_cpr.js',
+                'js/calc/rx_cri_insulin.js',
+                'js/calc/rx_cri_metoclopramide.js',
+                'js/calc/rx_cri_simple.js',
             ),
-            'output_filename': 'js/rx_calc.min.js',
+            'output_filename': 'js/calc/rx_calc.min.js',
         },
     },
     'STYLESHEETS': {
