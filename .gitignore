@@ -5,4 +5,5 @@ __pycache__
 *.map
 static/css/*.css
 static/js/*.min.js
+static/js/calc/*.min.js
 !jquery.tablesorter.min.js
