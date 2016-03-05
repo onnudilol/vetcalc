@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.views.generic import TemplateView
-# from django.contrib import admin
+from django.contrib import admin
 
 from common import views as common_views
 from calc import urls as calc_urls
@@ -28,4 +28,7 @@ urlpatterns = [
     url(r'^info/', include(info_urls)),
     url(r'^tx_sheet/', include(tx_sheet_urls)),
     url(r'^disclaimer/', TemplateView.as_view(template_name='disclaimer.html'), name='disclaimer'),
+    # url(r'^accounts/profile/$', )
+    url(r'^accounts/', include('allauth.urls')),
+    url(r'^admin/', admin.site.urls),
 ]
