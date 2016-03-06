@@ -38,3 +38,7 @@ class CRI(Medication):
     recommended_rates = models.CharField(max_length=10, default='')
     units = models.CharField(max_length=3, default='')
     time = models.CharField(max_length=3, default='')
+
+
+class Prescription(Medication):
+    pass
