@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'common',
     'calc',
     'info',
+    'treatment_sheets',
 ]
 
 SITE_ID = 1
