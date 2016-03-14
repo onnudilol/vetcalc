@@ -87,7 +87,7 @@ class CRIMetoclopramideTest(TestCase):
     def test_form_rejects_non_numeric_input(self):
         form = CRIMetoclopramideForm(data={'weight': 'wait',
                                            'rate': 'eight',
-                                           'vol': 'volume',
+                                           'volume': 'volume',
                                            'infusion': 'fusion',
                                            'inc_volume': 'volume',
                                            'inc_infusion': 'fusion'})
@@ -96,7 +96,7 @@ class CRIMetoclopramideTest(TestCase):
     def test_form_rejects_empty_string(self):
         form = CRIMetoclopramideForm(data={'weight': '',
                                            'rate': '',
-                                           'vol': '',
+                                           'volume': '',
                                            'infusion': '',
                                            'inc_volume': 100,
                                            'inc_infusion': 1})
@@ -105,7 +105,7 @@ class CRIMetoclopramideTest(TestCase):
     def test_increase_volume_and_infusion_fields_are_optional(self):
         form = CRIMetoclopramideForm(data={'weight': 4.0,
                                            'rate': 10,
-                                           'vol': 100,
+                                           'volume': 100,
                                            'infusion': 4,
                                            'inc_volume': '',
                                            'inc_infusion': ''})
