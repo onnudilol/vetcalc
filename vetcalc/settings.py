@@ -152,12 +152,16 @@ STATICFILES_DIRS = (
 
 STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
 
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+if DEBUG:
+    STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+else:
+    STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'pipeline.finders.PipelineFinder',
+    'pipeline.finders.CachedFileFinder',
 )
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
