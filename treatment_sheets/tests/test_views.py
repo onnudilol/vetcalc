@@ -14,7 +14,7 @@ class TxSheetPageTest(TestCase):
 
     def test_tx_sheet_view_uses_tx_sheet_template(self):
         response = self.client.get('/tx_sheet/')
-        self.assertTemplateUsed(response, 'tx_sheet/tx_sheet_list.html')
+        self.assertTemplateUsed(response, 'tx_sheet/tx_sheet.html')
 
     def test_tx_sheet_view_only_retrieves_owners_list(self):
         owner = User.objects.create(name='Marfalo')

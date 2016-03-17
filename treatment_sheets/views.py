@@ -3,11 +3,16 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 
 from treatment_sheets.forms import NewTxSheetForm
+from treatment_sheets.models import TxSheet, TxItem
 from common.models import Prescription
 
 
 def treatment_sheets(request):
-    pass
+    if request.user.is_authenticated():
+        sheets = TxSheet.objects.get(owner=request.user)
+        return render(request, 'tx_sheet/tx_sheet.html', {'sheets': sheets})
+
+    return render(request, 'tx_sheet/tx_sheet.html')
 
 
 @login_required()

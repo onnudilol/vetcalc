@@ -3,7 +3,7 @@ defusedxml==0.4.1
 Django==1.9.2
 django-allauth==0.24.1
 django-crispy-forms==1.6.0
-django-pipeline==1.6.4
+django-pipeline==1.6.7
 futures==3.0.4
 ipython==4.1.1
 ipython-genutils==0.1.0
@@ -19,4 +19,3 @@ requests-oauthlib==0.6.1
 selenium==2.49.0
 simplegeneric==0.8.1
 traitlets==4.1.0
-wheel==0.26.0
