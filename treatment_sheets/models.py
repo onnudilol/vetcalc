@@ -7,11 +7,17 @@ from common.models import Prescription
 
 class TxSheet(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL)
-    name = models.CharField(max_length=140)
-    comment = models.TextField(max_length=300)
+    name = models.CharField(max_length=140, default='')
+    comment = models.TextField(max_length=300, default='')
 
     def get_absolute_url(self):
         return reverse('view_tx_sheet', args=[self.id])
+
+    @staticmethod
+    def create_new(owner, med, dose, freq, unit):
+        sheet = TxSheet.objects.create(owner=owner)
+        TxItem.objects.create(sheet=sheet, med=med, dose=dose, freq=freq, unit=unit)
+        return sheet
 
     @property
     def description(self):
@@ -31,11 +37,11 @@ class TxItem(models.Model):
         ('T', 'Tablets')
     )
 
-    sheet = models.ForeignKey(TxSheet, on_delete=None)
-    med = models.ForeignKey(Prescription)
-    dose = models.IntegerField()
-    freq = models.CharField(max_length=5, choices=FREQ_CHOICES)
-    unit = models.CharField(max_length=5, choice=UNIT_CHOICES)
+    sheet = models.ForeignKey(TxSheet, on_delete=None, default=None)
+    med = models.ForeignKey(Prescription, on_delete=None, default=None)
+    dose = models.IntegerField(default=0)
+    freq = models.CharField(max_length=5, choices=FREQ_CHOICES, default='')
+    unit = models.CharField(max_length=5, choices=UNIT_CHOICES, default='')
     instruction = models.TextField(default='')
 
     def output_instruction(self):
@@ -46,7 +52,7 @@ class TxItem(models.Model):
         elif self.freq == 'BID':
             frequency = 'twice a day'
 
-        self.instruction = 'Take {} of {} {}.'.format(self.dose, self.med, frequency)
+        self.instruction = 'Take {} {} of {} {}.'.format(self.dose, self.get_unit_display(), self.med, frequency)
 
     def save(self, *args, **kwargs):
         self.output_instruction()
