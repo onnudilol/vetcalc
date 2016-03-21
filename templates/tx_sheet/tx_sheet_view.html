@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}<title>{{ sheet }} | VetCalc</title>{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Name</h3>
+            <p>{{ sheet.name }}</p>
+            <h3>Comment</h3>
+            <p>{{ sheet.comment }}</p>
+            <hr>
+            <h3>Medication</h3>
+            <ul>
+            {% for item in sheet.txitem_set.all %}
+                <li>
+                    <h4>{{ item }}</h4>
+                    <p>{{ item.instruction }}</p>
+                    <p>{{ item.med.desc }}</p>
+                    <a href="{% url 'del_item_tx_sheet' sheet.id item.id %}">Delete this item.</a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-12">
+            <hr>
+            <h3>Add another item</h3>
+            {% crispy form %}
+        </div>
+    </div>
+{% endblock %}

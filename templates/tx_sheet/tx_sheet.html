@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>Treatment Sheets | VetCalc</title>{% endblock %}
+
+{% block content %}
+    <div class="row">
+        {% if user.is_authenticated %}
+        <div class="col-md-12">
+            <h3>Welcome, {{ user }}</h3>
+            <p><a href="{% url 'account_logout' %}">Log out</a></p>
+            <hr>
+        </div>
+        <div class="col-md-12">
+            <h3>Treatment Sheets</h3>
+            <p>Treatment sheets are deleted 72 hours after creation.</p>
+            <ul>
+            {% for sheet in user.txsheet_set.all %}
+                <li><a href="{% url 'view_tx_sheet' sheet.id %}">{{ sheet }}</a></li>
+            {% endfor %}
+            </ul>
+            <hr>
+            <p><a href="{% url 'new_tx_sheet' %}">Create a new treatment sheet</a></p>
+        </div>
+        {% else %}
+        <div class="col-md-12">
+            <h1>Slow your roll, homie</h1>
+            <hr>
+            <p>This feature requires you to <a href="{% url 'account_login' %}">log in</a>.</p>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

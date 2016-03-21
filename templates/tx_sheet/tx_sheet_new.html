@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}<title>Create A New Treatment Sheet | Vetcalc</title>{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Create a new treatment sheet</h3>
+            <hr>
+            <form method="post">
+                {% csrf_token %}
+                {{ sheet_form|crispy }}
+                {{ item_form|crispy }}
+                <input class="btn btn-primary" name="submit" value="Submit" type="submit">
+            </form>
+        </div>
+    </div>
+{% endblock %}
