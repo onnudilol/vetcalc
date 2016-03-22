@@ -9,18 +9,12 @@ class TxSheet(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL)
     name = models.CharField(max_length=140, default='')
     comment = models.TextField(max_length=300, default='')
+    date = models.DateField(auto_now_add=True)
 
     def get_absolute_url(self):
         return reverse('view_tx_sheet', args=[self.id])
 
-    @staticmethod
-    def create_new(owner, med, dose, freq, unit):
-        sheet = TxSheet.objects.create(owner=owner)
-        TxItem.objects.create(sheet=sheet, med=med, dose=dose, freq=freq, unit=unit)
-        return sheet
-
-    @property
-    def description(self):
+    def __str__(self):
         return self.name + ': ' + self.comment
 
 
@@ -33,8 +27,8 @@ class TxItem(models.Model):
 
     UNIT_CHOICES = (
         ('mL', 'mLs'),
-        ('C', 'Capsules'),
-        ('T', 'Tablets')
+        ('C', 'capsules'),
+        ('T', 'tablets')
     )
 
     sheet = models.ForeignKey(TxSheet, on_delete=None, default=None)
@@ -54,6 +48,12 @@ class TxItem(models.Model):
 
         self.instruction = 'Take {} {} of {} {}.'.format(self.dose, self.get_unit_display(), self.med, frequency)
 
+    def get_absolute_url(self):
+        return reverse('view_tx_sheet', args=[self.sheet.id])
+
     def save(self, *args, **kwargs):
         self.output_instruction()
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.med.name

@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
+import datetime
 from treatment_sheets.models import TxSheet, TxItem
 from common.models import Prescription
 
@@ -20,16 +21,10 @@ class TxSheetTest(TestCase):
         # Should not raise
         TxSheet(owner=User())
 
-    def test_create_new_tx_sheet_saves_first_item(self):
-        drug = Prescription.objects.create(name='Robitussin')
-        sheet = TxSheet.create_new(owner=self.owner, med=drug, dose=5, freq='SID', unit='C')
-        item = TxItem.objects.first()
-        self.assertEqual(item.sheet, sheet)
-        self.assertIn('Take 5 Capsules of Robitussin once a day.', item.instruction)
-
-    def test_tx_sheet_desc_is_name_and_comment(self):
+    def test_tx_sheet_saves_date_on_creation(self):
+        date = datetime.date.today()
         sheet = TxSheet.objects.create(owner=self.owner, name='Poochy', comment='Euthanasia')
-        self.assertEqual(sheet.description, 'Poochy: Euthanasia')
+        self.assertEqual(date, sheet.date)
 
 
 class TxItemTest(TestCase):
@@ -46,6 +41,10 @@ class TxItemTest(TestCase):
         item.save()
 
         self.assertEqual(self.sheet.id, item.sheet_id)
+
+    def test_get_absolute_url(self):
+        item = TxItem.objects.create(sheet=self.sheet, med=self.drug, dose=11, unit='mL', freq='BID')
+        self.assertEqual(item.get_absolute_url(), '/tx_sheet/{}/'.format(self.sheet.id))
 
     def test_output_instructions(self):
         item = TxItem.objects.create(sheet=self.sheet, med=self.drug, dose=11, unit='mL', freq='BID')
