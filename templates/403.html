@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>403 Forbidden | VetCalc</title>{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>403 Forbidden</h1>
+            <p>You're not supposed to be here.  <a href="{% url 'home' %}">Go home.</a></p>
+        </div>
+    </div>
+{% endblock %}
