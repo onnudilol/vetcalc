@@ -1,18 +1,19 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
-from unittest.mock import patch, Mock
+from unittest.mock import Mock
 
-from treatment_sheets.forms import NewTxSheetForm, EditTxSheetForm
+from treatment_sheets.forms import TxSheetForm, TxItemForm
+from treatment_sheets.models import TxSheet, TxItem, Prescription
 
 User = get_user_model()
 
 
-class NewTxSheetFormTest(TestCase):
+class TxSheetFormTest(TestCase):
 
     def test_form_validation(self):
         drug = Mock(spec='treatment_sheets.forms.Prescription')
-        form = NewTxSheetForm(data={
+        form = TxSheetForm(data={
             'name': '',
             'comment': '',
             'med': drug,
@@ -22,34 +23,45 @@ class NewTxSheetFormTest(TestCase):
         })
         self.assertFalse(form.is_valid())
 
-    @patch('treatment_sheets.forms.TxSheet.create_new')
-    def test_form_save(self, mock_create_new):
-        owner = Mock(is_authenticated=lambda: True)
-        drug = Mock(spec='treatment_sheets.forms.Prescription')
-        drug.name = 'Morphine'
-        sheet = mock_create_new.return_value
+    def test_form_save_sheet(self):
+        owner = User.objects.create()
 
-        form = NewTxSheetForm(data={
+        form = TxSheetForm(data={
             'name': 'Poochy',
-            'comment': 'Neuter',
-            'med': drug,
-            'dose': '5',
-            'freq': 'BID',
-            'unit': 'T'
+            'comment': 'Neuter'
         })
 
-        sheet2 = form.save(owner=owner)
-        self.assertEqual(sheet, sheet2)
+        form.is_valid()
+        sheet = form.save(owner=owner)
+        self.assertIsInstance(sheet, TxSheet)
 
 
-class EditTxSheetFormTest(TestCase):
+class TxItemFormTest(TestCase):
 
     def test_form_validation(self):
-        drug = Mock(spec='treatment_sheets.forms.Prescription')
-        form = EditTxSheetForm(data={
+        drug = Mock(spec=Prescription)
+        form = TxItemForm(data={
             'med': drug,
             'dose': '',
             'freq': '',
             'unit': ''
         })
         self.assertFalse(form.is_valid())
+
+    def test_form_save_item(self):
+        sheet = Mock(spec=TxSheet)
+        sheet._state = Mock()
+        sheet._state.db = None
+        sheet.id = 1
+        Prescription.objects.create(name='Drugahol')
+
+        form = TxItemForm(data={
+            'med': 1,
+            'dose': 5,
+            'freq': 'BID',
+            'unit': 'T'
+        })
+
+        form.is_valid()
+        sheet = form.save(sheet=sheet)
+        self.assertIsInstance(sheet, TxItem)
