@@ -11,7 +11,7 @@
         <div class="col-md-12">
 
             <h1>{% trans "Sign In" %}</h1>
-
+            <hr>
             {% get_providers as socialaccount_providers %}
 
             {% if socialaccount_providers %}
@@ -25,7 +25,7 @@
                 {% include "socialaccount/snippets/provider_list.html" with process="login" %}
               </ul>
 
-              <div class="login-or">{% trans 'or' %}</div>
+              <div class="login-or"><p>{% trans 'or' %}</p></div>
 
             </div>
 
@@ -42,7 +42,7 @@
               {% if redirect_field_value %}
               <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
               {% endif %}
-              <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+              <p><a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a></p>
               <button class="primaryAction btn btn-primary" type="submit">{% trans "Sign In" %}</button>
             </form>
 
