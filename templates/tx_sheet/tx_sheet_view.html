@@ -6,10 +6,15 @@
 {% block content %}
     <div class="row">
         <div class="col-md-12">
+            <p><a href="{% url 'tx_sheet' %}">Back to treatment sheets</a></p>
             <h3>Name</h3>
             <p>{{ sheet.name }}</p>
             <h3>Comment</h3>
             <p>{{ sheet.comment }}</p>
+            <p><a href="#">Edit treatment sheet information</a></p>
+        </div>
+    <div class="row">
+        <div class="col-md-12">
             <hr>
             <h3>Medication</h3>
             <ul>
@@ -18,15 +23,19 @@
                     <h4>{{ item }}</h4>
                     <p>{{ item.instruction }}</p>
                     <p>{{ item.med.desc }}</p>
-                    <a href="{% url 'del_item_tx_sheet' sheet.id item.id %}">Delete this item.</a>
+                    <a href="{% url 'del_item_tx_sheet' sheet.id item.id %}">Delete this item</a>
                 </li>
             {% endfor %}
             </ul>
         </div>
+    </div>
+    </div>
+    <div class="row">
         <div class="col-md-12">
             <hr>
             <h3>Add another item</h3>
             {% crispy form %}
         </div>
     </div>
+
 {% endblock %}
