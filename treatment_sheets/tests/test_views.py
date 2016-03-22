@@ -115,7 +115,7 @@ class ViewTxSheetTest(TestCase):
         response = self.client.get('/tx_sheet/1/')
         self.assertNotEqual(wrong_list, response.context['sheet'])
 
-    def cannot_view_other_users_list(self):
+    def test_cannot_view_other_users_list(self):
         self.client.logout()
         owner2 = User.objects.create_user('Partario', 'partario@gmail.com', 'awfulpw')
         self.client.force_login(owner2)
@@ -183,5 +183,5 @@ class DelItemTxSheetTest(TestCase):
         self.client.force_login(owner2)
 
         response = self.post_del()
-        self.assertEqual(302, response.status_code)
+        self.assertEqual(403, response.status_code)
         self.client.logout()
