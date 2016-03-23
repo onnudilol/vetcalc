@@ -35,6 +35,15 @@ class TxSheetFormTest(TestCase):
         sheet = form.save(owner=owner)
         self.assertIsInstance(sheet, TxSheet)
 
+    def test_form_update_sheet(self):
+        owner = User.objects.create()
+        TxSheet.objects.create(owner=owner, name='Freddy', comment='Mercury')
+        defaults = {'name': 'David', 'comment': 'Bowie'}
+        TxSheetForm.update(sheet_id=1, defaults=defaults)
+        sheet = TxSheet.objects.first()
+        self.assertEqual(sheet.name, 'David')
+        self.assertEqual(sheet.comment, 'Bowie')
+
 
 class TxItemFormTest(TestCase):
 

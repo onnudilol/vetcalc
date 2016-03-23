@@ -12,6 +12,7 @@ class TxSheetForm(ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'POST'
+        self.helper.add_input(Submit('submit', 'Save'))
 
     class Meta:
         model = TxSheet
@@ -20,6 +21,11 @@ class TxSheetForm(ModelForm):
     def save(self, owner):
         return TxSheet.objects.create(owner=owner, name=self.cleaned_data['name'], comment=self.cleaned_data['comment'])
 
+    @staticmethod
+    def update(sheet_id, defaults):
+        obj, created = TxSheet.objects.update_or_create(id=sheet_id, defaults=defaults)
+        return obj
+
 
 class TxItemForm(ModelForm):
 
@@ -27,7 +33,7 @@ class TxItemForm(ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'POST'
-        self.helper.add_input(Submit("submit", "Save"))
+        self.helper.add_input(Submit('submit', 'Save'))
 
     class Meta:
         model = TxItem

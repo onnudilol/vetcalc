@@ -15,7 +15,7 @@ class TxSheet(models.Model):
         return reverse('view_tx_sheet', args=[self.id])
 
     def __str__(self):
-        return self.name + ': ' + self.comment
+        return self.owner.__str__() + ': ' + self.name
 
 
 class TxItem(models.Model):

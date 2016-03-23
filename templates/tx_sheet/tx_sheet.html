@@ -6,7 +6,7 @@
     <div class="row">
         {% if user.is_authenticated %}
         <div class="col-md-12">
-            <h3>Welcome, {{ user }}</h3>
+            <h1>Welcome, {{ user }}</h1>
             <p><a href="{% url 'account_logout' %}">Log out</a></p>
         </div>
     </div>

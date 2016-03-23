@@ -34,15 +34,15 @@ class Command(BaseCommand):
             cri.save()
 
         for key, value in DOSAGE_CRI_ADVANCED.items():
-            cri, created = CRI.objects.update_or_create(name=key,
-                                                        defaults={
-                                                            'recommended_rates': value[0],
-                                                            'factor': value[1],
-                                                            'concentration': value[2],
-                                                            'category': value[3],
-                                                            'calc_type': value[4],
-                                                            'desc': value[5]
-                                                        })
+            cri_adv, created = CRI.objects.update_or_create(name=key,
+                                                            defaults={
+                                                                'recommended_rates': value[0],
+                                                                'factor': value[1],
+                                                                'concentration': value[2],
+                                                                'category': value[3],
+                                                                'calc_type': value[4],
+                                                                'desc': value[5]
+                                                            })
 
         CRI.objects.update_or_create(name='Insulin',
                                      defaults={

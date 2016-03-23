@@ -7,12 +7,12 @@
     <div class="row">
         <div class="col-md-12">
             <p><a href="{% url 'tx_sheet' %}">Back to treatment sheets</a></p>
-            <h3>Name</h3>
-            <p>{{ sheet.name }}</p>
-            <h3>Comment</h3>
+            <h1>{{ sheet.name }}</h1>
+            <hr>
             <p>{{ sheet.comment }}</p>
-            <p><a href="#">Edit treatment sheet information</a></p>
+            <p><a href="{% url 'edit_tx_sheet' sheet.id %}">Edit treatment sheet information</a></p>
         </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <hr>
@@ -20,19 +20,22 @@
             <ul>
             {% for item in sheet.txitem_set.all %}
                 <li>
-                    <h4>{{ item }}</h4>
-                    <p>{{ item.instruction }}</p>
-                    <p>{{ item.med.desc }}</p>
-                    <a href="{% url 'del_item_tx_sheet' sheet.id item.id %}">Delete this item</a>
+                    <h4>{{ item }} <a href="{% url 'del_item_tx_sheet' sheet.id item.id %}">
+                        <span title="Delete this item" class="glyphicon glyphicon-remove"></span></a></h4>
+                    <ul>
+                        <li>{{ item.instruction }}</li>
+                        <li>{{ item.med.desc }}</li>
+                    </ul>
+
+
                 </li>
             {% endfor %}
             </ul>
+            <hr>
         </div>
-    </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <hr>
             <h3>Add another item</h3>
             {% crispy form %}
         </div>

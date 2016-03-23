@@ -1,12 +1,12 @@
-from django.shortcuts import render
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 
 from treatment_sheets.forms import TxSheetForm, TxItemForm
 from treatment_sheets.models import TxSheet, TxItem
-from common.models import Prescription
+
+from datetime import date
 
 User = get_user_model()
 
@@ -17,7 +17,9 @@ def treatment_sheets(request):
 
 @login_required()
 def view_treatment_sheet(request, sheet_id):
-    sheet = TxSheet.objects.get(pk=sheet_id)
+
+    sheet = get_object_or_404(TxSheet, id=sheet_id)
+
     form = TxItemForm()
 
     if request.method == 'POST' and request.user == sheet.owner:
@@ -54,11 +56,35 @@ def new_tx_sheet(request):
 
 @login_required()
 def del_item_tx_sheet(request, sheet_id, item_id):
-    tx_sheet = TxSheet.objects.get(id=sheet_id)
+    tx_sheet = get_object_or_404(TxSheet, id=sheet_id)
 
     if request.user == tx_sheet.owner:
         TxItem.objects.get(id=item_id).delete()
         return redirect(tx_sheet)
+
+    else:
+        raise PermissionDenied
+
+
+@login_required()
+def edit_tx_sheet(request, sheet_id):
+    tx_sheet = get_object_or_404(TxSheet, id=sheet_id)
+    form = TxSheetForm(instance=tx_sheet)
+
+    if request.user == tx_sheet.owner:
+
+        if request.method == 'POST':
+            form = TxSheetForm(data=request.POST)
+
+            if form.is_valid():
+                defaults = {'owner': request.user,
+                            'name': request.POST['name'],
+                            'comment': request.POST['comment'],
+                            'date': date.today()}
+                tx_sheet = form.update(sheet_id=sheet_id, defaults=defaults)
+                return redirect(tx_sheet)
+
+        return render(request, 'tx_sheet/tx_sheet_edit.html', {'navbar': 'tx_sheet', 'form': form})
 
     else:
         raise PermissionDenied

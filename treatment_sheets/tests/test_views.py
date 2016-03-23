@@ -1,13 +1,9 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-from django.http import HttpRequest
 
 from treatment_sheets.models import TxSheet, TxItem
 from treatment_sheets.forms import TxSheetForm, TxItemForm
-from treatment_sheets.views import view_treatment_sheet, new_tx_sheet
 from common.models import Prescription
-
-from unittest.mock import patch, Mock
 
 User = get_user_model()
 
@@ -150,6 +146,10 @@ class ViewTxSheetTest(TestCase):
                                                           'unit': 'T'})
         self.assertRedirects(response, '/tx_sheet/1/')
 
+    def test_sheet_does_not_exist_returns_404(self):
+        response = self.client.get('/tx_sheet/11/')
+        self.assertEqual(404, response.status_code)
+
 
 class DelItemTxSheetTest(TestCase):
 
@@ -184,4 +184,43 @@ class DelItemTxSheetTest(TestCase):
 
         response = self.post_del()
         self.assertEqual(403, response.status_code)
+
+
+class EditTxSheetInfoTest(TestCase):
+
+    def setUp(self):
+        self.owner = User.objects.create_user('Marfalo', 'marfalo@gmail.com', 'terriblepw')
+        self.client.force_login(self.owner)
+        self.med = Prescription.objects.create(name='meth')
+        self.sheet = TxSheet.objects.create(owner=self.owner, name='Doge', comment='Coin')
+        self.item = TxItem.objects.create(med=self.med, sheet=self.sheet)
+
+    def test_edit_tx_sheet_view_uses_tx_sheet_form(self):
+        response = self.client.get('/tx_sheet/1/edit')
+        self.assertIsInstance(response.context['form'], TxSheetForm)
+
+    def test_edit_tx_sheet_saves_changes(self):
+        self.client.post('/tx_sheet/1/edit', data={'name': 'Frog', 'comment': 'Dollar'})
+        sheet = TxSheet.objects.first()
+        self.assertEqual('Frog', sheet.name)
+        self.assertEqual('Dollar', sheet.comment)
+
+    def test_edit_tx_sheet_redirects_to_tx_sheet(self):
+        response = self.client.post('/tx_sheet/1/edit', data={'name': 'Frog', 'comment': 'Dollar'})
+        self.assertRedirects(response, '/tx_sheet/1/')
+
+    def test_cannot_edit_other_users_tx_sheet(self):
         self.client.logout()
+        owner2 = User.objects.create_user('Partario', 'partario@gmail.com', 'awfulpw')
+        self.client.force_login(owner2)
+        response = self.client.post('/tx_sheet/1/edit', data={'name': 'Frog', 'comment': 'Dollar'})
+        self.assertEqual(403, response.status_code)
+
+    def test_edit_tx_sheet_login_required(self):
+        self.client.logout()
+        response = self.client.post('/tx_sheet/1/edit', data={'name': 'Frog', 'comment': 'Dollar'})
+        self.assertEqual(302, response.status_code)
+
+
+class OutputTxSheetPDFTest(TestCase):
+    pass
