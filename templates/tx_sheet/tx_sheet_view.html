@@ -6,17 +6,16 @@
 {% block content %}
     <div class="row">
         <div class="col-md-12">
-            <p><a href="{% url 'tx_sheet' %}">Back to treatment sheets</a></p>
+            <p><a href="{% url 'edit_tx_sheet' sheet.id %}">Edit treatment sheet information</a> | <a href="#">Output this sheet as a PDF</a></p>
             <h1>{{ sheet.name }}</h1>
             <hr>
             <p>{{ sheet.comment }}</p>
-            <p><a href="{% url 'edit_tx_sheet' sheet.id %}">Edit treatment sheet information</a></p>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <hr>
             <h3>Medication</h3>
+            <hr>
             <ul>
             {% for item in sheet.txitem_set.all %}
                 <li>
@@ -26,17 +25,15 @@
                         <li>{{ item.instruction }}</li>
                         <li>{{ item.med.desc }}</li>
                     </ul>
-
-
                 </li>
             {% endfor %}
             </ul>
-            <hr>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <h3>Add another item</h3>
+            <h3>Add another medication</h3>
+            <hr>
             {% crispy form %}
         </div>
     </div>

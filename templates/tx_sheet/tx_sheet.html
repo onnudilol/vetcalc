@@ -7,21 +7,19 @@
         {% if user.is_authenticated %}
         <div class="col-md-12">
             <h1>Welcome, {{ user }}</h1>
-            <p><a href="{% url 'account_logout' %}">Log out</a></p>
+            <p><a href="{% url 'new_tx_sheet' %}">Create a new treatment sheet</a> | <a href="{% url 'account_logout' %}">Log out</a></p>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <hr>
             <h3>Treatment Sheets</h3>
             <p><i>Treatment sheets are deleted 72 hours after creation</i></p>
+            <hr>
             <ul>
             {% for sheet in user.txsheet_set.all %}
                 <li><a href="{% url 'view_tx_sheet' sheet.id %}">{{ sheet }}</a></li>
             {% endfor %}
             </ul>
-            <hr>
-            <p><a href="{% url 'new_tx_sheet' %}">Create a new treatment sheet</a></p>
         </div>
         {% else %}
         <div class="col-md-12">

@@ -40,7 +40,7 @@ class NewTxSheetTest(TestCase):
         self.client.force_login(self.owner)
 
     def post_list(self):
-        return self.client.post('/tx_sheet/new/', data={'name': 'Nate',
+        return self.client.post('/tx_sheet/new', data={'name': 'Nate',
                                                         'comment': 'Dogg',
                                                         'med': 1,
                                                         'dose': 3,
@@ -48,11 +48,11 @@ class NewTxSheetTest(TestCase):
                                                         'unit': 'T'})
 
     def test_new_tx_sheet_view_uses_tx_sheet_template(self):
-        response = self.client.get('/tx_sheet/new/')
+        response = self.client.get('/tx_sheet/new')
         self.assertTemplateUsed(response, 'tx_sheet/tx_sheet_new.html')
 
     def test_new_tx_sheet_view_uses_new_tx_sheet_forms(self):
-        response = self.client.get('/tx_sheet/new/')
+        response = self.client.get('/tx_sheet/new')
         self.assertIsInstance(response.context['sheet_form'], TxSheetForm)
         self.assertIsInstance(response.context['item_form'], TxItemForm)
 
@@ -77,7 +77,7 @@ class NewTxSheetTest(TestCase):
 
     def test_view_rejects_invalid_input(self):
 
-        response = self.client.post('/tx_sheet/new/',
+        response = self.client.post('/tx_sheet/new',
                                     data={'name': 0o010100000110111101101111011000110110100001111001,
                                           'comment': 'h',
                                           'med': 1,

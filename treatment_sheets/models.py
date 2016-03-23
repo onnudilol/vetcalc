@@ -8,14 +8,15 @@ from common.models import Prescription
 class TxSheet(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL)
     name = models.CharField(max_length=140, default='')
-    comment = models.TextField(max_length=300, default='')
+    comment = models.TextField(
+        default='')
     date = models.DateField(auto_now_add=True)
 
     def get_absolute_url(self):
         return reverse('view_tx_sheet', args=[self.id])
 
     def __str__(self):
-        return self.owner.__str__() + ': ' + self.name
+        return self.name + ': ' + ((self.comment[:75] + '...') if len(self.comment) > 75 else self.comment)
 
 
 class TxItem(models.Model):
