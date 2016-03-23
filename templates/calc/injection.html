@@ -7,24 +7,14 @@
     <title>Injection Calculator - VetCalc</title>
 {% endblock %}
 
-{% block header_form %}
-    <div class="pull-right">
-        {% crispy form %}
-    </div>
-{% endblock %}
-
-{% block alert %}
-    <div id="id_rx_errors">
-    {% if errors %}
-        <div class="row alert alert-danger">
-            {% for error in errors %}
-                <div style="text-align:center">
-                    <span>{{ error.as_text }}</span>
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                </div>
-            {% endfor %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Injection Calculator</h3>
+            <hr>
+            {% crispy form %}
+            <hr>
         </div>
-    {% endif %}
     </div>
 {% endblock %}
 

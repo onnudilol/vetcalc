@@ -15,7 +15,8 @@
 
     <div class="row" id="id_cri_cpr_dosages">
         <div class="col-md-12">
-            <h1>Post Cardiopulmonary Arrest - Cerebral Resuscitation</h1>
+            <h3>Post Cardiopulmonary Arrest - Cerebral Resuscitation</h3>
+            <hr>
             <p><b>30 mL/lb/day maintenance rate:</b> {% if rx.maint %}<span class="bg-success">{{ rx.maint }}</span><span> mL/hour</span>{% else %}___ mL/hr{% endif %}</p>
             <p><b>30 * weight (kg) + 70 maintenance rate:</b> {% if rx.maint_plus %}<span class="bg-success">{{ rx.maint_plus }}</span><span> mL/hour</span>{% else %}___ mL/hr{% endif %}</p>
             <p>Add the following to the {% if request.GET.volume %}<span class="bg-success">{{ request.GET.volume }}</span>{% else %}___{% endif %} mL IV bag:</p>

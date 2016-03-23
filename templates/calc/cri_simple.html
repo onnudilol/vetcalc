@@ -10,7 +10,10 @@
 {% block content %}
     <div class="row">
         <div class="col-md-12">
+            <h3>Simple Cri Calculator</h3>
+            <hr>
             {% crispy form %}
+            <hr>
         </div>
     </div>
 {% endblock %}
@@ -20,6 +23,7 @@
         <div class="col-md-12">
             {% for med, dosage in rx.items %}
             <a href="{% url 'info_cri' med.slug %}"><h3>{{ med.name }} ({{ med.concentration }})</h3></a>
+                <hr>
                 {% if med.name == 'Diltiazem' %}
                     <p><b>Slow bolus dose (0.25 mg/kg):</b><span>{% if bolus %} {{ bolus.mg }} mg or {{ bolus.mL }} mL{% endif %}</span></p>
                 {% endif %}

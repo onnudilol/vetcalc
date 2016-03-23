@@ -19,6 +19,7 @@
         <div class="col-md-12">
             {% for med, dosage in rx.items %}
                 <a href="{% url 'info_cri' med.slug %}"><h3>{{ med.name }} ({{ med.concentration }})</h3></a>
+                <hr>
                 <p><b>Recommended rates:</b> {{ med.recommended_rates }} μg/kg/min</p>
                 <p><b>30 mL/lb/day maintenance rate:</b> {% if dosage.maint %}<span class="bg-success">{{ dosage.maint }}</span><span> mL/hr</span>{% else %}___ mL/hr{% endif %}</p>
                 <p><b>30 * weight (kg) + 70 maintenance rate:</b> {% if dosage.maint_plus %}<span class="bg-success">{{ dosage.maint_plus }}</span><span> mL/hr</span>{% else %}___ mL/hr{% endif %}</p>

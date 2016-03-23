@@ -24,12 +24,6 @@ def calc_injection(request):
             for med in meds:
                 rx_ordered[med] = round(med.factor * weight, 3)
 
-        else:
-            return render(request, 'calc/injection.html', {'rx': rx_ordered,
-                                                           'form': CalcInjForm(),
-                                                           'navbar': 'calc',
-                                                           'errors': form.errors.values()})
-
     return render(request, 'calc/injection.html', {'rx': rx_ordered,
                                                    'form': CalcInjForm(),
                                                    'navbar': 'calc'})
@@ -56,12 +50,6 @@ def calc_cri_simple(request):
                                    [round(weight * med.factor * rate, 3) for rate in med.rates]))
 
             bolus = {'mg': round(weight * 0.25, 3), 'mL': round(weight * 0.05, 3)}
-
-        else:
-            return render(request, 'calc/cri_simple.html', {'form': form,
-                                                            'navbar': 'calc',
-                                                            'rx': rx,
-                                                            'bolus': bolus})
 
     return render(request, 'calc/cri_simple.html', {'navbar': 'calc',
                                                     'form': form,
@@ -91,11 +79,6 @@ def calc_cri_advanced(request):
                            'maint_plus': round((weight * 30 + 70)/24, 3),
                            'add': round(((weight * infusion * med.factor) / (rate/60)) * volume, 3)}
 
-        else:
-            return render(request, 'calc/cri_advanced.html', {'form': form,
-                                                              'navbar': 'calc',
-                                                              'rx': rx})
-
     return render(request, 'calc/cri_advanced.html', {'navbar': 'calc',
                                                       'form': form,
                                                       'rx': rx})
@@ -122,11 +105,6 @@ def calc_cri_insulin(request):
                   'units_cat': round((weight * 1.1) / (rate * 24) * volume, 3),
                   'phosphorus': round(phosphorus, 3),
                   'phosphorus_excess': round(phosphorus * 4.4 * 1000 / volume, 3)}
-
-        else:
-            return render(request, 'calc/cri_insulin.html', {'navbar': 'calc',
-                                                             'form': form,
-                                                             'rx': rx})
 
     return render(request, 'calc/cri_insulin.html', {'navbar': 'calc',
                                                      'form': form,
@@ -156,11 +134,6 @@ def calc_cri_cpr(request):
                   'dose_epinephrine': round((weight/1000)/(rate/60) * volume, 3),
                   'dose_mannitol': round(weight * 4, 3),
                   'dose_solumedrol': round(weight * 30, 3)}
-
-        else:
-            return render(request, 'calc/cri_cpr.html', {'navbar': 'calc',
-                                                         'form': form,
-                                                         'rx': rx})
 
     return render(request, 'calc/cri_cpr.html', {'navbar': 'calc',
                                                  'form': form,
@@ -194,11 +167,6 @@ def calc_cri_metoclopramide(request):
                 rx['inc_infusion'] = round(dose_inc_infusion, 3)
                 rx['inc_dose'] = round(((dose_inc_infusion * weight / (rate * 24)) - (dose * 5 / volume)) * inc_volume / 5, 3)
                 rx['inc_rate'] = round((dose_inc_infusion * weight)/((dose * 5)/volume)/24, 3)
-
-        else:
-            return render(request, 'calc/cri_metoclopramide.html', {'navbar': 'calc',
-                                                                    'form': form,
-                                                                    'rx': rx})
 
     return render(request, 'calc/cri_metoclopramide.html', {'navbar': 'calc',
                                                             'form': form,

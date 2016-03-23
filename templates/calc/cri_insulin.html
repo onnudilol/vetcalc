@@ -15,25 +15,26 @@
 
     <div class="row" id="id_cri_insulin_dosages">
         <div class="col-md-12">
-            <h1><a href="{% url 'info_cri' 'insulin' %}">Insulin</a></h1>
+            <h3><a href="{% url 'info_cri' 'insulin' %}">Insulin</a></h3>
+            <hr>
             <p><b>30 mL/lb/day maintenance rate:</b> {% if rx.maint %}<span class="bg-success">{{ rx.maint }}</span><span> mL/hr</span>{% else %}___ mL/hr{% endif %}</p>
             <p><b>30 * weight (kg) + 70 maintenance rate:</b> {% if rx.maint_plus %}<span class="bg-success">{{ rx.maint_plus }}</span><span> mL/hr</span>{% else %}___ mL/hr{% endif %}</p>
             <p>20 mL of the insulin solution should be allowed to flow through the tubing and be discarded. This will saturate the insulin binding sites on the plastic.</p>
             <p>Supplement glucose when serum level is less than 250 g/dL.</p>
             <p>Monitor serum phosphorous and supplement when is less than 2.0 mg/dL.</p>
             <p>Hemolysis may indicate significant hypophosphatemia.</p>
-
-            <h3>Phosphorus Supplement</h3>
+            <br>
+            <h4>Phosphorus Supplement</h4>
             <p>{% if rx.phosphorus %}<span class="bg-success">{{ rx.phosphorus }}</span>{% else %}___{% endif %} mL of 3 mM P/mL have been added to the bag to give
             {% if request.GET.replacement %}<span class="bg-success">{{ request.GET.replacement }}</span>{% else %}___{% endif %} mmol/kg/hr.  Note that this will result in
             an excess of {% if rx.phosphorus_excess %}<span class="bg-success">{{ rx.phosphorus_excess }}</span>{% else %}___{% endif %} mEq K/L.</p>
-
-            <h3>Feline CRI</h3>
+            <br>
+            <h4>Feline CRI</h4>
             <p>{% if rx.units_cat %}<span class="bg-success">{{ rx.units_cat }}</span>{% else %}___{% endif %} units of regular insulin have been added to
             {% if request.GET.volume %}<span class="bg-success">{{ request.GET.volume }}</span>{% else %}___{% endif %} mL of fluid.  Delivered at
             {% if request.GET.rate %}<span class="bg-success">{{ request.GET.rate }}</span>{% else %}___{% endif %} mL/hr it will give a constant infusion of 1.1 units/kg/day.</p>
-
-            <h3>Canine CRI</h3>
+            <br>
+            <h4>Canine CRI</h4>
             <p>{% if rx.units_dog %}<span class="bg-success">{{ rx.units_dog }}</span>{% else %}___{% endif %} units of regular insulin have been added to
             {% if request.GET.volume %}<span class="bg-success">{{ request.GET.volume }}</span>{% else %}___{% endif %} mL of fluid.  Delivered at
             {% if request.GET.rate %}<span class="bg-success">{{ request.GET.rate }}</span>{% else %}___{% endif %} mL/hr it will give a constant infusion of 2.2 units/kg/day.</p>
