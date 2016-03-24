@@ -152,6 +152,12 @@ def output_pdf(request, sheet_id):
             story.append(Spacer(0, 5))
 
         story.append(Spacer(1, 0.2 * inch))
+        ptext = '<font size=18>Medication</font>'
+        story.append(Paragraph(ptext, styles["Normal"]))
+        story.append(Spacer(1, 0.2 * inch))
+        line = Line(300)
+        story.append(line)
+        story.append(Spacer(1, 0.1 * inch))
 
         for item in sheet.txitem_set.all():
             ptext = '<font size=14>{}</font>'.format(item.med.name)
