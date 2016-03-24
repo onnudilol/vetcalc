@@ -149,7 +149,10 @@ def output_pdf(request, sheet_id):
 
             ptext = '<font size=10>{}</font>'.format(line)
             story.append(Paragraph(ptext, styles["Normal"]))
-            story.append(Spacer(0, 5))
+            if line == '\r':
+                story.append(Spacer(0, 10))
+            else:
+                story.append(Spacer(0, 1))
 
         story.append(Spacer(1, 0.2 * inch))
         ptext = '<font size=18>Medication</font>'
