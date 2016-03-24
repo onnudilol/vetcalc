@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>500 Internal Server Error | VetCalc</title>{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>500 Internal Server Error</h1>
+            <p>Something broke.  <a href="{% url 'home' %}">Go home.</a></p>
+        </div>
+    </div>
+{% endblock %}
