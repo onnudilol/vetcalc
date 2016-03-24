@@ -9,7 +9,7 @@
             <p><a href="{% url 'edit_tx_sheet' sheet.id %}">Edit treatment sheet information</a> | <a href="{% url 'output_pdf' sheet.id %}">Output this sheet as a PDF</a></p>
             <h1>{{ sheet.name }}</h1>
             <hr>
-            <p>{{ sheet.comment }}</p>
+            <p>{{ sheet.comment|linebreaks }}</p>
         </div>
     </div>
     <div class="row">

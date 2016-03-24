@@ -143,8 +143,14 @@ def output_pdf(request, sheet_id):
         story.append(Paragraph(ptext, styles["Normal"]))
         story.append(Spacer(1, 0.2 * inch))
 
-        ptext = '<font size=10>{}</font>'.format(sheet.comment)
-        story.append(Paragraph(ptext, styles["Normal"]))
+        comment = sheet.comment.split('\n')
+
+        for line in comment:
+
+            ptext = '<font size=10>{}</font>'.format(line)
+            story.append(Paragraph(ptext, styles["Normal"]))
+            story.append(Spacer(0, 0 * inch))
+
         story.append(Spacer(1, 0.2 * inch))
 
         for item in sheet.txitem_set.all():
