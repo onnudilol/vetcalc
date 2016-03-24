@@ -183,7 +183,7 @@ def output_pdf(request, sheet_id):
             story.append(Paragraph(ptext, styles["LeftIndented"]))
             story.append(Spacer(1, 0.1 * inch))
 
-            ptext = '<font size=10>{}</font>'.format(item.med.desc)
+            ptext = '<font size=10>{}</font>'.format(item.med.client_desc)
             story.append(Paragraph(ptext, styles["LeftIndented"]))
             story.append(Spacer(1, 0.2 * inch))
 

@@ -41,4 +41,4 @@ class CRI(Medication):
 
 
 class Prescription(Medication):
-    pass
+    client_desc = models.TextField(blank=True, default='')

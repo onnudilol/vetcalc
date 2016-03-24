@@ -2,9 +2,7 @@ from django.test import TestCase
 from django.db import IntegrityError
 from django.core.exceptions import ValidationError
 
-from common.models import Injection
-from common.models import CRI
-
+from common.models import Injection, CRI, Prescription
 
 class InjectionModelTest(TestCase):
 
@@ -72,3 +70,14 @@ class CRITest(TestCase):
         with self.assertRaises(ValidationError):
             med_fail.save()
             med_fail.full_clean()
+
+
+class PrescriptionTest(TestCase):
+
+    def test_desc_is_different_from_client_desc(self):
+        med = Prescription.objects.create(name='Drug',
+                                          desc='a medicine or other substance which has a \
+                                          physiological effect when ingested or \
+                                          otherwise introduced into the body.',
+                                          client_desc='fixes your problems')
+        self.assertNotEqual(med.desc, med.client_desc)

@@ -56,7 +56,7 @@
                 <li class="col-md-6"><h4>{{ pre.grouper }}</h4>
                     <ul>
                         {% for item in pre.list %}
-                            <li><a href="{% url 'info_cri' item.slug %}">{{ item.name }}</a></li>
+                            <li><a href="{% url 'info_pre' item.slug %}">{{ item.name }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
