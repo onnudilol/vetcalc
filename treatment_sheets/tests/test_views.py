@@ -161,7 +161,7 @@ class DelItemTxSheetTest(TestCase):
         self.item = TxItem.objects.create(med=self.med, sheet=self.sheet)
 
     def post_del(self):
-        return self.client.post('/tx_sheet/1/del/1', data={'sheet_id': 1, 'item_id': 1})
+        return self.client.post('/tx_sheet/1/1/del', data={'sheet_id': 1, 'item_id': 1})
 
     def test_del_item_existing_tx_sheet(self):
         self.post_del()
@@ -223,4 +223,22 @@ class EditTxSheetInfoTest(TestCase):
 
 
 class OutputTxSheetPDFTest(TestCase):
-    pass
+
+    def setUp(self):
+        self.owner = User.objects.create_user('Marfalo', 'marfalo@gmail.com', 'terriblepw')
+        self.client.force_login(self.owner)
+        self.med = Prescription.objects.create(name='meth')
+        self.sheet = TxSheet.objects.create(owner=self.owner, name='Doge', comment='Coin')
+        self.item = TxItem.objects.create(med=self.med, sheet=self.sheet)
+
+    def test_output_pdf_view_login_required(self):
+        self.client.logout()
+        response = self.client.get('/tx_sheet/1/pdf')
+        self.assertEqual(302, response.status_code)
+
+    def test_cannot_output_pdf_other_users(self):
+        self.client.logout()
+        owner2 = User.objects.create_user('Partario', 'partario@gmail.com', 'awfulpw')
+        self.client.force_login(owner2)
+        response = self.client.get('/tx_sheet/1/pdf')
+        self.assertEqual(403, response.status_code)

@@ -2,11 +2,22 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.http import HttpResponse
 
 from treatment_sheets.forms import TxSheetForm, TxItemForm
 from treatment_sheets.models import TxSheet, TxItem
 
+import reportlab
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.units import inch
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.pdfbase import pdfmetrics
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Flowable
+
+
+from io import BytesIO
 from datetime import date
+import os
 
 User = get_user_model()
 
@@ -22,14 +33,15 @@ def view_treatment_sheet(request, sheet_id):
 
     form = TxItemForm()
 
-    if request.method == 'POST' and request.user == sheet.owner:
-        form = TxItemForm(data=request.POST)
-
-        if form.is_valid():
-            tx_sheet = form.save(sheet=sheet)
-            return redirect(tx_sheet)
-
     if request.user == sheet.owner:
+
+        if request.method == 'POST':
+            form = TxItemForm(data=request.POST)
+
+            if form.is_valid():
+                tx_sheet = form.save(sheet=sheet)
+                return redirect(tx_sheet)
+
         return render(request, 'tx_sheet/tx_sheet_view.html', {'navbar': 'tx_sheet', 'sheet': sheet, 'form': form})
 
     else:
@@ -85,6 +97,79 @@ def edit_tx_sheet(request, sheet_id):
                 return redirect(tx_sheet)
 
         return render(request, 'tx_sheet/tx_sheet_edit.html', {'navbar': 'tx_sheet', 'form': form})
+
+    else:
+        raise PermissionDenied
+
+
+@login_required()
+def output_pdf(request, sheet_id):
+
+    class Line(Flowable):
+
+        def __init__(self, width, height=0):
+            Flowable.__init__(self)
+            self.width = width
+            self.height = height
+
+        def __repr__(self):
+            return "Line(w={})".format(self.width)
+
+        def draw(self):
+            self.canv.line(0, self.height, self.width, self.height)
+
+    sheet = TxSheet.objects.get(id=sheet_id)
+
+    if request.user == sheet.owner:
+
+        filename = '{}_{}.pdf'.format(sheet.name, sheet.date)
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="{}"'.format(filename)
+        buffer = BytesIO()
+
+        story = list()
+        doc = SimpleDocTemplate(filename=buffer, pagesize=letter, rightMargin=50, leftMargin=50,
+                                topMargin=50, bottomMargin=50)
+        styles = getSampleStyleSheet()
+        p = ParagraphStyle('LeftIndented')
+        p.leftIndent = 24
+        styles.add(p)
+
+        ptext = '<font size=36>{}</font>'.format(sheet.name)
+        story.append(Paragraph(ptext, styles["Normal"]))
+        story.append(Spacer(1, 0.6 * inch))
+
+        line = Line(500)
+        story.append(line)
+        story.append(Spacer(1, 0.2 * inch))
+
+        ptext = '<font size=10>Date: {}</font>'.format(sheet.date)
+        story.append(Paragraph(ptext, styles["Normal"]))
+        story.append(Spacer(1, 0.2 * inch))
+
+        ptext = '<font size=10>{}</font>'.format(sheet.comment)
+        story.append(Paragraph(ptext, styles["Normal"]))
+        story.append(Spacer(1, 0.2 * inch))
+
+        for item in sheet.txitem_set.all():
+            ptext = '<font size=14>{}</font>'.format(item.med.name)
+            story.append(Paragraph(ptext, styles["Normal"]))
+            story.append(Spacer(1, 0.2 * inch))
+
+            ptext = '<font size=10>{}</font>'.format(item.instruction)
+            story.append(Paragraph(ptext, styles["LeftIndented"]))
+            story.append(Spacer(1, 0.1 * inch))
+
+            ptext = '<font size=10>{}</font>'.format(item.med.desc)
+            story.append(Paragraph(ptext, styles["LeftIndented"]))
+            story.append(Spacer(1, 0.2 * inch))
+
+        doc.build(story)
+        pdf = buffer.getvalue()
+        buffer.close()
+        response.write(pdf)
+
+        return response
 
     else:
         raise PermissionDenied
