@@ -33,7 +33,7 @@ class TxItem(models.Model):
 
     sheet = models.ForeignKey(TxSheet, on_delete=None, default=None)
     med = models.ForeignKey(Prescription, on_delete=None, default=None)
-    dose = models.IntegerField(default=0)
+    dose = models.FloatField(default=0)
     freq = models.CharField(max_length=5, choices=FREQ_CHOICES, default='')
     unit = models.CharField(max_length=5, choices=UNIT_CHOICES, default='')
     instruction = models.TextField(default='')
