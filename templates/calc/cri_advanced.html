@@ -10,9 +10,6 @@
     <div class="row">
         <div class="col-md-12">
             {% crispy form %}
-            {% if form.errors %}
-                <p>{{ form.errors }}</p>
-            {% endif %}
         </div>
     </div>
     <div class="row" id="id_cri_adv_dosages">
@@ -24,7 +21,7 @@
                 <p><b>30 mL/lb/day maintenance rate:</b> {% if dosage.maint %}<span class="bg-success">{{ dosage.maint }}</span><span> mL/hr</span>{% else %}___ mL/hr{% endif %}</p>
                 <p><b>30 * weight (kg) + 70 maintenance rate:</b> {% if dosage.maint_plus %}<span class="bg-success">{{ dosage.maint_plus }}</span><span> mL/hr</span>{% else %}___ mL/hr{% endif %}</p>
 
-                <h4><b>Constant Rate Infusion</b></h4>
+                <h4>Constant Rate Infusion</h4>
                 <p>For accuracy, discard {% if dosage.add %}<span class="bg-success">{{ dosage.add }}</span>{% else %}___{% endif %} mL of IV fluid.
                     Add {% if dosage.add %}<span class="bg-success">{{ dosage.add }}</span>{% else %}___{% endif %} mL of {{ med.name|lower }} to the
                     {% if request.GET.volume %}<span class="bg-success">{{ request.GET.volume }}</span>{% else %}___{% endif %} mL IV bag.

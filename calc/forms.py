@@ -31,8 +31,11 @@ class CalcInjForm(forms.Form):
         glyph = '<span class="glyphicon glyphicon-play"></span>'
 
         self.helper.layout = Layout(
+            Fieldset(
+                'Injection Calculator',
                 FieldWithButtons(Field('weight'),
                                  StrictButton(content=glyph, type='submit', css_class='btn-primary')))
+            )
 
     weight = forms.FloatField(label='Weight',
                               error_messages={'invalid': INVALID_INPUT_ERROR},
@@ -51,8 +54,11 @@ class CRISimpleForm(forms.Form):
         glyph = '<span class="glyphicon glyphicon-play"></span>'
 
         self.helper.layout = Layout(
-            FieldWithButtons(Field('weight'),
-                             StrictButton(content=glyph, type='submit', css_class='btn-primary'))
+            Fieldset(
+                'Simple CRI Calculator',
+                FieldWithButtons(Field('weight'),
+                                 StrictButton(content=glyph, type='submit', css_class='btn-primary'))
+            )
         )
 
     weight = forms.FloatField(label='Weight',
