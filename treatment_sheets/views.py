@@ -75,6 +75,18 @@ def del_item_tx_sheet(request, sheet_id, item_id):
 
 
 @login_required()
+def del_tx_sheet(request, sheet_id):
+    tx_sheet = get_object_or_404(TxSheet, id=sheet_id)
+
+    if request.user == tx_sheet.owner:
+        tx_sheet.delete()
+        return redirect('/tx_sheet/')
+
+    else:
+        raise PermissionDenied
+
+
+@login_required()
 def edit_tx_sheet(request, sheet_id):
     tx_sheet = get_object_or_404(TxSheet, id=sheet_id)
     form = TxSheetForm(instance=tx_sheet)

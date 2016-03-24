@@ -163,10 +163,19 @@ class DelItemTxSheetTest(TestCase):
     def post_del(self):
         return self.client.post('/tx_sheet/1/1/del', data={'sheet_id': 1, 'item_id': 1})
 
-    def test_del_item_existing_tx_sheet(self):
+    def test_del_item_does_not_del_tx_sheet(self):
+        # Should not raise
         self.post_del()
         TxSheet.objects.get(id=1)
+
+    def test_del_item_existing_tx_sheet(self):
+        self.post_del()
         self.assertNotIn(self.item, self.sheet.txitem_set.all())
+
+    def test_del_item_existing_tx_sheet_does_not_del_med(self):
+        self.post_del()
+        med = Prescription.objects.all()
+        self.assertEqual(1, len(med))
 
     def test_POST_redirects_to_tx_sheet_page(self):
         response = self.post_del()
@@ -181,7 +190,50 @@ class DelItemTxSheetTest(TestCase):
         self.client.logout()
         owner2 = User.objects.create_user('Partario', 'partario@gmail.com', 'awfulpw')
         self.client.force_login(owner2)
+        response = self.post_del()
+        self.assertEqual(403, response.status_code)
 
+
+class DelTxSheet(TestCase):
+
+    def setUp(self):
+        self.owner = User.objects.create_user('Marfalo', 'marfalo@gmail.com', 'terriblepw')
+        self.client.force_login(self.owner)
+        self.med = Prescription.objects.create(name='meth')
+        self.sheet = TxSheet.objects.create(owner=self.owner)
+        self.item = TxItem.objects.create(med=self.med, sheet=self.sheet)
+
+    def post_del(self):
+        return self.client.post('/tx_sheet/1/del', data={'sheet_id': 1})
+
+    def test_del_tx_sheet(self):
+        self.post_del()
+        tx_sheet = TxSheet.objects.all()
+        self.assertEqual(0, len(tx_sheet))
+
+    def test_del_tx_sheet_also_del_related_item(self):
+        self.post_del()
+        item = TxItem.objects.all()
+        self.assertEqual(0, len(item))
+
+    def test_del_tx_sheet_does_not_del_med(self):
+        self.post_del()
+        med = Prescription.objects.all()
+        self.assertEqual(1, len(med))
+
+    def test_POST_redirects_to_tx_sheet_home_page(self):
+        response = self.post_del()
+        self.assertRedirects(response, '/tx_sheet/')
+
+    def test_del_tx_sheet_login_required(self):
+        self.client.logout()
+        response = self.post_del()
+        self.assertEqual(302, response.status_code)
+
+    def test_cannot_del_other_users_tx_sheet(self):
+        self.client.logout()
+        owner2 = User.objects.create_user('Partario', 'partario@gmail.com', 'awfulpw')
+        self.client.force_login(owner2)
         response = self.post_del()
         self.assertEqual(403, response.status_code)
 

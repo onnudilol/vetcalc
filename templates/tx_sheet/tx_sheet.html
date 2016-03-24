@@ -15,11 +15,17 @@
             <h3>Treatment Sheets</h3>
             <p><i>Treatment sheets are deleted 72 hours after creation</i></p>
             <hr>
-            <ul>
-            {% for sheet in user.txsheet_set.all %}
-                <li><a href="{% url 'view_tx_sheet' sheet.id %}">{{ sheet }}</a></li>
-            {% endfor %}
-            </ul>
+            {% if user.txsheet_set.all|length > 0 %}
+                <ul>
+                {% for sheet in user.txsheet_set.all %}
+                    <li><a href="{% url 'view_tx_sheet' sheet.id %}">{{ sheet }} </a>
+                        <a href="{% url 'del_tx_sheet' sheet.id %}">
+                            <span title="Delete this sheet" class="glyphicon glyphicon-remove"></span></a></li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <i>No treatment sheets found</i>
+            {% endif %}
         </div>
         {% else %}
         <div class="col-md-12">
