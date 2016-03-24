@@ -114,6 +114,10 @@ a:hover {
     display: none;
 }
 
+a.delete_item {
+  color: $red-A700;
+}
+
 th.header {
   background: url(/static/img/bg.gif) no-repeat center right;
   padding-left: 20px;

@@ -19,7 +19,7 @@
                 <ul>
                 {% for sheet in user.txsheet_set.all %}
                     <li><a href="{% url 'view_tx_sheet' sheet.id %}">{{ sheet }} </a>
-                        <a href="{% url 'del_tx_sheet' sheet.id %}">
+                        <a href="{% url 'del_tx_sheet' sheet.id %}" class="delete_item">
                             <span title="Delete this sheet" class="glyphicon glyphicon-remove"></span></a></li>
                 {% endfor %}
                 </ul>

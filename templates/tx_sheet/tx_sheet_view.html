@@ -19,7 +19,7 @@
             <ul>
             {% for item in sheet.txitem_set.all %}
                 <li>
-                    <h4>{{ item }} <a href="{% url 'del_item_tx_sheet' sheet.id item.id %}">
+                    <h4>{{ item }} <a href="{% url 'del_item_tx_sheet' sheet.id item.id %}" class="delete_item">
                         <span title="Delete this item" class="glyphicon glyphicon-remove"></span></a></h4>
                     <ul>
                         <li>{{ item.instruction }}</li>
