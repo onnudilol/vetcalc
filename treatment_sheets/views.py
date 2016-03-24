@@ -149,7 +149,7 @@ def output_pdf(request, sheet_id):
 
             ptext = '<font size=10>{}</font>'.format(line)
             story.append(Paragraph(ptext, styles["Normal"]))
-            story.append(Spacer(0, 0 * inch))
+            story.append(Spacer(0, 5))
 
         story.append(Spacer(1, 0.2 * inch))
 
