@@ -8,8 +8,7 @@ from common.models import Prescription
 class TxSheet(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL)
     name = models.CharField(max_length=140, default='')
-    comment = models.TextField(
-        default='')
+    comment = models.TextField(max_length=10000, default='')
     date = models.DateField(auto_now_add=True)
 
     def get_absolute_url(self):
