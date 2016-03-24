@@ -7,7 +7,8 @@ from common.dosage import DOSAGE_INJECTION, DOSAGE_CRI_SIMPLE, DOSAGE_CRI_ADVANC
 class Command(BaseCommand):
     help = 'Populates the db with data'
 
-    def _parse_dict(self):
+    @staticmethod
+    def _parse_dict():
         for key, value in DOSAGE_INJECTION.items():
             inj, created = Injection.objects.update_or_create(name=key,
                                                               defaults={

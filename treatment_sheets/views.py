@@ -7,17 +7,13 @@ from django.http import HttpResponse
 from treatment_sheets.forms import TxSheetForm, TxItemForm
 from treatment_sheets.models import TxSheet, TxItem
 
-import reportlab
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.pdfbase import pdfmetrics
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Flowable
-
 
 from io import BytesIO
 from datetime import date
-import os
 
 User = get_user_model()
 
