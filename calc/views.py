@@ -7,9 +7,20 @@ from collections import OrderedDict
 
 
 def calc_injection(request):
+    """Calculates injection dosages based on weight.
+
+    GET parameters:
+        weight: weight in lbs
+
+    Contxt:
+        calculated dose rounded to 3 decimal places
+
+    """
+
     meds = Injection.objects.all()
     rx = dict()
 
+    # default displayed dosage of 0.0 mLs
     for med in meds:
         rx[med] = 0.0
 
@@ -30,11 +41,22 @@ def calc_injection(request):
 
 
 def calc_cri_simple(request):
+    """Calculates simple CRI dosages based on weight.
+
+    GET parameters:
+        weight: weight in kgs
+
+    Context:
+        rx: calculated dosages rounded to 3 decimal places
+
+    """
+
     meds = CRI.objects.filter(calc_type='ez')
     form = CRISimpleForm()
     rx = dict()
     bolus = dict()
 
+    # zipped list of rates to dosage with default displayed dosages of 0.0 mL
     for med in meds:
         rx[med] = list(zip([rate for rate in med.rates],
                            [0.0 * rate for rate in med.rates]))
@@ -49,6 +71,7 @@ def calc_cri_simple(request):
                 rx[med] = list(zip([rate for rate in med.rates],
                                    [round(weight * med.factor * rate, 3) for rate in med.rates]))
 
+            # bolus is calculated for diltiazem
             bolus = {'mg': round(weight * 0.25, 3), 'mL': round(weight * 0.05, 3)}
 
     return render(request, 'calc/cri_simple.html', {'navbar': 'calc',
@@ -58,6 +81,19 @@ def calc_cri_simple(request):
 
 
 def calc_cri_advanced(request):
+    """Calculates complex CRI dosages based on multiple inputs.
+
+    GET parameters:
+        weight: weight in kgs
+        rate: current cri rate
+        volume: current iv volume in mL
+        infusion: target infusion rate
+
+    Context:
+        rx: calculated dosages rounded to 3 decimal places
+
+    """
+
     meds = CRI.objects.filter(calc_type='adv')
     form = CRIAdvancedForm()
     rx = dict()
@@ -85,6 +121,18 @@ def calc_cri_advanced(request):
 
 
 def calc_cri_insulin(request):
+    """Calculates CRI dosages for insulin
+
+    GET parameters:
+        weight: weight in kgs
+        rate: current rate
+        volume: current iv vol in mLs
+        replacement: target replacement rate
+
+    Context:
+        rx: calculated dosages rounded to 3 decimal places
+
+    """
     form = CRIInsulinForm()
     rx = dict()
 
@@ -112,6 +160,21 @@ def calc_cri_insulin(request):
 
 
 def calc_cri_cpr(request):
+    """Calculates CRI dosages for post CPR maintenance
+
+    GET parameters:
+        weight: weight in kg
+        rate: current rate
+        volume: current iv vol in mL
+        dobutamine: target dobutamine rate
+        dopamine: target dopamine rate
+        lidocaine: target lidocaine rate
+
+    Context:
+        rx: calculated cri dosages rounded to 3 decimal places
+
+    """
+
     form = CRICPRForm()
     rx = dict()
 
@@ -141,6 +204,18 @@ def calc_cri_cpr(request):
 
 
 def calc_cri_metoclopramide(request):
+    """Calculates CRI dosages for metoclopramide
+
+    GET parameters:
+        weight: weight in kg
+        rate: current rate
+        volume: current iv volume in mLs
+        infusion: target infusion rate
+
+    Context:
+        rx: calculated cri dosages rounded to 3 decimal places
+
+    """
     form = CRIMetoclopramideForm()
     rx = dict()
 

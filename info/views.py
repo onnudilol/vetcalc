@@ -4,6 +4,8 @@ from common.models import Injection, CRI, Prescription
 
 
 def info(request):
+    """Displays all medications in the db."""
+
     inj = Injection.objects.all()
     cri = CRI.objects.all()
     pre = Prescription.objects.all()
@@ -12,6 +14,8 @@ def info(request):
                                               'cri': cri,
                                               'pre': pre})
 
+
+# The following views get a specific medication based on a slug passed from the base info view.
 
 def info_inj(request, slug):
     inj = Injection.objects.get(slug=slug)

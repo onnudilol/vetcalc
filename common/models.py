@@ -5,6 +5,10 @@ from jsonfield import JSONField
 
 
 class Medication(models.Model):
+    """
+    Abstract base class for medication
+    """
+
     name = models.CharField(max_length=140, unique=True, default='')
     slug = models.SlugField(max_length=40, unique=True, default='')
     category = models.CharField(max_length=140, blank=True, default='')
@@ -25,10 +29,18 @@ class Medication(models.Model):
 
 
 class Injection(Medication):
+    """
+    Inherits from :model:`common.Medication`.  admin field for injection admin route.
+    """
+
     admin = models.CharField(max_length=140, blank=True, default='')
 
 
 class CRI(Medication):
+    """
+    Inherits from :model:`common.Medication`.  Additional fields for complexity of calculation, rates, units.
+    """
+
     SIMPLE = 'ez'
     ADVANCED = 'adv'
     CALC_TYPE_CHOICES = ((SIMPLE, 'Simple'), (ADVANCED, 'Advanced'))
@@ -41,4 +53,8 @@ class CRI(Medication):
 
 
 class Prescription(Medication):
+    """
+    Inherits from :model:`common.Medication`.  client description for laymen.
+    """
+
     client_desc = models.TextField(blank=True, default='')

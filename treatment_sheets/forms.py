@@ -23,6 +23,8 @@ class TxSheetForm(ModelForm):
 
     @staticmethod
     def update(sheet_id, defaults):
+        """Allows the user to edit treatment sheet comments"""
+
         obj, created = TxSheet.objects.update_or_create(id=sheet_id, defaults=defaults)
         return obj
 

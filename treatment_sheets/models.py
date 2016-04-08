@@ -6,6 +6,15 @@ from common.models import Prescription
 
 
 class TxSheet(models.Model):
+    """Treatment sheets for patients
+
+    Fields:
+        owner: user who created the treatment sheet
+        name: name of the patient
+        comment: whatever the tech chooses to enter
+        date: date the treatment sheet was created
+
+    """
     owner = models.ForeignKey(settings.AUTH_USER_MODEL)
     name = models.CharField(max_length=140, default='')
     comment = models.TextField(max_length=10000, default='')
@@ -19,6 +28,19 @@ class TxSheet(models.Model):
 
 
 class TxItem(models.Model):
+    """Treatment sheet item
+
+    Is related to :model:`treatment_sheets.TxSheet`.
+
+    Fields:
+        sheet: the treatment sheet the item belongs to
+        med: the chosen med for the item
+        dose: numerical dosage of the med
+        freq: how often the med is taken per day
+        unit: the unit that the dosage is in
+        instruction: generated when the item is saved.  human readable instructions for the client.
+
+    """
 
     FREQ_CHOICES = (
         ('SID', 'SID'),

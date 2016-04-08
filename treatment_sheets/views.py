@@ -19,11 +19,24 @@ User = get_user_model()
 
 
 def treatment_sheets(request):
+    """Treatment sheet home view.  Displays all the user's treatment sheets."""
+
     return render(request, 'tx_sheet/tx_sheet.html', {'navbar': 'tx_sheet'})
 
 
 @login_required()
 def view_treatment_sheet(request, sheet_id):
+    """Displays an individual treatment sheet.
+
+    Also renders a TxItem form to allow the user to easily add additional items to the treatment sheet.
+
+    GET requests:
+        Displays the treatment sheet
+
+    POST requests:
+        Validates the form and creates a new treatment sheet item for the sheet
+
+    """
 
     sheet = get_object_or_404(TxSheet, id=sheet_id)
 
@@ -46,6 +59,8 @@ def view_treatment_sheet(request, sheet_id):
 
 @login_required()
 def new_tx_sheet(request):
+    """Creates a new treatment sheet and initial item."""
+
     sheet_form = TxSheetForm()
     item_form = TxItemForm()
 
@@ -64,6 +79,8 @@ def new_tx_sheet(request):
 
 @login_required()
 def del_item_tx_sheet(request, sheet_id, item_id):
+    """Deletes an item from the treatment sheet."""
+
     tx_sheet = get_object_or_404(TxSheet, id=sheet_id)
 
     if request.user == tx_sheet.owner:
@@ -76,6 +93,8 @@ def del_item_tx_sheet(request, sheet_id, item_id):
 
 @login_required()
 def del_tx_sheet(request, sheet_id):
+    """Deletes a treatment sheet."""
+
     tx_sheet = get_object_or_404(TxSheet, id=sheet_id)
 
     if request.user == tx_sheet.owner:
@@ -88,6 +107,8 @@ def del_tx_sheet(request, sheet_id):
 
 @login_required()
 def edit_tx_sheet(request, sheet_id):
+    """Allows the user to edit treatment sheet fields and updates the date of the sheet"""
+
     tx_sheet = get_object_or_404(TxSheet, id=sheet_id)
     form = TxSheetForm(instance=tx_sheet)
 
@@ -112,7 +133,9 @@ def edit_tx_sheet(request, sheet_id):
 
 @login_required()
 def output_pdf(request, sheet_id):
+    """Outputs the treatment sheet to a pdf"""
 
+    # A line separator for the pdf
     class Line(Flowable):
 
         def __init__(self, width, height=0):
@@ -130,11 +153,13 @@ def output_pdf(request, sheet_id):
 
     if request.user == sheet.owner:
 
+        # setup for the pdf output
         filename = '{}_{}.pdf'.format(sheet.name, sheet.date)
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename="{}"'.format(filename)
         buffer = BytesIO()
 
+        # from here on out it's just rendering the pdf using reportlab
         story = list()
         doc = SimpleDocTemplate(filename=buffer, pagesize=letter, rightMargin=50, leftMargin=50,
                                 topMargin=50, bottomMargin=50)
