@@ -2,8 +2,6 @@ from .base import FunctionalTest
 
 from selenium.webdriver.common.keys import Keys
 
-import time
-
 
 class TreatmentSheetTest(FunctionalTest):
 
@@ -60,7 +58,6 @@ class TreatmentSheetTest(FunctionalTest):
 
         # Marfalo changes his mind and decides to delete the item he just added
         self.browser.get(self.server_url + '/tx_sheet/1/2/del')
-        time.sleep(5)
         no_instructions = self.browser.find_element_by_class_name('content')
         self.assertNotIn('Take 3.0 capsules of Robitussin once a day', no_instructions.text)
 
